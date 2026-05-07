@@ -1,0 +1,183 @@
+.game-cont {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    padding-bottom: 30px;
+    min-height: calc(100vh - 60px);
+    position: relative;
+    overflow: hidden;
+}
+.slotmachine-body {
+    height: 400px;
+    width: 250px;
+    background-color: gold;
+    border: 4px solid black;
+    border-radius: 8px;
+    border-top-left-radius: 150px;
+    border-top-right-radius: 150px;
+    z-index: 5;
+    margin-top: 20px;
+
+    & .half-circle {
+        position: relative;
+        top: 15px;
+        left: 15px;
+        height: 110px;
+        width: 210px;
+        background-color: lightblue;
+        border: 4px solid black;
+        border-radius: 8px;
+        border-top-left-radius: 200px;
+        border-top-right-radius: 200px;
+
+        & .ball {
+            position: absolute;
+            top: 77px;
+            left: 75px;
+            height: 25px;
+            width: 50px;
+            background-color: red;
+            border: 4px solid black;
+            border-bottom: none;
+            border-top-right-radius: 100px;
+            border-top-left-radius: 100px;
+        }
+        & .line {
+            position: absolute;
+            left: 96px;
+            height: 103px;
+            width: 8px;
+            background-color: black;
+            transform-origin: bottom center;
+
+            &.a {
+                transform: rotate(-45deg);
+            }
+            &.c {
+                transform: rotate(45deg);
+            }
+        }
+    }
+    & .reels {
+        position: relative;
+        top: 30px;
+        left: 15px;
+        height: 100px;
+        width: 210px;
+        border-radius: 8px;
+        background-color: red;
+        border: 4px solid black;
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        padding: 0px 10px;
+
+        & > .reel {
+            height: 80px;
+            width: 55px;
+            border: 2px solid black;
+            border-radius: 8px;
+            background-color: black;
+            font-size: 36px;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            user-select: none;
+            overflow-y: hidden;
+
+            & .spinning {
+                animation: spinning 0.1s infinite;
+            }
+        }
+    }
+    & .result-message {
+        background-color: black;
+        color: white;
+        padding: 10px;
+        position: relative;
+        top: 45px;
+        left: 15px;
+        font-size: 20px;
+        border-radius: 8px;
+        height: 66px;
+        width: 210px;
+        user-select: none;
+        text-align: center;
+
+        display: flex;
+        justify-content: center;
+        align-items: center;
+    }
+}
+.spin-box {
+    position: absolute;
+    left: calc(50vw + 100px);
+    top: calc(50vh - 30px);
+    width: 60px;
+    height: 50px;
+    background-color: red;
+    border: 4px solid black;
+    border-radius: 16px;
+
+    & .spin-lever {
+        position: absolute;
+        left: 28px;
+        top: -70px;
+        height: 100px;
+        width: 15px;
+        border: 4px solid black;
+        background-color: brown;
+        cursor: pointer;
+        border-radius: 8px;
+        will-change: transform;
+        transform-origin: bottom center;
+        z-index: 10;
+    
+        &.spinning {
+            animation: spin 1s ease-in-out;
+            cursor: not-allowed;
+        }
+        &.blocked {
+            cursor: not-allowed;
+        }
+        & .lever-ball {
+            height: 30px;
+            width: 30px;
+            background-color: red;
+            border: 4px solid black;
+            border-radius: 50%;
+            position: relative;
+            top: -15px;
+            left: -12px;
+        }
+    }
+}
+
+@keyframes spinning {
+    0% {
+        transform: translateY(-50px);
+    }
+    100% {
+        transform: translateY(50px);
+    }
+}
+@keyframes spin {
+    0% {
+        transform: scaleY(1);
+    }
+    25% {
+        transform: scaleY(0);
+        /* top: -80px; */
+    }
+    50% {
+        transform: scaleY(-1);
+        top: -90px;
+    }
+    75% {
+        transform: scaleY(0);
+        /* top: -80px; */
+    }
+    100% {
+        transform: scaleY(1);
+    }
+}

@@ -1,0 +1,135 @@
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <meta charset="UTF-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <title>Slots Tycoon 2</title>
+        <link rel="icon" type="image/x-icon" href="./assets/images/favicon.png">
+
+        <link rel="stylesheet" href="./css/boilerplate.css">
+        <link rel="stylesheet" href="./css/navbar.css">
+        <link rel="stylesheet" href="./css/slot-machine.css">
+        <link rel="stylesheet" href="./css/style.css">
+    </head>
+    <body class="dark">
+        <nav>
+            <ul>
+                <li class="menu-toggle" onclick="toggleMenu()">
+                    <svg xmlns="http://www.w3.org/2000/svg" height="30px" viewBox="0 -960 960 960" width="30px" fill="#e3e3e3"><path d="M120-240v-80h720v80H120Zm0-200v-80h720v80H120Zm0-200v-80h720v80H120Z"/></svg>
+                </li>
+                <li class="money-label">
+                    <p class="money">$5,000.00</p>
+                </li>
+                <li class="achivement-toggle" onclick="toggleAchievements()">
+                    <svg xmlns="http://www.w3.org/2000/svg" height="30px" viewBox="0 -960 960 960" width="30px" fill="#e3e3e3"><path d="M160-200h160v-320H160v320Zm240 0h160v-560H400v560Zm240 0h160v-240H640v240ZM80-120v-480h240v-240h320v320h240v400H80Z"/></svg>
+                </li>
+            </ul>
+        </nav>
+        <div class="menu-background background">
+            <ul class="menu">
+                <div class="gamemode-select">
+                    <abbr class="gamemode-selector" title="Slot Machine">
+                        <svg class="selected" xmlns="http://www.w3.org/2000/svg" height="36px" viewBox="0 -960 960 960" width="36px" fill="#c4c7c5"><path d="M342.5-257.5Q360-275 360-300t-17.5-42.5Q325-360 300-360t-42.5 17.5Q240-325 240-300t17.5 42.5Q275-240 300-240t42.5-17.5Zm0-360Q360-635 360-660t-17.5-42.5Q325-720 300-720t-42.5 17.5Q240-685 240-660t17.5 42.5Q275-600 300-600t42.5-17.5Zm180 180Q540-455 540-480t-17.5-42.5Q505-540 480-540t-42.5 17.5Q420-505 420-480t17.5 42.5Q455-420 480-420t42.5-17.5Zm180 180Q720-275 720-300t-17.5-42.5Q685-360 660-360t-42.5 17.5Q600-325 600-300t17.5 42.5Q635-240 660-240t42.5-17.5Zm0-360Q720-635 720-660t-17.5-42.5Q685-720 660-720t-42.5 17.5Q600-685 600-660t17.5 42.5Q635-600 660-600t42.5-17.5ZM200-120q-33 0-56.5-23.5T120-200v-560q0-33 23.5-56.5T200-840h560q33 0 56.5 23.5T840-760v560q0 33-23.5 56.5T760-120H200Zm0-80h560v-560H200v560Zm0-560v560-560Z"/></svg>
+                    </abbr>
+                    <abbr class="gamemode-selector" title="Crypto">
+                        <svg xmlns="http://www.w3.org/2000/svg" height="36px" viewBox="0 -960 960 960" width="36px" fill="#c4c7c5"><path d="M360-120v-80H240v-80h80v-400h-80v-80h120v-80h80v80h80v-80h80v85q52 14 86 56.5t34 98.5q0 29-10 55.5T682-497q35 21 56.5 57t21.5 80q0 66-47 113t-113 47v80h-80v-80h-80v80h-80Zm40-400h160q33 0 56.5-23.5T640-600q0-33-23.5-56.5T560-680H400v160Zm0 240h200q33 0 56.5-23.5T680-360q0-33-23.5-56.5T600-440H400v160Z"/></svg>
+                    </abbr>
+                    <abbr class="gamemode-selector" title="The World">
+                        <svg class="disabled" xmlns="http://www.w3.org/2000/svg" height="36px" viewBox="0 -960 960 960" width="36px" fill="#c4c7c5"><path d="M324-111.5Q251-143 197-197t-85.5-127Q80-397 80-480t31.5-156Q143-709 197-763t127-85.5Q397-880 480-880t156 31.5Q709-817 763-763t85.5 127Q880-563 880-480t-31.5 156Q817-251 763-197t-127 85.5Q563-80 480-80t-156-31.5ZM440-162v-78q-33 0-56.5-23.5T360-320v-40L168-552q-3 18-5.5 36t-2.5 36q0 121 79.5 212T440-162Zm276-102q41-45 62.5-100.5T800-480q0-98-54.5-179T600-776v16q0 33-23.5 56.5T520-680h-80v80q0 17-11.5 28.5T400-560h-80v80h240q17 0 28.5 11.5T600-440v120h40q26 0 47 15.5t29 40.5Z"/></svg>
+                    </abbr>
+                </div>
+                <li><a href="#">Slot Machine</a></li>
+                <li><a href="#">Shop</a></li>
+                <li><a href="#">Achievements</a></li>
+                <li><a href="#">Settings</a></li>
+                <li><a href="#">Exit</a></li>
+            </ul>
+        </div>
+        <div class="achievements-background background">
+            <div class="achivements">
+                <h1>Achievements</h1>
+                <p onclick="toggleAchievements()" class="close-achievements">✖</p>
+                <ul class="achievements-grid flexbox">
+                    <li>
+                        <h1>🐧</h1>
+                        <div>
+                            <h3>Achievement Title</h3>
+                            <p>Achievement Description</p>
+                        </div>
+                    </li>
+                    <li>
+                        <h1>🐧</h1>
+                        <div>
+                            <h3>Achievement Title</h3>
+                            <p>Achievement Description</p>
+                        </div>
+                    </li>
+                    <li>
+                        <h1>🐧</h1>
+                        <div>
+                            <h3>Achievement Title</h3>
+                            <p>Achievement Description</p>
+                        </div>
+                    </li>
+                </ul>
+            </div>
+        </div>
+
+        <main class="game-cont large-cont">
+            <h1>Slot Machine</h1>
+            <div class="slotmachine-body">
+                <div class="half-circle">
+                    <div class="line a"></div>
+                    <div class="line b"></div>
+                    <div class="line c"></div>
+                    <div class="ball"></div>
+                </div>
+                <div class="reels">
+                    <div class="reel" id="reel1"><p>7️⃣</p></div>
+                    <div class="reel" id="reel2"><p>7️⃣</p></div>
+                    <div class="reel" id="reel3"><p>7️⃣</p></div>
+                </div>
+                <div class="result-message">
+                    <p>Spin to win!</p>
+                </div>
+                <div class="spin-cost">
+                    <p>Guaranteed Win in <span class="g-win">100</span> Spins</p>
+                </div>
+            </div>
+            <div class="spin-box">
+                <div class="spin-lever">
+                    <div class="lever-ball"></div>
+                </div>
+            </div>
+        </main>
+
+        <!-- <h1>H1 Text</h1>
+        <h2>H2 Text</h2>
+        <h3>H3 Text</h3>
+        <h4>H4 Text</h4>
+        <h5>H5 Text</h5>
+
+        <button class="primary">Primary</button>
+        <button disabled class="primary">Primary</button>
+        <button class="secondary">Secondary</button>
+        <button disabled class="secondary">Secondary</button>
+        <button class="teritry">Teritry</button>
+        <button disabled class="teritry">Teritry</button>
+        <button class="red">Red</button>
+        <button disabled class="red">Red</button>
+        <button class="red secondary">Red</button>
+        <button disabled class="red secondary">Red</button>
+        <button class="yellow">Yellow</button>
+        <button disabled class="yellow">Yellow</button>
+        <button class="yellow secondary">Yellow</button>
+        <button disabled class="yellow secondary">Yellow</button>
+        <button class="green">Green</button>
+        <button disabled class="green">Green</button>
+        <button class="green secondary">Green</button>
+        <button disabled class="green secondary">Green</button> -->
+
+        <script src="./js/utils.js"></script>
+        <script src="./js/navbar.js"></script>
+        <script src="./js/main.js"></script>
+    </body>
+</html>

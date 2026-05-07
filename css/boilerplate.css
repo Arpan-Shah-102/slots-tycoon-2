@@ -1,0 +1,165 @@
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+    font-family: monospace;
+    user-select: none;
+}
+html {
+    scroll-behavior: smooth;
+    overflow-y: auto;
+    scrollbar-width: thin;
+    scrollbar-color: teal transparent;
+}
+body.dark {
+    background-color: #131314;
+    color: #c4c7c5;
+}
+body.light {
+    background-color: #f0f0f0;
+}
+
+h1, h2, h3, h4, h5, h6 {
+    text-align: center;
+    margin: 10px 0;
+}
+h1 {
+    font-size: 3rem;
+}
+h2 {
+    font-size: 2.5rem;
+}
+h3 {
+    font-size: 2.125rem;
+}
+h4 {
+    font-size: 1.75rem;
+}
+h5 {
+    font-size: 1.5rem;
+}
+
+button {
+    padding: 8px 16px;
+    font-size: 18px;
+    cursor: pointer;
+    border-radius: 8px;
+    border: 2px solid black;
+    transition: all 0.3s ease-in-out;
+
+    &:hover {
+        scale: 1.05;
+    }
+    &:active {
+        scale: 0.95;
+        opacity: 0.8;
+        background-color: transparent !important;
+        color: gray !important;
+        border-color: gray !important;
+    }
+    &:disabled {
+        opacity: 0.5;
+        pointer-events: none;
+    }
+}
+button.primary {
+    background-color: teal;
+    color: white;
+    border-color: teal;
+
+    &:hover {
+        background-color: transparent;
+        color: teal;
+    }
+}
+button.secondary {
+    background-color: transparent;
+    color: teal;
+    border-color: teal;
+
+    &:hover {
+        background-color: teal;
+        color: white;
+    }
+}
+button.teritry {
+    background-color: transparent;
+    color: gray;
+    border-color: gray;
+
+    &:hover {
+        color: teal;
+        border-color: teal;
+    }
+}
+button.red {
+    background-color: crimson;
+    color: white;
+    border-color: crimson;
+
+    &:hover {
+        background-color: transparent;
+        color: crimson;
+    }
+    &.secondary {
+        background-color: transparent;
+        color: crimson;
+
+        &:hover {
+            background-color: crimson;
+            color: white;
+        }
+    }
+}
+button.yellow {
+    background-color: goldenrod;
+    color: white;
+    border-color: goldenrod;
+
+    &:hover {
+        background-color: transparent;
+        color: goldenrod;
+    }
+    &.secondary {
+        background-color: transparent;
+        color: goldenrod;
+
+        &:hover {
+            background-color: goldenrod;
+            color: white;
+        }
+    }
+}
+button.green {
+    background-color: green;
+    color: white;
+    border-color: green;
+
+    &:hover {
+        background-color: transparent;
+        color: green;
+    }
+    &.secondary {
+        background-color: transparent;
+        color: green;
+
+        &:hover {
+            background-color: green;
+            color: white;
+        }
+    }
+}
+
+.large-cont {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+}
+.flexbox {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    flex-wrap: wrap;
+    gap: 20px;
+}
