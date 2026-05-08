@@ -9,6 +9,8 @@
         <link rel="stylesheet" href="./css/boilerplate.css">
         <link rel="stylesheet" href="./css/navbar.css">
         <link rel="stylesheet" href="./css/slot-machine.css">
+        <link rel="stylesheet" href="./css/crypto.css">
+        <link rel="stylesheet" href="./css/made-in-heaven.css">
         <link rel="stylesheet" href="./css/style.css">
     </head>
     <body class="dark">
@@ -38,11 +40,37 @@
                         <svg class="disabled" xmlns="http://www.w3.org/2000/svg" height="36px" viewBox="0 -960 960 960" width="36px" fill="#c4c7c5"><path d="M324-111.5Q251-143 197-197t-85.5-127Q80-397 80-480t31.5-156Q143-709 197-763t127-85.5Q397-880 480-880t156 31.5Q709-817 763-763t85.5 127Q880-563 880-480t-31.5 156Q817-251 763-197t-127 85.5Q563-80 480-80t-156-31.5ZM440-162v-78q-33 0-56.5-23.5T360-320v-40L168-552q-3 18-5.5 36t-2.5 36q0 121 79.5 212T440-162Zm276-102q41-45 62.5-100.5T800-480q0-98-54.5-179T600-776v16q0 33-23.5 56.5T520-680h-80v80q0 17-11.5 28.5T400-560h-80v80h240q17 0 28.5 11.5T600-440v120h40q26 0 47 15.5t29 40.5Z"/></svg>
                     </abbr>
                 </div>
-                <li><a href="#">Slot Machine</a></li>
-                <li><a href="#">Shop</a></li>
-                <li><a href="#">Achievements</a></li>
+                <div class="slot-machine-links">
+                    <li><a href="#">Slot Machine</a></li>
+                    <li><a href="#">Upgrades</a></li>
+                    <li><a href="#">Drip</a></li>
+                    <li><a href="#">Themes</a></li>
+                    <li class="slot-exchange hidden"><a href="#">Money Exchange</a></li>
+                    <li><a href="#">Lootbox</a></li>
+                    <li><a href="#">Trophies</a></li>
+                    <li><a href="#">Stats</a></li>
+                </div>
+                <div class="crypto-links hidden">
+                    <li><a href="#">Crypto</a></li>
+                    <li><a href="#">Wallet</a></li>
+                    <li><a href="#">NFTs</a></li>
+                    <li><a href="#">Themes</a></li>
+                    <li><a href="#">Crypto Exchange</a></li>
+                    <li><a href="#">Lootbox</a></li>
+                    <li><a href="#">Trophies</a></li>
+                    <li><a href="#">Stats</a></li>
+                </div>
+                <div class="made-in-heaven hidden">
+                    <li><a href="#">The World</a></li>
+                    <li><a href="#">Planet Exchange</a></li>
+                    <li><a href="#">Black Market</a></li>
+                    <li><a href="#">Themes</a></li>
+                    <li><a href="#">Stardust Exchange</a></li>
+                    <li><a href="#">Lootbox</a></li>
+                    <li><a href="#">Trophies</a></li>
+                    <li><a href="#">Stats</a></li>
+                </div>
                 <li><a href="#">Settings</a></li>
-                <li><a href="#">Exit</a></li>
             </ul>
         </div>
         <div class="achievements-background background">
@@ -75,33 +103,43 @@
             </div>
         </div>
 
-        <main class="game-cont large-cont">
-            <h1>Slot Machine</h1>
-            <div class="slotmachine-body">
-                <div class="half-circle">
-                    <div class="line a"></div>
-                    <div class="line b"></div>
-                    <div class="line c"></div>
-                    <div class="ball"></div>
+        <section class="slot-machine-game large-game-sect">
+            <main class="game-cont large-cont">
+                <h1>Slot Machine</h1>
+                <div class="slotmachine-body">
+                    <div class="half-circle">
+                        <div class="line a"></div>
+                        <div class="line b"></div>
+                        <div class="line c"></div>
+                        <div class="ball"></div>
+                    </div>
+                    <div class="reels">
+                        <div class="reel" id="reel1"><p>7️⃣</p></div>
+                        <div class="reel" id="reel2"><p>7️⃣</p></div>
+                        <div class="reel" id="reel3"><p>7️⃣</p></div>
+                    </div>
+                    <div class="result-message">
+                        <p>Spin to win!</p>
+                    </div>
+                    <div class="spin-cost">
+                        <p>Guaranteed Jackpot in <span class="g-win">100</span> Spins</p>
+                    </div>
                 </div>
-                <div class="reels">
-                    <div class="reel" id="reel1"><p>7️⃣</p></div>
-                    <div class="reel" id="reel2"><p>7️⃣</p></div>
-                    <div class="reel" id="reel3"><p>7️⃣</p></div>
+                <div class="spin-box">
+                    <div class="spin-lever">
+                        <div class="lever-ball"></div>
+                    </div>
                 </div>
-                <div class="result-message">
-                    <p>Spin to win!</p>
-                </div>
-                <div class="spin-cost">
-                    <p>Guaranteed Win in <span class="g-win">100</span> Spins</p>
-                </div>
-            </div>
-            <div class="spin-box">
-                <div class="spin-lever">
-                    <div class="lever-ball"></div>
-                </div>
-            </div>
-        </main>
+            </main>
+        </section>
+
+        <section class="crypto-game hidden large-game-sect">
+            <main></main>
+        </section>
+
+        <section class="made-in-heaven-game hidden large-game-sect">
+            <main></main>
+        </section>
 
         <!-- <h1>H1 Text</h1>
         <h2>H2 Text</h2>
@@ -130,6 +168,9 @@
 
         <script src="./js/utils.js"></script>
         <script src="./js/navbar.js"></script>
+        <script src="./js/slot-machine.js"></script>
+        <script src="./js/crypto.js"></script>
+        <script src="./js/made-in-heaven.js"></script>
         <script src="./js/main.js"></script>
     </body>
 </html>

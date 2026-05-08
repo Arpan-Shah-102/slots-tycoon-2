@@ -71,7 +71,6 @@ div.background {
 
         display: flex;
         flex-direction: column;
-        gap: 15px;
         list-style: none;
         overflow-y: auto;
         scrollbar-width: thin;
@@ -84,6 +83,7 @@ div.background {
             font-weight: bold;
             transition: all 0.3s ease-in-out;
             display: inline-block;
+            margin: 7.5px 20px;
 
             &:hover {
                 color: teal;
@@ -93,8 +93,12 @@ div.background {
                 scale: 0.95;
             }
         }
+        & .hidden {
+            display: none;
+        }
         & .gamemode-select {
             padding: 16px;
+            margin-bottom: 15px;
 
             & abbr {
                 text-decoration: none;
