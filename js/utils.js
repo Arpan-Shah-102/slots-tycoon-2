@@ -1,5 +1,5 @@
 function getMoney() {
-    return parseFloat(localStorage.getItem('money')) || 5000;
+    return parseFloat(localStorage.getItem('money')) || 3000;
 }
 function setMoney(amount) {
     localStorage.setItem('money', amount);
@@ -77,10 +77,6 @@ function isAchievementUnlocked(id) {
     return achievementsUnlocked.includes(id);
 }
 
-function getSlotsStats() {
-    return JSON.parse(localStorage.getItem('slotsStats')) || { spins: 0, jackpots: 0, nearMisses: 0, upgradeBonus: { rigMachine: 0, payout: [20, 400], cashback: 0, pity: 100 }, dripBonus: 0, themeBonus: 0 };
-}
-
 function getTheme() {
     return localStorage.getItem('theme') || 'dark';
 }
@@ -113,4 +109,59 @@ function isMadeInHeavenUnlocked() {
 }
 function unlockMadeInHeaven() {
     localStorage.setItem('madeInHeavenUnlocked', true);
+}
+
+function isMuted() {
+    return JSON.parse(localStorage.getItem('muted')) || false;
+}
+function toggleMute() {
+    const muted = isMuted();
+    localStorage.setItem('muted', !muted);
+}
+function getAdvancedMute() {
+    return JSON.parse(localStorage.getItem('advancedMute')) || { music: false, sfx: false };
+}
+function setAdvancedMute(type, value) {
+    const advancedMute = getAdvancedMute();
+    advancedMute[type] = value;
+    localStorage.setItem('advancedMute', JSON.stringify(advancedMute));
+}
+function playSound(sfx) {
+    if (isMuted()) return;
+    if (getAdvancedMute().sfx) return;
+    const audio = sfx.cloneNode();
+    audio.play();
+    audio.addEventListener('ended', () => {
+        audio.remove();
+    });
+}
+
+// Slot Machine
+
+function getSlotSymbols() {
+    return JSON.parse(localStorage.getItem('slotSymbols')) || ['🪙', '🍉', '💰', '⭐', '🍇', '🎰', '👑', '💵', '🍀', '🍒', '💎', '7️⃣'];
+}
+function removeSlotSymbol() {
+    const symbols = getSlotSymbols();
+    if (symbols.length > 0) {
+        symbols.pop();
+        localStorage.setItem('slotSymbols', JSON.stringify(symbols));
+    }
+}
+function getPityJackpot() {
+    const raw = localStorage.getItem('pityJackpot');
+    if (raw === null) {return getSlotsStats().upgrades.pity;}
+    return parseInt(raw);
+}
+function setPityJackpot(amount) {
+    localStorage.setItem('pityJackpot', amount);
+}
+
+function getSlotsStats() {
+    return JSON.parse(localStorage.getItem('slotsStats')) || { spins: 0, jackpots: 0, nearMisses: 0, upgrades: { rigMachine: 0, payout: [20, 400], cashback: 0, pity: 100 }, dripBonus: 0, themeBonus: 0 };
+}
+function setSlotsStats(stat, value) {
+    const slotsStats = getSlotsStats();
+    slotsStats[stat] = value;
+    localStorage.setItem('slotsStats', JSON.stringify(slotsStats));
 }

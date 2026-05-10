@@ -145,7 +145,7 @@
     
         &.spinning {
             animation: spin 1s ease-in-out;
-            cursor: not-allowed;
+            pointer-events: none;
         }
         &.blocked {
             cursor: not-allowed;
