@@ -104,11 +104,11 @@ function isCryptoGamemodeUnlocked() {
 function unlockCryptoGamemode() {
     localStorage.setItem('cryptoGamemodeUnlocked', true);
 }
-function isMadeInHeavenUnlocked() {
-    return JSON.parse(localStorage.getItem('madeInHeavenUnlocked')) || false;
+function isTheWorldUnlocked() {
+    return JSON.parse(localStorage.getItem('theWorldUnlocked')) || false;
 }
-function unlockMadeInHeaven() {
-    localStorage.setItem('madeInHeavenUnlocked', true);
+function unlockTheWorld() {
+    localStorage.setItem('theWorldUnlocked', true);
 }
 
 function isMuted() {

@@ -12,18 +12,24 @@ TBD
 
 ## Update Log
 
-### Update 0.3 - 5/9/2026
+### Update V0.4 - 5/10/2026
+1. Added Credits
+2. Improved Mobile UI
+3. Added settings section
+4. Started work on upgrades
+
+### Update V0.3 - 5/9/2026
 1. Create README
 2. Change names
 3. Make Slot Machine Work
 4. Add Version label in bottom corner
 
-### Update 0.2 - 5/7/2026
+### Update V0.2 - 5/7/2026
 1. Add more files
 2. Set up more file structure
 3. Create new names
 4. Planning
 
-### Update 0.0 - 5/6/2026
+### Update V0.0 - 5/6/2026
 1. Set up basic files
 2. Create simple themes

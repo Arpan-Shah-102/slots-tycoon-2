@@ -71,6 +71,9 @@ function spinSlots() {
     }, 1150);
 }
 
+const slotExchange = document.querySelector('.slot-exchange');
+// const slotExchangeDiv = document.querySelector('.slot-exchange-div');
+
 function gameOverCheck() {
     setTimeout(() => {
 
