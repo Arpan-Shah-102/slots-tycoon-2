@@ -12,6 +12,14 @@ TBD
 
 ## Update Log
 
+### Update V0.6 - 5/14/2026
+1. Added Upgrades
+2. Added Auto spinning
+3. Added Stats
+4. Added Reset Game feature
+5. Improved UI
+6. Bug Fixes
+
 ### Update V0.4 - 5/10/2026
 1. Added Credits
 2. Improved Mobile UI

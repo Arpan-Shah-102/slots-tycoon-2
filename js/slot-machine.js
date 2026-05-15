@@ -11,6 +11,36 @@ const moneyLabel = document.querySelector('.money-label');
 spinLever.addEventListener('click', spinSlots);
 moneyLabel.textContent = formatMoney(getMoney());
 gWinLabel.textContent = getPityJackpot();
+const autoSpinBtn = document.querySelector('.activate-auto-spin');
+
+let autoSpinInterval;
+autoSpinBtn.addEventListener('click', () => {
+    if (autoSpinInterval) {
+        clearInterval(autoSpinInterval);
+        autoSpinInterval = null;
+        autoSpinBtn.classList.remove('yellow');
+        autoSpinBtn.classList.add('green');
+        autoSpinBtn.textContent = 'Activate Auto-Spin';
+        return;
+    }
+    autoSpinBtn.classList.remove('green');
+    autoSpinBtn.classList.add('yellow');
+    autoSpinBtn.textContent = 'Auto Spinning...';
+    if (getMoney() >= (10 - getSlotsStats().upgrades.cashback)) {spinSlots();}
+
+    autoSpinInterval = setInterval(() => {
+        if (getMoney() < (10 - getSlotsStats().upgrades.cashback)) {
+            clearInterval(autoSpinInterval);
+            autoSpinInterval = null;
+            autoSpinBtn.classList.remove('yellow');
+            autoSpinBtn.classList.add('green');
+            autoSpinBtn.textContent = 'Activate Auto-Spin';
+            gameOverCheck();
+            return;
+        }
+        spinSlots();
+    }, 1350);
+});
 
 function spinSlots() {
     calcMoney(-10 + getSlotsStats().upgrades.cashback);
@@ -26,6 +56,7 @@ function spinSlots() {
     const symbols = getSlotSymbols();
     setPityJackpot(getPityJackpot() - 1);
     gWinLabel.textContent = getPityJackpot();
+    updateSlotStats();
     
     let reelResults = [];
     if (getPityJackpot() == 0) {
@@ -67,8 +98,145 @@ function spinSlots() {
 
         gWinLabel.textContent = getPityJackpot();
         spinLever.classList.remove('spinning');
+        updateSlotStats();
         if (getMoney() < (10 - getSlotsStats().upgrades.cashback)) {gameOverCheck();}
     }, 1150);
+}
+
+const slotUpgrades = document.querySelectorAll('.slot-upgrade');
+slotUpgrades.forEach((upgrade, index) => {
+    const btn = upgrade.querySelector('button.primary');
+
+    if (index == 0) {
+        btn.addEventListener('click', () => {
+            if (!isAutoSpinUnlocked()) {
+                if (!enoughMoney(300)) {
+                    alert('Not enough money!');
+                    return
+                }
+                calcMoney(-300);
+                moneyLabel.textContent = formatMoney(getMoney());
+                unlockAutoSpin();
+                updateSlotUI();
+            }
+        });
+    } else {
+        btn.addEventListener('click', () => {
+            if (getSlotUpgradeLevels()[btn.dataset.type] < 5) {
+                const upgradeType = btn.dataset.type;
+                const upgradePrice = getSlotUpgradePrices()[upgradeType];
+                const upgradeLevelDisplays = upgrade.querySelectorAll('.level > div.empty');
+
+                if (!enoughMoney(upgradePrice)) {
+                    alert('Not enough money to upgrade!');
+                    return;
+                }
+                setSlotUpgradeLevel(upgradeType, getSlotUpgradeLevels()[upgradeType] + 1);
+                calcMoney(-upgradePrice);
+                moneyLabel.textContent = formatMoney(getMoney());
+                upgradeFunctions[index - 1]();
+                updateSlotUI();
+                return;
+            }
+            alert('Upgrade already at max level!')
+        });
+    }
+});
+
+function upgradeRig() {
+    removeSlotSymbol();
+}
+function upgradePayout() {
+    const slotsStats = getSlotsStats();
+    slotsStats.upgrades.payout[0] += 5;
+    slotsStats.upgrades.payout[1] += 50;
+    localStorage.setItem('slotsStats', JSON.stringify(slotsStats));
+}
+function upgradeCashback() {
+    const slotsStats = getSlotsStats();
+    slotsStats.upgrades.cashback += 0.75;
+    localStorage.setItem('slotsStats', JSON.stringify(slotsStats));
+}
+function upgradePity() {
+    const slotsStats = getSlotsStats();
+    slotsStats.upgrades.pity -= 5;
+    localStorage.setItem('slotsStats', JSON.stringify(slotsStats));
+
+    if (getPityJackpot() > slotsStats.upgrades.pity) {
+        setPityJackpot(slotsStats.upgrades.pity);
+    }
+    gWinLabel.textContent = getPityJackpot();
+}
+const upgradeFunctions = [upgradeRig, upgradePayout, upgradeCashback, upgradePity];
+
+const slotStats = document.querySelectorAll('.slot-stats .table-itm > .stat');
+function updateSlotUI() {
+    // update upgrade buttons
+    slotUpgrades.forEach((upgrade, index) => {
+        const btn = upgrade.querySelector('button:not(.activate-auto-spin)');
+        if (index == 0) {
+            if (isAutoSpinUnlocked()) {
+                btn.classList.remove('primary');
+                btn.classList.add('secondary', 'yellow');
+                btn.disabled = true;
+                btn.textContent = 'Unlocked!';
+
+                autoSpinBtn.classList.remove('red', 'secondary');
+                autoSpinBtn.classList.add('green');
+                autoSpinBtn.disabled = false;
+            }
+        } else {
+            const upgradeType = btn.dataset.type;
+            const upgradePrice = getSlotUpgradePrices()[upgradeType];
+            const upgradeLevelDisplays = upgrade.querySelectorAll('.level > div');
+            btn.textContent = '$' + getSlotUpgradePrices()[upgradeType];
+            if (getSlotUpgradeLevels()[upgradeType] >= 5) {
+                btn.classList.remove('primary');
+                btn.classList.add('secondary', 'green');
+                btn.disabled = true;
+                btn.textContent = 'MAXED!';
+            }
+
+            Array.from(upgradeLevelDisplays).reverse().forEach((display, level) => {
+                const currentLevel = getSlotUpgradeLevels()[upgradeType];
+                if (level < currentLevel) {
+                    display.classList.remove('empty');
+                } else {
+                    display.classList.add('empty');
+                }
+            });
+        }
+    });
+
+    updateSlotStats();
+}
+function updateSlotStats() {
+    slotStats.forEach((stat, index) => {
+        const slotsStats = getSlotsStats();
+        switch (index) {
+            case 0:
+            case 1:
+            case 2:
+                stat.textContent = slotsStats[stat.classList[0]];
+                break;
+            case 3:
+                stat.textContent = Math.round((1 / (getSlotSymbols().length < 12 ? (getSlotSymbols().length ** 2) : 10000)) * 4900) + '%';
+                break;
+            case 4:
+                stat.textContent = `$${slotsStats.upgrades.payout[0]}, $${slotsStats.upgrades.payout[1]}`;
+                break;
+            case 5:
+                stat.textContent = '+' + formatMoney(slotsStats.upgrades.cashback) + '/spin';
+                break;
+            case 6:
+                stat.textContent = slotsStats.upgrades[stat.classList[0]] + ' spins';
+                break;
+            case 7:
+            case 8:
+                stat.textContent = '+' + formatMoney(slotsStats[stat.classList[0]]) + '/spin';
+                break;
+        }
+    });
 }
 
 const slotExchange = document.querySelector('.slot-exchange');
@@ -79,3 +247,4 @@ function gameOverCheck() {
 
     }, 50);
 }
+updateSlotUI();

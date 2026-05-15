@@ -28,6 +28,13 @@ function calcStardust(amount, symbol = '+') {
     calcCurrency(amount, 's', symbol);
 }
 
+function enoughMoney(amount, type = 'm') {
+    let currentMoney;
+    if (type === 'm') {currentMoney = getMoney();}
+    else if (type === 'c') {currentMoney = getCrypto();}
+    else if (type === 's') {currentMoney = getStardust();}
+    return currentMoney >= amount;
+}
 function calcCurrency(amount, currency, symbol) {
     let currentMoney;
     if (currency === 'm') {currentMoney = getMoney();}
@@ -56,7 +63,7 @@ function formatMoney(amount, type = 'm') {
     if (type === 'm') {
         return amount.toLocaleString('en-US', { style: 'currency', currency: 'USD' });
     } else if (type === 'c') {
-        return '₡' + amount.toLocaleString('en-US', { minimumFractionDigits: 2, maximumFractionDigits: 2 });
+        return '₡' + Math.floor(amount).toLocaleString();
     } else if (type === 's') {
         return '✺' + Math.floor(amount).toLocaleString();
     }
@@ -139,7 +146,7 @@ function playSound(sfx) {
 // Slot Machine
 
 function getSlotSymbols() {
-    return JSON.parse(localStorage.getItem('slotSymbols')) || ['🪙', '🍉', '💰', '⭐', '🍇', '🎰', '👑', '💵', '🍀', '🍒', '💎', '7️⃣'];
+    return JSON.parse(localStorage.getItem('slotSymbols')) || ['7️⃣', '💎', '🍒', '🍀', '💵', '👑', '🎰', '🍇', '⭐', '💰', '🍉', '🪙'];
 }
 function removeSlotSymbol() {
     const symbols = getSlotSymbols();
@@ -164,4 +171,28 @@ function setSlotsStats(stat, value) {
     const slotsStats = getSlotsStats();
     slotsStats[stat] = value;
     localStorage.setItem('slotsStats', JSON.stringify(slotsStats));
+}
+
+function getSlotUpgradeLevels() {
+    return JSON.parse(localStorage.getItem('slotUpgradeLevels')) || { rigMachine: 0, payout: 0, cashback: 0, pity: 0 };
+}
+function setSlotUpgradeLevel(upgrade, level) {
+    const slotUpgradeLevels = getSlotUpgradeLevels();
+    slotUpgradeLevels[upgrade] = level;
+    localStorage.setItem('slotUpgradeLevels', JSON.stringify(slotUpgradeLevels));
+}
+function getSlotUpgradePrices() {
+    const slotUpgradeLevels = getSlotUpgradeLevels();
+    let prices = {};
+    prices.rigMachine = 500 + (100 * slotUpgradeLevels.rigMachine);
+    prices.payout = 250 + (125 * slotUpgradeLevels.payout);
+    prices.cashback = 75 + (75 * slotUpgradeLevels.cashback);
+    prices.pity = 50 + (50 * slotUpgradeLevels.pity);
+    return prices;
+}
+function isAutoSpinUnlocked() {
+    return localStorage.getItem('autoSpinUnlocked') === 'true';
+}
+function unlockAutoSpin() {
+    localStorage.setItem('autoSpinUnlocked', true);
 }
