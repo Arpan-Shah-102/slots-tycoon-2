@@ -11,13 +11,6 @@ html {
     scrollbar-width: thin;
     scrollbar-color: teal transparent;
 }
-body.dark {
-    background-color: #131314;
-    color: #c4c7c5;
-}
-body.light {
-    background-color: #f0f0f0;
-}
 
 h1, h2, h3, h4, h5, h6 {
     text-align: center;

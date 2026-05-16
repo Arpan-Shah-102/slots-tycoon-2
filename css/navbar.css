@@ -1,3 +1,12 @@
+body.light {
+    & nav {
+        color: white;
+    }
+    & .achievements-grid {
+        color: white;
+    }
+}
+
 nav {
     background-color: #00000080;
     position: sticky;

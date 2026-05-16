@@ -1,3 +1,18 @@
+body.light {
+    & .slot-upgrades-section .slot-upgrade {
+        background-color: rgba(255, 255, 255, 0.5);
+        border: 2px solid #333;
+    }
+    & .slot-stats .table-itm {
+        background-color: rgba(255, 255, 255, 0.5);
+        border: 2px solid #333;
+    }
+    & .slot-drip > .flexbox > .drip-item {
+        background-color: rgba(255, 255, 255, 0.5);
+        border: 2px solid #333;
+    }
+}
+
 .game-cont {
     display: flex;
     justify-content: center;
@@ -32,7 +47,7 @@
 
         & .ball {
             position: absolute;
-            top: 77px;
+            top: 78px;
             left: 75px;
             height: 25px;
             width: 50px;
@@ -194,7 +209,6 @@
 
 
 .slot-upgrades-section {
-
     & > .slot-upgrade {
         background-color: rgba(0, 0, 0, 0.5);
         width: 175px;
@@ -238,5 +252,33 @@
     & > .stat {
         margin-bottom: 8px;
         font-size: 18px;
+    }
+}
+
+.unlocked-drip {
+    &.hidden {display: none;}
+    & > .flexbox {
+        justify-content: center;
+        gap: 40px;
+        padding: 0 30px;
+
+        & > h1 {font-size: 54px;}
+    }
+}
+.slot-drip > .flexbox > .drip-item {
+    background-color: rgba(0, 0, 0, 0.5);
+    border: 2px solid teal;
+    border-radius: 12px;
+    padding: 20px;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    height: 250px;
+    width: 175px;
+
+    & > * {margin: 0;}
+    & > h1 {font-size: 42px;}
+    &.small > h3 {
+        font-size: 20px;
     }
 }

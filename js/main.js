@@ -50,3 +50,18 @@ resetGameBtn.addEventListener('click', () => {
         }
     }
 });
+
+
+
+// money secret
+let moneyClickCount = 0;
+moneyLabel.addEventListener('click', () => {
+    moneyClickCount++;
+    if (moneyClickCount == 20) {
+        calcMoney(10000);
+        moneyLabel.textContent = formatMoney(getMoney());
+    }
+    setTimeout(() => {
+        moneyClickCount = 0;
+    }, 5000);
+});

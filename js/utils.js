@@ -91,7 +91,7 @@ function setTheme(theme) {
     localStorage.setItem('theme', theme);
 }
 function getUnlockedThemes() {
-    return JSON.parse(localStorage.getItem('unlockedThemes')) || ['dark'];
+    return JSON.parse(localStorage.getItem('unlockedThemes')) || ['dark', 'light', 'red', 'green', 'blue', 'purple'];
 }
 function unlockTheme(theme) {
     const unlockedThemes = getUnlockedThemes();
@@ -145,6 +145,13 @@ function playSound(sfx) {
 
 // Slot Machine
 
+function isGameWon() {
+    return localStorage.getItem('gameWon') === 'true';
+}
+function setGameWon() {
+    localStorage.setItem('gameWon', true);
+}
+
 function getSlotSymbols() {
     return JSON.parse(localStorage.getItem('slotSymbols')) || ['7️⃣', '💎', '🍒', '🍀', '💵', '👑', '🎰', '🍇', '⭐', '💰', '🍉', '🪙'];
 }
@@ -195,4 +202,36 @@ function isAutoSpinUnlocked() {
 }
 function unlockAutoSpin() {
     localStorage.setItem('autoSpinUnlocked', true);
+}
+
+function getDripUnlocked() {
+    return JSON.parse(localStorage.getItem('dripUnlocked')) || [];
+}
+function unlockDrip(type) {
+    const dripUnlocked = getDripUnlocked();
+    if (!dripUnlocked.includes(type)) {
+        dripUnlocked.push(type);
+        localStorage.setItem('dripUnlocked', JSON.stringify(dripUnlocked));
+    }
+}
+function isDripUnlocked(type) {
+    const dripUnlocked = getDripUnlocked();
+    return dripUnlocked.includes(type);
+}
+
+function getThemeBonusValues() {
+    return {
+        'dark': [0, 0, 0], 'light': [0, 0, 0], 'red': [0, 0, 0], 'green': [0, 0, 0], 'blue': [0, 0, 0], 'purple': [0, 0, 0],
+        'fire': [0.75, 0, 0], 'ice': [0.75, 0, 0], 'nature': [0.75, 0, 0], 'space': [2.5, 0, 0], 'cosmic': [5.99, 0, 0], 'godly': [7.77, 0, 0],
+        // crypto values
+        // the world values
+    }
+}
+function getBonusAndVanityThemes() {
+    return JSON.parse(localStorage.getItem('bonusAndVanityThemesUnlocked')) || { bonus: 'dark', vanity: 'dark' };
+}
+function setBonusOrVanityTheme(type, theme) {
+    const bonusAndVanityThemesUnlocked = getBonusAndVanityThemes();
+    bonusAndVanityThemesUnlocked[type] = theme;
+    localStorage.setItem('bonusAndVanityThemesUnlocked', JSON.stringify(bonusAndVanityThemesUnlocked));
 }

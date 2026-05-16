@@ -1,0 +1,206 @@
+body {
+    transition: background-color 0.3s ease, color 0.3s ease;
+
+    &.light .theme {
+        color: white
+    }
+}
+
+@property --godly-spin {
+    syntax: '<angle>';
+    initial-value: -14deg;
+    inherits: false;
+}
+
+@property --cosmic-star-a {
+    syntax: '<number>';
+    initial-value: 1;
+    inherits: false;
+}
+
+@property --cosmic-star-b {
+    syntax: '<number>';
+    initial-value: 0.58;
+    inherits: false;
+}
+.dark {
+    background-color: #131314;
+    color: #c4c7c5;
+}
+.light {
+    background-color: #f0f0f0;
+}
+.red {
+    background-color: #A8002A;
+    color: white;
+}
+.green {
+    background-color: #006400;
+    color: white;
+}
+.blue {
+    background-color: #00008b;
+    color: white;
+}
+.purple {
+    background-color: indigo;
+    color: white;
+}
+
+.fire {
+    color: white;
+    background: linear-gradient(
+        90deg,
+        #280000 0%,
+        #5a1200 18%,
+        #a32a00 36%,
+        #e24a00 54%,
+        #ff7a00 72%,
+        #ffb347 88%,
+        #ffe2a8 100%
+    );
+}
+.ice {
+    color: white;
+    background: linear-gradient(
+        90deg,
+        #001f3f 0%,
+        #003366 18%,
+        #004080 36%,
+        #0059b3 54%,
+        #0073e6 72%,
+        #3399ff 88%,
+        #99ccff 100%
+    );
+}
+.nature {
+    color: white;
+    background: linear-gradient(
+        90deg,
+        #003300 0%,
+        #006600 18%,
+        #009900 36%,
+        #00cc00 54%,
+        #00ff00 72%,
+        #66ff66 88%,
+        #ccffcc 100%
+    );
+}
+.space {
+    color: white;
+    background:
+        radial-gradient(circle at 18% 25%, rgba(133, 194, 255, 0.35) 0%, rgba(133, 194, 255, 0) 34%),
+        radial-gradient(circle at 82% 72%, rgba(213, 151, 255, 0.28) 0%, rgba(213, 151, 255, 0) 38%),
+        linear-gradient(
+            105deg,
+            #050714 0%,
+            #111a3d 22%,
+            #1e2f67 45%,
+            #3b3fa0 68%,
+            #6a49c7 86%,
+            #9f72e8 100%
+        );
+}
+.cosmic {
+    color: white;
+    --cosmic-star-a: 1;
+    --cosmic-star-b: 0.58;
+    animation: cosmic-stars-twinkle 3.9s linear infinite;
+    background:
+    radial-gradient(circle, rgba(255, 255, 255, calc(0.95 * var(--cosmic-star-a))) 0 1px, rgba(255, 255, 255, 0) 1.6px) 0 0 / 82px 82px repeat,
+    radial-gradient(circle, rgba(216, 236, 255, calc(0.72 * var(--cosmic-star-b))) 0 1px, rgba(216, 236, 255, 0) 1.7px) 37px 21px / 127px 127px repeat,
+    radial-gradient(circle, rgba(199, 227, 255, calc(0.66 * var(--cosmic-star-a))) 0 1.1px, rgba(199, 227, 255, 0) 1.9px) 14px 49px / 173px 173px repeat,
+    radial-gradient(120% 90% at 8% 12%, rgba(117, 255, 240, 0.4) 0%, rgba(117, 255, 240, 0) 45%),
+    radial-gradient(95% 85% at 90% 80%, rgba(231, 108, 255, 0.35) 0%, rgba(231, 108, 255, 0) 50%),
+    linear-gradient(132deg, #02030a 0%, #0d1531 20%, #1d2c58 42%, #40266f 64%, #6f2d97 82%, #a747c1 100%);
+}
+.godly {
+    color: white;
+    --godly-spin: -14deg;
+    animation: godly-rays-spin 120s linear infinite;
+    background:
+        repeating-conic-gradient(from var(--godly-spin) at 50% 12%, rgba(255, 249, 214, 0.28) 0deg 9deg, rgba(255, 249, 214, 0) 9deg 18deg),
+        radial-gradient(120% 95% at 50% 0%, rgba(255, 255, 240, 0.9) 0%, rgba(255, 255, 240, 0) 52%),
+        radial-gradient(85% 70% at 50% 18%, rgba(255, 224, 153, 0.42) 0%, rgba(255, 224, 153, 0) 58%),
+        linear-gradient(112deg, #332000 0%, #7a4e10 18%, #b47a1f 36%, #e0a645 56%, #f3cb82 76%, #fae7bb 90%, #fff9e8 100%);
+}
+
+@keyframes cosmic-stars-twinkle {
+    0%,
+    100% {
+        --cosmic-star-a: 1;
+        --cosmic-star-b: 0.58;
+    }
+    25% {
+        --cosmic-star-a: 0.38;
+        --cosmic-star-b: 0.96;
+    }
+    50% {
+        --cosmic-star-a: 0.84;
+        --cosmic-star-b: 0.42;
+    }
+    75% {
+        --cosmic-star-a: 0.46;
+        --cosmic-star-b: 1;
+    }
+}
+
+@keyframes godly-rays-spin {
+    from {
+        --godly-spin: -14deg;
+    }
+    to {
+        --godly-spin: 346deg;
+    }
+}
+
+
+.theme-selection {
+    display: flex;
+    gap: 20px;
+    justify-content: center;
+    margin: 10px 0;
+    align-items: center;
+    flex-direction: column;
+    font-size: 21px;
+    
+    & select {
+        padding: 4px 6px;
+        font-size: 18px;
+        border-radius: 8px;
+        border: 2px solid teal;
+        background-color: transparent;
+        color: teal;
+        cursor: pointer;
+        transition: all 0.3s ease-in-out;
+
+        & option {
+            border-radius: 8px;
+        }
+    }
+}
+.theme {
+    height: 150px;
+    width: 150px;
+    border: 3px solid teal;
+    border-radius: 8px;
+    cursor: pointer;
+    transition: all 0.3s ease-in-out;
+
+    text-align: center;
+    font-size: 24px;
+    font-weight: bold;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+
+    &:hover {
+        transform: scale(1.1);
+        border-width: 4px;
+    }
+    &:active {
+        transform: scale(0.95);
+        border-width: 3px;
+        opacity: 0.8;
+    }
+}

@@ -12,6 +12,13 @@ TBD
 
 ## Update Log
 
+### Update V0.85 - 5/16/2026
+1. Added Drip
+2. Added Themes
+3. Added Theme Bonuses
+4. Improved Saving and Loading Data
+5. Bug Fixes
+
 ### Update V0.6 - 5/14/2026
 1. Added Upgrades
 2. Added Auto spinning

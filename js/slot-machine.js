@@ -8,7 +8,14 @@ const gWinLabel = document.querySelector('.g-win');
 const spinLever = document.querySelector('.spin-lever');
 const moneyLabel = document.querySelector('.money-label');
 
-spinLever.addEventListener('click', spinSlots);
+spinLever.addEventListener('click', () => {
+    if (getMoney() < (10 - getSlotsStats().upgrades.cashback + getSlotsStats().dripBonus + getSlotsStats().themeBonus)) {
+        alert('Not enough money to spin!');
+        gameOverCheck();
+        return;
+    }
+    spinSlots();
+});
 moneyLabel.textContent = formatMoney(getMoney());
 gWinLabel.textContent = getPityJackpot();
 const autoSpinBtn = document.querySelector('.activate-auto-spin');
@@ -26,10 +33,10 @@ autoSpinBtn.addEventListener('click', () => {
     autoSpinBtn.classList.remove('green');
     autoSpinBtn.classList.add('yellow');
     autoSpinBtn.textContent = 'Auto Spinning...';
-    if (getMoney() >= (10 - getSlotsStats().upgrades.cashback)) {spinSlots();}
+    if (getMoney() >= (10 - getSlotsStats().upgrades.cashback + getSlotsStats().dripBonus + getSlotsStats().themeBonus)) {spinSlots();}
 
     autoSpinInterval = setInterval(() => {
-        if (getMoney() < (10 - getSlotsStats().upgrades.cashback)) {
+        if (getMoney() < (10 - getSlotsStats().upgrades.cashback + getSlotsStats().dripBonus + getSlotsStats().themeBonus)) {
             clearInterval(autoSpinInterval);
             autoSpinInterval = null;
             autoSpinBtn.classList.remove('yellow');
@@ -43,7 +50,7 @@ autoSpinBtn.addEventListener('click', () => {
 });
 
 function spinSlots() {
-    calcMoney(-10 + getSlotsStats().upgrades.cashback);
+    calcMoney(-10 + getSlotsStats().upgrades.cashback + getSlotsStats().dripBonus + getSlotsStats().themeBonus);
     moneyLabel.textContent = formatMoney(getMoney());
     setSlotsStats('spins', getSlotsStats().spins + 1);
 
@@ -99,7 +106,7 @@ function spinSlots() {
         gWinLabel.textContent = getPityJackpot();
         spinLever.classList.remove('spinning');
         updateSlotStats();
-        if (getMoney() < (10 - getSlotsStats().upgrades.cashback)) {gameOverCheck();}
+        if (getMoney() < (10 - getSlotsStats().upgrades.cashback + getSlotsStats().dripBonus + getSlotsStats().themeBonus)) {gameOverCheck();}
     }, 1150);
 }
 
@@ -118,6 +125,7 @@ slotUpgrades.forEach((upgrade, index) => {
                 moneyLabel.textContent = formatMoney(getMoney());
                 unlockAutoSpin();
                 updateSlotUI();
+                gameOverCheck();
             }
         });
     } else {
@@ -136,6 +144,7 @@ slotUpgrades.forEach((upgrade, index) => {
                 moneyLabel.textContent = formatMoney(getMoney());
                 upgradeFunctions[index - 1]();
                 updateSlotUI();
+                gameOverCheck();
                 return;
             }
             alert('Upgrade already at max level!')
@@ -168,6 +177,73 @@ function upgradePity() {
     gWinLabel.textContent = getPityJackpot();
 }
 const upgradeFunctions = [upgradeRig, upgradePayout, upgradeCashback, upgradePity];
+
+const unlockedDripCont = document.querySelector('.unlocked-drip');
+const allDripConts = document.querySelectorAll('.drip-item');
+allDripConts.forEach((cont, index) => {
+    const btn = cont.querySelector('button');
+    const price = parseFloat(btn.value);
+    const item = btn.dataset.item;
+
+    btn.addEventListener('click', () => {
+        if (!enoughMoney(price)) {
+            alert('Not enough money to get this drip!');
+            return;
+        }
+        calcMoney(-price);
+        moneyLabel.textContent = formatMoney(getMoney());
+        unlockDrip(item);
+        setSlotsStats('dripBonus', getSlotsStats().dripBonus + (price / (1000 - index)));
+        updateSlotUI();
+        gameOverCheck();
+    });
+});
+
+const themeSelect = document.querySelector('.theme-bonus-select');
+const vanityThemeSelect = document.querySelector('.theme-vanity-select');
+const shopThemes = document.querySelectorAll('.theme.slot-thing');
+const slotThemeBonusValues = {}
+
+themeSelect.addEventListener('change', () => {
+    setBonusOrVanityTheme('bonus', themeSelect.value);
+    setSlotsStats('themeBonus', getThemeBonusValues()[themeSelect.value][0] || 0);
+    generateThemeOptions();
+    updateSlotUI();
+});
+vanityThemeSelect.addEventListener('change', () => {
+    setBonusOrVanityTheme('vanity', vanityThemeSelect.value);
+    generateThemeOptions();
+    updateSlotUI();
+});
+
+shopThemes.forEach(theme => {
+    theme.addEventListener('click', () => {
+        const themeName = theme.dataset.theme;
+        const themePrice = parseFloat(theme.dataset.price);
+
+        if (isThemeUnlocked(themeName)) {
+            setBonusOrVanityTheme('bonus', themeName);
+            setSlotsStats('themeBonus', getThemeBonusValues()[themeName][0] || 0);
+            setBonusOrVanityTheme('vanity', themeName);
+            generateThemeOptions();
+            updateSlotUI();
+            return;
+        }
+        if (!enoughMoney(themePrice)) {
+            alert('Not enough money to buy this theme!');
+            return;
+        }
+        calcMoney(-themePrice);
+        moneyLabel.textContent = formatMoney(getMoney());
+        unlockTheme(themeName);
+        setBonusOrVanityTheme('bonus', themeName);
+        setSlotsStats('themeBonus', getThemeBonusValues()[themeName][0] || 0);
+        setBonusOrVanityTheme('vanity', themeName);
+        generateThemeOptions();
+        updateSlotUI();
+        gameOverCheck();
+    });
+});
 
 const slotStats = document.querySelectorAll('.slot-stats .table-itm > .stat');
 function updateSlotUI() {
@@ -209,6 +285,54 @@ function updateSlotUI() {
     });
 
     updateSlotStats();
+
+    // update drip items
+    if (getDripUnlocked().length > 0) {
+        unlockedDripCont.classList.remove('hidden');
+        const dripItemCont = unlockedDripCont.querySelector('.flexbox');
+        dripItemCont.innerHTML = '';
+
+        allDripConts.forEach((cont, index) => {
+            const btn = cont.querySelector('button');
+            const price = parseFloat(btn.value);
+            const item = btn.dataset.item;
+
+            if (isDripUnlocked(item)) {    
+                dripItemCont.innerHTML += `<h1>${item}</h1>`;
+                btn.classList.remove('secondary');
+                btn.classList.add('teritry');
+                btn.disabled = true;
+                btn.textContent = 'Owned';
+            }
+        });
+    }
+
+    // themes
+    themeSelect.value = getBonusAndVanityThemes().bonus;
+    vanityThemeSelect.value = getBonusAndVanityThemes().vanity;
+    document.body.classList = getBonusAndVanityThemes().vanity;
+    shopThemes.forEach(theme => {
+        const themeName = theme.dataset.theme;
+        if (isThemeUnlocked(themeName)) {
+            theme.textContent = "Switch"
+        }
+    });
+}
+function generateThemeOptions() {
+    themeSelect.innerHTML = '';
+    getUnlockedThemes().forEach(theme => {
+        const option = document.createElement('option');
+        option.value = theme;
+        option.textContent = theme.charAt(0).toUpperCase() + theme.slice(1) + ` (+$${getThemeBonusValues()[theme][0]}${getThemeBonusValues()[theme][1] ? `/₡${getThemeBonusValues()[theme][1]}` : ''}${getThemeBonusValues()[theme][2] ? `/✺${getThemeBonusValues()[theme][2]}` : ''})`;
+        themeSelect.appendChild(option);
+    });
+    vanityThemeSelect.innerHTML = '';
+    getUnlockedThemes().forEach(theme => {
+        const option = document.createElement('option');
+        option.value = theme;
+        option.textContent = theme.charAt(0).toUpperCase() + theme.slice(1);
+        vanityThemeSelect.appendChild(option);
+    });
 }
 function updateSlotStats() {
     slotStats.forEach((stat, index) => {
@@ -242,9 +366,22 @@ function updateSlotStats() {
 const slotExchange = document.querySelector('.slot-exchange');
 // const slotExchangeDiv = document.querySelector('.slot-exchange-div');
 
+const gameWinScreen = document.querySelector('.game-over-screen.win');
+const gameLoseScreen = document.querySelector('.game-over-screen.lose');
+gameWinScreen.querySelector('button').addEventListener('click', () => {
+    gameWinScreen.classList.remove('shown');
+});
+gameLoseScreen.querySelector('button').addEventListener('click', () => {
+    localStorage.clear();
+    location.reload();
+});
 function gameOverCheck() {
     setTimeout(() => {
-
+        if (!isCryptoGamemodeUnlocked() && getMoney() < (10 - getSlotsStats().upgrades.cashback + getSlotsStats().dripBonus + getSlotsStats().themeBonus)) {
+            alert("You're out of money I see...");
+            gameLoseScreen.classList.add('shown');
+        }
     }, 50);
 }
+generateThemeOptions();
 updateSlotUI();
