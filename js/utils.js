@@ -69,6 +69,12 @@ function formatMoney(amount, type = 'm') {
     }
 }
 
+function delayAlert(msg) {
+    setTimeout(() => {
+        alert(msg);
+    }, 50);
+}
+
 function getAchievementsUnlocked() {
     return JSON.parse(localStorage.getItem('achievementsUnlocked')) || [];
 }
@@ -125,22 +131,20 @@ function toggleMute() {
     const muted = isMuted();
     localStorage.setItem('muted', !muted);
 }
+function getMasterVolume() {
+    const volume = parseFloat(localStorage.getItem('masterVolume'));
+    return isNaN(volume) ? 100 : volume;
+}
+function setMasterVolume(volume) {
+    localStorage.setItem('masterVolume', volume);
+}
 function getAdvancedMute() {
-    return JSON.parse(localStorage.getItem('advancedMute')) || { music: false, sfx: false };
+    return JSON.parse(localStorage.getItem('advancedMute')) || { 'click-1': true, 'click-2': true, 'win': true, 'lose': true, 'denied': true, 'spin': true, 'jackpot': true, 'near-miss': true, 'ding': true, 'upgrade': true, 'get-theme': true, 'get-drip': true, 'get-trophy': true, 'exchange': true };
 }
 function setAdvancedMute(type, value) {
     const advancedMute = getAdvancedMute();
     advancedMute[type] = value;
     localStorage.setItem('advancedMute', JSON.stringify(advancedMute));
-}
-function playSound(sfx) {
-    if (isMuted()) return;
-    if (getAdvancedMute().sfx) return;
-    const audio = sfx.cloneNode();
-    audio.play();
-    audio.addEventListener('ended', () => {
-        audio.remove();
-    });
 }
 
 // Slot Machine
@@ -234,4 +238,19 @@ function setBonusOrVanityTheme(type, theme) {
     const bonusAndVanityThemesUnlocked = getBonusAndVanityThemes();
     bonusAndVanityThemesUnlocked[type] = theme;
     localStorage.setItem('bonusAndVanityThemesUnlocked', JSON.stringify(bonusAndVanityThemesUnlocked));
+}
+
+function slotTrophiesUnlocked() {
+    return JSON.parse(localStorage.getItem('slotTrophiesUnlocked')) || [];
+}
+function unlockSlotTrophy(trophy) {
+    const trophies = slotTrophiesUnlocked();
+    if (!trophies.includes(trophy)) {
+        trophies.push(trophy);
+        localStorage.setItem('slotTrophiesUnlocked', JSON.stringify(trophies));
+    }
+}
+function isSlotTrophyUnlocked(trophy) {
+    const trophies = slotTrophiesUnlocked();
+    return trophies.includes(trophy);
 }

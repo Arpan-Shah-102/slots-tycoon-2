@@ -17,14 +17,14 @@
     <body class="dark">
         <nav>
             <ul>
-                <li class="menu-toggle" onclick="toggleMenu()">
-                    <svg xmlns="http://www.w3.org/2000/svg" height="30px" viewBox="0 -960 960 960" width="30px" fill="#e3e3e3"><path d="M120-240v-80h720v80H120Zm0-200v-80h720v80H120Zm0-200v-80h720v80H120Z"/></svg>
+                <li class="menu-toggle">
+                    <svg xmlns="http://www.w3.org/2000/svg" onclick="toggleMenu()" height="30px" viewBox="0 -960 960 960" width="30px" fill="#e3e3e3"><path d="M120-240v-80h720v80H120Zm0-200v-80h720v80H120Zm0-200v-80h720v80H120Z"/></svg>
                 </li>
                 <li class="money-label">
-                    <p class="money">$5,000.00</p>
+                    <p class="money">$3,000.00</p>
                 </li>
-                <li class="achivement-toggle" onclick="toggleAchievements()">
-                    <svg xmlns="http://www.w3.org/2000/svg" height="30px" viewBox="0 -960 960 960" width="30px" fill="#e3e3e3"><path d="M160-200h160v-320H160v320Zm240 0h160v-560H400v560Zm240 0h160v-240H640v240ZM80-120v-480h240v-240h320v320h240v400H80Z"/></svg>
+                <li class="achivement-toggle">
+                    <svg xmlns="http://www.w3.org/2000/svg" onclick="toggleAchievements()" height="30px" viewBox="0 -960 960 960" width="30px" fill="#e3e3e3"><path d="M160-200h160v-320H160v320Zm240 0h160v-560H400v560Zm240 0h160v-240H640v240ZM80-120v-480h240v-240h320v320h240v400H80Z"/></svg>
                 </li>
             </ul>
         </nav>
@@ -61,7 +61,7 @@
                     <li><a href="#cryptoTrophies">Trophies</a></li>
                     <li><a href="#cryptoStats">Stats</a></li>
                 </div>
-                <div class="the-world hidden">
+                <div class="the-world-links hidden">
                     <li><a href="#">The World</a></li>
                     <li><a href="#planetExchange">Planet Exchange</a></li>
                     <li><a href="#blackMarket">Black Market</a></li>
@@ -130,6 +130,31 @@
                     </div>
 
                     <h2>The World</h2>
+                    <div class="flexbox">
+                        <li>
+                            <h1>🐧</h1>
+                            <div>
+                                <h3>Achievement Title</h3>
+                                <p>Achievement Description</p>
+                            </div>
+                        </li>
+                        <li>
+                            <h1>🐧</h1>
+                            <div>
+                                <h3>Achievement Title</h3>
+                                <p>Achievement Description</p>
+                            </div>
+                        </li>
+                        <li>
+                            <h1>🐧</h1>
+                            <div>
+                                <h3>Achievement Title</h3>
+                                <p>Achievement Description</p>
+                            </div>
+                        </li>
+                    </div>
+
+                    <h2>Extras</h2>
                     <div class="flexbox">
                         <li>
                             <h1>🐧</h1>
@@ -418,6 +443,49 @@
                 </div>
             </section>
 
+            <section id="moneyExchange" class="money-exchange large-cont hidden">
+                <h2>Money Exchange</h2>
+                <div class="flexbox">
+                    <div class="money exchange-item">
+                        <h3>$ ➙ ₡</h3>
+                        <p>Buy <span class="m-to-c c item">₡1,000</span> for <span class="m-to-c m price">$12.50</span></p>
+                        <button class="primary">Exchange</button>
+                    </div>
+                    <div class="stardust-exchange money exchange-item hidden">
+                        <h3>$ ➙ ✺</h3>
+                        <p>Buy <span class="m-to-s s item">✺1</span> for <span class="m-to-s m price">$250.00</span></p>
+                        <button class="primary">Exchange</button>
+                    </div>
+                </div>
+            </section>
+
+            <section class="unlocked-trophies large-cont hidden">
+                <h2>Unlocked Trophies</h2>
+                <div class="flexbox">
+                </div>
+            </section>
+
+            <section id="slotTrophies" class="slots-trophies large-cont">
+                <h2>Trophies</h2>
+                <div class="flexbox">
+                    <div class="trophy-item">
+                        <h3>$10K Trophy</h3>
+                        <h1>🥉</h1>
+                        <button class="buy-trophy secondary">$10,000</button>
+                    </div>
+                    <div class="trophy-item">
+                        <h3>$100K Trophy</h3>
+                        <h1>🥈</h1>
+                        <button class="buy-trophy secondary green">$100,000</button>
+                    </div>
+                    <div class="trophy-item">
+                        <h3>$1M Trophy</h3>
+                        <h1>🥇</h1>
+                        <button class="buy-trophy secondary yellow">$1,000,000</button>
+                    </div>
+                </div>
+            </section>
+
             <section id="slotStats" class="slot-stats large-cont">
                 <h2>Stats</h2>
                 <div class="flexbox">
@@ -485,7 +553,32 @@
         <div id="settings" class="settings large-cont">
             <h2>Settings</h2>
             <div class="flexbox">
-                <button class="secondary red " id="resetGameBtn">Reset Game</button>
+                <button onclick="checkMuteToggle(this)" class="mute-btn secondary">&nbsp;Mute&nbsp;</button>
+                <button onclick="showAdvancedMute(this)" class="advanced-mute teritry">Show Advanced Mute</button>
+                <button onclick="saveGameToJSON()" class="secondary green save-to-json">Save to JSON</button>
+                <button onclick="saveGameToTXT()" class="secondary green save-to-txt">Save to TXT</button>
+                <button onclick="loadGame()" class="secondary yellow load-game">Load Game</button>
+                <button onclick="resetGameAsk()" class="secondary red " id="resetGameBtn">Reset Game</button>
+            </div>
+            <div class="advanced-mute-cont hidden">
+                <h3>Advanced Mute Settings</h3>
+                <label>Master Volume: <input onchange="masterVolumeChange(this)" class="master-vol-change" min="0" max="100" value="100" type="range"></label>
+                <div class="flexbox">
+                    <label>Click 1: <input checked data-sound="click-1" type="checkbox"></label>
+                    <label>Click 2: <input checked data-sound="click-2" type="checkbox"></label>
+                    <label>Win: <input checked data-sound="win" type="checkbox"></label>
+                    <label>Lose: <input checked data-sound="lose" type="checkbox"></label>
+                    <label>Denied: <input checked data-sound="denied" type="checkbox"></label>
+                    <label>Spin: <input checked data-sound="spin" type="checkbox"></label>
+                    <label>Jackpot: <input checked data-sound="jackpot" type="checkbox"></label>
+                    <label>Near Miss: <input checked data-sound="near-miss" type="checkbox"></label>
+                    <label>Ding: <input checked data-sound="ding" type="checkbox"></label>
+                    <label>Upgrade: <input checked data-sound="upgrade" type="checkbox"></label>
+                    <label>Buy Theme: <input checked data-sound="get-theme" type="checkbox"></label>
+                    <label>Buy Drip: <input checked data-sound="get-drip" type="checkbox"></label>
+                    <label>Buy Trophy: <input checked data-sound="get-trophy" type="checkbox"></label>
+                    <label>Exchange Currency: <input checked data-sound="exchange" type="checkbox"></label>
+                </div>
             </div>
         </div>
 
@@ -520,9 +613,10 @@
         <button class="green secondary">Green</button>
         <button disabled class="green secondary">Green</button> -->
 
-        <p class="version-label">V0.85</p>
+        <p class="version-label">V1</p>
 
         <script src="./js/utils.js"></script>
+        <script src="./js/sfx-manager.js"></script>
         <script src="./js/navbar.js"></script>
         <script src="./js/slot-machine.js"></script>
         <script src="./js/crypto.js"></script>

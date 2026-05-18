@@ -1,5 +1,13 @@
 const slotSfx = {
-
+    spin: new Audio(sfxPathSlots + 'spin.mp3'),
+    jackpot: new Audio(sfxPathSlots + 'jackpot.mp3'),
+    nearMiss: new Audio(sfxPathSlots + 'near-miss.mp3'),
+    ding: new Audio(sfxPathSlots + 'ding.mp3'),
+    upgrade: new Audio(sfxPathSlots + 'upgrade.mp3'),
+    getTheme: new Audio(sfxPathSlots + 'get-theme.mp3'),
+    getDrip: new Audio(sfxPathSlots + 'get-drip.mp3'),
+    exchange: new Audio(sfxPathSlots + 'exchange.mp3'),
+    getTrophy: new Audio(sfxPathSlots + 'get-trophy.mp3'),
 }
 
 const slotDisplays = document.querySelectorAll('.reel > p');
@@ -10,7 +18,8 @@ const moneyLabel = document.querySelector('.money-label');
 
 spinLever.addEventListener('click', () => {
     if (getMoney() < (10 - getSlotsStats().upgrades.cashback + getSlotsStats().dripBonus + getSlotsStats().themeBonus)) {
-        alert('Not enough money to spin!');
+        delayAlert('Not enough money to spin!');
+        playSound(baseSfx.denied);
         gameOverCheck();
         return;
     }
@@ -21,6 +30,7 @@ gWinLabel.textContent = getPityJackpot();
 const autoSpinBtn = document.querySelector('.activate-auto-spin');
 
 let autoSpinInterval;
+addBaseSFX(autoSpinBtn);
 autoSpinBtn.addEventListener('click', () => {
     if (autoSpinInterval) {
         clearInterval(autoSpinInterval);
@@ -42,6 +52,8 @@ autoSpinBtn.addEventListener('click', () => {
             autoSpinBtn.classList.remove('yellow');
             autoSpinBtn.classList.add('green');
             autoSpinBtn.textContent = 'Activate Auto-Spin';
+            delayAlert('Not enough money to continue auto-spinning!');
+            playSound(baseSfx.denied);
             gameOverCheck();
             return;
         }
@@ -53,6 +65,7 @@ function spinSlots() {
     calcMoney(-10 + getSlotsStats().upgrades.cashback + getSlotsStats().dripBonus + getSlotsStats().themeBonus);
     moneyLabel.textContent = formatMoney(getMoney());
     setSlotsStats('spins', getSlotsStats().spins + 1);
+    playSound(slotSfx.spin);
 
     spinLever.classList.add('spinning');
     slotDisplays.forEach(display => {
@@ -85,6 +98,7 @@ function spinSlots() {
             if (i == 13) {slotDisplays[0].classList.remove('spinning');}
             if (i == 16) {slotDisplays[1].classList.remove('spinning');}
             if (i == 19) {slotDisplays[2].classList.remove('spinning');}
+            if (i == 13 || i == 16 || i == 19) {playSound(slotSfx.ding);}
         }, 55 * i);
     }
 
@@ -93,11 +107,13 @@ function spinSlots() {
             slotTerminal.textContent = 'Jackpot! You win ' + formatMoney(getSlotsStats().upgrades.payout[1]) + '!';
             calcMoney(getSlotsStats().upgrades.payout[1]);
             moneyLabel.textContent = formatMoney(getMoney());
+            playSound(slotSfx.jackpot);
             setSlotsStats('jackpots', getSlotsStats().jackpots + 1);
         } else if (reelResults[0] == reelResults[1] || reelResults[1] == reelResults[2] || reelResults[0] == reelResults[2]) {
             slotTerminal.textContent = 'Near Miss! You win ' + formatMoney(getSlotsStats().upgrades.payout[0]) + '!';
             calcMoney(getSlotsStats().upgrades.payout[0]);
             moneyLabel.textContent = formatMoney(getMoney());
+            playSound(slotSfx.nearMiss);
             setSlotsStats('nearMisses', getSlotsStats().nearMisses + 1);
         } else {
             slotTerminal.textContent = 'No win. Try again!';
@@ -113,17 +129,18 @@ function spinSlots() {
 const slotUpgrades = document.querySelectorAll('.slot-upgrade');
 slotUpgrades.forEach((upgrade, index) => {
     const btn = upgrade.querySelector('button.primary');
-
     if (index == 0) {
         btn.addEventListener('click', () => {
             if (!isAutoSpinUnlocked()) {
                 if (!enoughMoney(300)) {
-                    alert('Not enough money!');
+                    delayAlert('Not enough money!');
+                    playSound(baseSfx.denied);
                     return
                 }
                 calcMoney(-300);
                 moneyLabel.textContent = formatMoney(getMoney());
                 unlockAutoSpin();
+                playSound(slotSfx.upgrade);
                 updateSlotUI();
                 gameOverCheck();
             }
@@ -136,18 +153,20 @@ slotUpgrades.forEach((upgrade, index) => {
                 const upgradeLevelDisplays = upgrade.querySelectorAll('.level > div.empty');
 
                 if (!enoughMoney(upgradePrice)) {
-                    alert('Not enough money to upgrade!');
+                    delayAlert('Not enough money to upgrade!');
+                    playSound(baseSfx.denied);
                     return;
                 }
                 setSlotUpgradeLevel(upgradeType, getSlotUpgradeLevels()[upgradeType] + 1);
                 calcMoney(-upgradePrice);
                 moneyLabel.textContent = formatMoney(getMoney());
                 upgradeFunctions[index - 1]();
+                playSound(slotSfx.upgrade);
                 updateSlotUI();
                 gameOverCheck();
                 return;
             }
-            alert('Upgrade already at max level!')
+            delayAlert('Upgrade already at max level!')
         });
     }
 });
@@ -187,13 +206,15 @@ allDripConts.forEach((cont, index) => {
 
     btn.addEventListener('click', () => {
         if (!enoughMoney(price)) {
-            alert('Not enough money to get this drip!');
+            delayAlert('Not enough money to get this drip!');
+            playSound(baseSfx.denied);
             return;
         }
         calcMoney(-price);
         moneyLabel.textContent = formatMoney(getMoney());
         unlockDrip(item);
         setSlotsStats('dripBonus', getSlotsStats().dripBonus + (price / (1000 - index)));
+        playSound(slotSfx.getDrip);
         updateSlotUI();
         gameOverCheck();
     });
@@ -215,12 +236,17 @@ vanityThemeSelect.addEventListener('change', () => {
     generateThemeOptions();
     updateSlotUI();
 });
+addBaseSFX(themeSelect);
+addBaseSFX(vanityThemeSelect);
 
 shopThemes.forEach(theme => {
-    theme.addEventListener('click', () => {
-        const themeName = theme.dataset.theme;
-        const themePrice = parseFloat(theme.dataset.price);
+    const themeName = theme.dataset.theme;
+    const themePrice = parseFloat(theme.dataset.price);
+    if (isThemeUnlocked(themeName)) {
+        addBaseSFX(theme);
+    }
 
+    theme.addEventListener('click', () => {
         if (isThemeUnlocked(themeName)) {
             setBonusOrVanityTheme('bonus', themeName);
             setSlotsStats('themeBonus', getThemeBonusValues()[themeName][0] || 0);
@@ -230,9 +256,11 @@ shopThemes.forEach(theme => {
             return;
         }
         if (!enoughMoney(themePrice)) {
-            alert('Not enough money to buy this theme!');
+            delayAlert('Not enough money to buy this theme!');
+            playSound(baseSfx.denied);
             return;
         }
+        playSound(slotSfx.getTheme);
         calcMoney(-themePrice);
         moneyLabel.textContent = formatMoney(getMoney());
         unlockTheme(themeName);
@@ -240,6 +268,59 @@ shopThemes.forEach(theme => {
         setSlotsStats('themeBonus', getThemeBonusValues()[themeName][0] || 0);
         setBonusOrVanityTheme('vanity', themeName);
         generateThemeOptions();
+        addBaseSFX(theme);
+        updateSlotUI();
+        gameOverCheck();
+    });
+});
+
+const exchangeValues = [1000, 1];
+const exchangePrices = [12.50, 250.00];
+const exchangeDivs = document.querySelectorAll('.money.exchange-item');
+
+exchangeDivs.forEach((div, index) => {
+    const btn = div.querySelector('button');
+    const priceSpan = div.querySelector('p .price');
+    const valueSpan = div.querySelector('p .item');
+    const base = exchangePrices[index];
+    let price = +(base * (1 + (Math.random() * 0.2 - 0.1))).toFixed(2);
+    const value = exchangeValues[index];
+    priceSpan.textContent = `${formatMoney(price)}`;
+
+    btn.addEventListener('click', () => {
+        if (!enoughMoney(price)) {
+            delayAlert('Not enough money to exchange!');
+            playSound(baseSfx.denied);
+            return;
+        }
+        calcMoney(-price);
+        if (index == 0) {calcCrypto(value);}
+        else if (index == 1) {calcStardust(value);}
+        moneyLabel.textContent = formatMoney(getMoney());
+        playSound(slotSfx.exchange);
+        price = +(base * (1 + (Math.random() * 0.2 - 0.1))).toFixed(2);
+        priceSpan.textContent = `${formatMoney(price)}`;
+    });
+});
+
+const trophiesFlexbox = document.querySelector('.unlocked-trophies > .flexbox');
+const trophies = document.querySelectorAll('.slots-trophies .trophy-item');
+const trophyPrices = [10000, 100000, 1000000];
+const trophyIcons = ['🥉', '🥈', '🥇'];
+
+trophies.forEach((trophy, index) => {
+    const btn = trophy.querySelector('button');
+    addBaseSFX(btn);
+    btn.addEventListener('click', () => {
+        if (!enoughMoney(trophyPrices[index])) {
+            delayAlert('Not enough money to buy this trophy!');
+            playSound(baseSfx.denied);
+            return;
+        }
+        calcMoney(-trophyPrices[index]);
+        moneyLabel.textContent = formatMoney(getMoney());
+        unlockSlotTrophy(index);
+        playSound(slotSfx.getTrophy);
         updateSlotUI();
         gameOverCheck();
     });
@@ -317,6 +398,23 @@ function updateSlotUI() {
             theme.textContent = "Switch"
         }
     });
+
+    // trophies
+    const unlockedTrophies = slotTrophiesUnlocked();
+    if (unlockedTrophies.length > 0) {
+        const unlockedTrophiesSection = document.querySelector('.unlocked-trophies');
+        unlockedTrophiesSection.classList.remove('hidden');
+        trophiesFlexbox.innerHTML = '';
+
+        unlockedTrophies.forEach((trophyIndex, index) => {
+            const btn = trophies[trophyIndex].querySelector('button');
+            btn.classList.remove('secondary');
+            btn.classList.add('teritry');
+            btn.disabled = true;
+            btn.textContent = 'Owned';
+            trophiesFlexbox.innerHTML += `<h1>${trophyIcons[trophyIndex]}</h1>`;
+        });
+    }
 }
 function generateThemeOptions() {
     themeSelect.innerHTML = '';
@@ -379,7 +477,8 @@ function gameOverCheck() {
     setTimeout(() => {
         if (!isCryptoGamemodeUnlocked() && getMoney() < (10 - getSlotsStats().upgrades.cashback + getSlotsStats().dripBonus + getSlotsStats().themeBonus)) {
             alert("You're out of money I see...");
-            gameLoseScreen.classList.add('shown');
+            playSound(baseSfx.lose);
+            gameLoseScreen.classList.remove('hidden');
         }
     }, 50);
 }

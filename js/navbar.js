@@ -1,6 +1,11 @@
 const menuBackground = document.querySelector('.menu-background');
 const achievementBackground = document.querySelector('.achievements-background');
 
+addBaseSFX(document.querySelector('.achivement-toggle > svg'));
+addBaseSFX(document.querySelector('.menu-toggle > svg'));
+addBaseSFX(document.querySelector('.close-achievements'));
+document.querySelectorAll('.menu li > a').forEach(link => addBaseSFX(link));
+
 function toggleAchievements() {
     achievementBackground.classList.toggle('shown');
     if (achievementBackground.classList.contains('shown')) {

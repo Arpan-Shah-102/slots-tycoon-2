@@ -8,9 +8,40 @@ Spin the reels, manage your money, unlock achievements, and work toward bigger r
 TBD
 
 ## File System
-TBD
+
+```
+slots-tycoon-2/     # main project directory
+├── index.html          # main html file
+├── README.md           # project details
+├── assets/             # assets for the game
+│	├── images/         # game icons
+│	└── sounds/         # sound effects
+├── css/                # stylesheets
+│	├── boilerplate.css     # base styles
+│	├── crypto.css          # crypto game styles
+│	├── navbar.css          # navbar styles
+│	├── slot-machine.css    # slot machine styles
+│	├── style.css           # extra website styles
+│	├── the-world.css       # the world styles
+│	└── themes.css          # theme styles
+└── js/                 # javaScript files
+	├── main.js             # website initializations
+	├── navbar.js           # navbar logic and event listeners
+    ├── sfx-manager.js      # manage sound effects
+	├── slot-machine.js     # slot machine logic
+	├── the-world.js        # the world logic
+	├── crypto.js           # crypto game logic
+	└── utils.js            # utility functions and local storage helpers
+```
 
 ## Update Log
+
+### Update V1 - 5/17/2026
+1. Added SFX
+2. Added Money Exchange
+3. Added Trophies
+4. Added Mute Settings
+5. Bug Fixes
 
 ### Update V0.85 - 5/16/2026
 1. Added Drip

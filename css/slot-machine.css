@@ -11,6 +11,14 @@ body.light {
         background-color: rgba(255, 255, 255, 0.5);
         border: 2px solid #333;
     }
+    & .money-exchange > .flexbox > .exchange-item {
+        background-color: rgba(255, 255, 255, 0.5);
+        border: 2px solid #333;
+    }
+    & .trophy-item {
+        background-color: rgba(255, 255, 255, 0.5);
+        border: 2px solid #333;
+    }
 }
 
 .game-cont {
@@ -159,7 +167,7 @@ body.light {
         z-index: 10;
     
         &.spinning {
-            animation: spin 1s ease-in-out;
+            animation: spin 0.75s ease-in-out;
             pointer-events: none;
         }
         &.blocked {
@@ -255,7 +263,7 @@ body.light {
     }
 }
 
-.unlocked-drip {
+.unlocked-drip, .unlocked-trophies {
     &.hidden {display: none;}
     & > .flexbox {
         justify-content: center;
@@ -280,5 +288,45 @@ body.light {
     & > h1 {font-size: 42px;}
     &.small > h3 {
         font-size: 20px;
+    }
+}
+
+.money-exchange > .flexbox > .exchange-item {
+    background-color: rgba(0, 0, 0, 0.5);
+    border: 2px solid teal;
+    border-radius: 12px;
+    padding: 20px;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    gap: 20px;
+    width: 250px;
+    text-align: center;
+
+    & > * {margin: 0;}
+    &.hidden {display: none;}
+}
+.money-exchange.hidden {
+    display: none;
+}
+
+.trophy-item {
+    background-color: rgba(0, 0, 0, 0.5);
+    border: 2px solid teal;
+    border-radius: 12px;
+    padding: 20px;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    gap: 20px;
+    width: 250px;
+    text-align: center;
+
+    & > * {margin: 0;}
+}
+
+@media (max-width: 400px) {
+    .slot-machine-game > .game-cont {
+        scale: 0.9;
     }
 }
