@@ -4,8 +4,31 @@ Slots Tycoon 2 is a major revamp of the original game, keeping all of the core f
 
 Spin the reels, manage your money, unlock achievements, and work toward bigger rewards across expanded game modes, currencies, and upgrades. Slots Tycoon 2 builds on the original with major improvements to gameplay, balance, visuals, and progression.
 
-## Features
-TBD
+## Current Features (More Soon!)
+- Multiple game modes: Slot Machine, Crypto, and The World
+- Three currencies: Money (USD), Crypto (₡), and Stardust (✺)
+- Slot Machine features:
+	- Spinning reels
+	- Pity jackpot mechanic
+	- Payout tiers with upgradeable payouts and stat tracking
+	- Purchasable auto spin
+	- Upgrades (rig, payout, cashback, pity) with level caps and prices
+	- Drip that can give bonuses
+	- Themes with bonus and vanity effects
+	- Lootboxes with randomized prizes (money, themes, hacking terminal)
+	- Trophies
+- Crypto Features:
+	- TBD
+- The World Features:
+	- TBD
+- Achievement system
+- Admin panel
+- Hacking terminal
+- Currency exchange
+- Sound effects
+- Persistent game data with LocalStorage
+- Stats and progression tracking
+#### Note: Only Slot Machine works right now!!
 
 ## File System
 
@@ -28,15 +51,31 @@ slots-tycoon-2/     # main project directory
 	├── main.js             # website initializations
 	├── navbar.js           # navbar logic and event listeners
     ├── sfx-manager.js      # manage sound effects
+	├── achievem...nager.js # achievement system logic and achivement data
+	├── hack-ter...ction.js # hacking terminal command logic
 	├── slot-machine.js     # slot machine logic
 	├── the-world.js        # the world logic
 	├── crypto.js           # crypto game logic
+	├── cheats.js			# handles the admin panel functionality
 	└── utils.js            # utility functions and local storage helpers
 ```
 
 ## Update Log
 
-### Update V1 - 5/17/2026
+// Crypto Cat - battle cats reference
+
+### Update V2.0 - 5/30/2026
+1. Added Lootbox
+2. Added Hacking Terminal (25+ commands)
+3. Improved Sfx Handling
+4. Fully Added Achievement System
+5. Added Slot Achievements (40+)
+6. Added Admin Panel (Cheats)
+7. Added Winning ability in the slot machine
+8. Finished Slot Machine Game Portion
+9. Bug Fixes
+
+### Update V1.0 - 5/17/2026
 1. Added SFX
 2. Added Money Exchange
 3. Added Trophies

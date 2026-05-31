@@ -42,7 +42,7 @@
                     </abbr>
                 </div>
                 <div class="slot-machine-links">
-                    <li><a href="#">Slot Machine</a></li>
+                    <li><a href="#" onclick="unlockAchievement(42)">Slot Machine</a></li>
                     <li><a href="#slotUpgrades">Upgrades</a></li>
                     <li><a href="#drip">Drip</a></li>
                     <li><a href="#slotThemes">Themes</a></li>
@@ -71,6 +71,7 @@
                     <li><a href="#theWorldTrophies">Trophies</a></li>
                     <li><a href="#theWorldStats">Stats</a></li>
                 </div>
+                <li><a class="hacking-terminal-link hidden" href="#hackingTerminal">Hacking Terminal</a></li>
                 <li><a href="#settings">Settings</a></li>
             </ul>
         </div>
@@ -79,102 +80,328 @@
                 <h1>Achievements</h1>
                 <p onclick="toggleAchievements()" class="close-achievements">✖</p>
                 <ul class="achievements-grid">
-                    <h2>Slot Machine</h2>
+                    <h2>Slot Machine<h3 class="total-achievements slots">0/30</h3></h2>
                     <div class="flexbox">
-                        <li>
-                            <h1>🐧</h1>
+                        <li data-achivementId="0" class="achivement-box">
+                            <h1>🎰</h1>
                             <div>
-                                <h3>Achievement Title</h3>
-                                <p>Achievement Description</p>
+                                <h3>It all starts here</h3>
+                                <p>Spin the Slot Machine for the first time.</p>
                             </div>
                         </li>
-                        <li>
-                            <h1>🐧</h1>
+                        <li data-achivementId="1" class="achivement-box">
+                            <h1>🔄</h1>
                             <div>
-                                <h3>Achievement Title</h3>
-                                <p>Achievement Description</p>
+                                <h3>Getting the hang of it</h3>
+                                <p>Spin the Slot Machine 10 times.</p>
                             </div>
                         </li>
-                        <li>
-                            <h1>🐧</h1>
+                        <li data-achivementId="2" class="achivement-box">
+                            <h1>😮</h1>
                             <div>
-                                <h3>Achievement Title</h3>
-                                <p>Achievement Description</p>
+                                <h3>So close yet so far</h3>
+                                <p>Get a near miss on the Slot Machine.</p>
+                            </div>
+                        </li>
+                        <li data-achivementId="3" class="achivement-box">
+                            <h1>💰</h1>
+                            <div>
+                                <h3>First Blood</h3>
+                                <p>Get your first jackpot!</p>
+                            </div>
+                        </li>
+                        <li data-achivementId="4" class="achivement-box">
+                            <h1>💪</h1>
+                            <div>
+                                <h3>Roided Up</h3>
+                                <p>Get your first upgrade.</p>
+                            </div>
+                        </li>
+                        <li data-achivementId="5" class="achivement-box">
+                            <h1>✈️</h1>
+                            <div>
+                                <h3>Auto Pilot</h3>
+                                <p>Obtain the auto-spin upgrade.</p>
+                            </div>
+                        </li>
+                        <li data-achivementId="6" class="achivement-box">
+                            <h1>⚖️</h1>
+                            <div>
+                                <h3>Definitely Legal</h3>
+                                <p>Fully rig the slot machine to level 5.</p>
+                            </div>
+                        </li>
+                        <li data-achivementId="7" class="achivement-box">
+                            <h1>💎</h1>
+                            <div>
+                                <h3>Diamonds in the Machine</h3>
+                                <p>Fully improve the slot machine payout to level 5.</p>
+                            </div>
+                        </li>
+                        <li data-achivementId="8" class="achivement-box">
+                            <h1>🛍️</h1>
+                            <div>
+                                <h3>Lvl 100 Mastercard</h3>
+                                <p>Fully improve the slot machine cashback to level 5.</p>
+                            </div>
+                        </li>
+                        <li data-achivementId="9" class="achivement-box">
+                            <h1>🥺</h1>
+                            <div>
+                                <h3>Pity Privilege</h3>
+                                <p>Fully improve the slot machine pity to level 5.</p>
+                            </div>
+                        </li>
+                        <li data-achivementId="10" class="achivement-box">
+                            <h1>👕</h1>
+                            <div>
+                                <h3>This is catchy</h3>
+                                <p>Get a piece of drip.</p>
+                            </div>
+                        </li>
+                        <li data-achivementId="11" class="achivement-box">
+                            <h1>🕶️</h1>
+                            <div>
+                                <h3>Drip Lord</h3>
+                                <p>Get all the drip.</p>
+                            </div>
+                        </li>
+                        <li data-achivementId="12" class="achivement-box">
+                            <h1>🎭</h1>
+                            <div>
+                                <h3>Spectacular</h3>
+                                <p>Obtain a theme.</p>
+                            </div>
+                        </li>
+                        <li data-achivementId="13" class="achivement-box">
+                            <h1>🎁</h1>
+                            <div>
+                                <h3>Massive Bonuses</h3>
+                                <p>Get a theme that gives back over $5 per spin.</p>
+                            </div>
+                        </li>
+                        <li data-achivementId="14" class="achivement-box">
+                            <h1>🖼️</h1>
+                            <div>
+                                <h3>The Full Experience</h3>
+                                <p>Obtain all themes.</p>
+                            </div>
+                        </li>
+                        <li data-achivementId="15" class="achivement-box">
+                            <h1>🎁</h1>
+                            <div>
+                                <h3>Gifted</h3>
+                                <p>Win a prize from the lootbox.</p>
+                            </div>
+                        </li>
+                        <li data-achivementId="16" class="achivement-box">
+                            <h1>💻</h1>
+                            <div>
+                                <h3>Hacked</h3>
+                                <p>Obtain the hacking terminal from the lootbox.</p>
+                            </div>
+                        </li>
+                        <li data-achivementId="17" class="achivement-box">
+                            <h1>📦</h1>
+                            <div>
+                                <h3>Gacha Enthusiast</h3>
+                                <p>Obtain all 11 prizes from the lootbox.</p>
+                            </div>
+                        </li>
+                        <li data-achivementId="18" class="achivement-box">
+                            <h1>🎖️</h1>
+                            <div>
+                                <h3>Participation Award</h3>
+                                <p>Get the $10K trophy.</p>
+                            </div>
+                        </li>
+                        <li data-achivementId="19" class="achivement-box">
+                            <h1>🏅</h1>
+                            <div>
+                                <h3>Financially Gifted</h3>
+                                <p>Get the $100K trophy.</p>
+                            </div>
+                        </li>
+                        <li data-achivementId="20" class="achivement-box">
+                            <h1>🏆</h1>
+                            <div>
+                                <h3>Economy Expert</h3>
+                                <p>Get the $1M trophy.</p>
+                            </div>
+                        </li>
+                        <li data-achivementId="21" class="achivement-box">
+                            <h1>🕵️</h1>
+                            <div>
+                                <h3>Hackerman</h3>
+                                <p>Use the hacking terminal for the first time.</p>
+                            </div>
+                        </li>
+                        <li data-achivementId="22" class="achivement-box">
+                            <h1>👑</h1>
+                            <div>
+                                <h3>Slots Lord</h3>
+                                <p>'Beat' the slot machine by fully upgrading it, getting all the drip, and getting all the themes.</p>
+                            </div>
+                        </li>
+                        <li data-achivementId="23" class="achivement-box">
+                            <h1>🔁</h1>
+                            <div>
+                                <h3>Enthusiast</h3>
+                                <p>Spin the Slot Machine 100 times.</p>
+                            </div>
+                        </li>
+                        <li data-achivementId="24" class="achivement-box">
+                            <h1>⚡</h1>
+                            <div>
+                                <h3>Professional</h3>
+                                <p>Spin the Slot Machine 1,000 times.</p>
+                            </div>
+                        </li>
+                        <li data-achivementId="25" class="achivement-box">
+                            <h1>♾️</h1>
+                            <div>
+                                <h3>Slots Forever</h3>
+                                <p>Spin the slot machine 10,000 times.</p>
+                            </div>
+                        </li>
+                        <li data-achivementId="26" class="achivement-box">
+                            <h1>💵</h1>
+                            <div>
+                                <h3>Jackpot Master</h3>
+                                <p>Get 10 jackpots.</p>
+                            </div>
+                        </li>
+                        <li data-achivementId="27" class="achivement-box">
+                            <h1>🎲</h1>
+                            <div>
+                                <h3>Gambler</h3>
+                                <p>Get 100 jackpots.</p>
+                            </div>
+                        </li>
+                        <li data-achivementId="28" class="achivement-box">
+                            <h1>👕</h1>
+                            <div>
+                                <h3>The Drip that Pays Off</h3>
+                                <p>Get the drip bonus to $5 or above.</p>
+                            </div>
+                        </li>
+                        <li data-achivementId="29" class="achivement-box">
+                            <h1>♾️</h1>
+                            <div>
+                                <h3>Infinite Money</h3>
+                                <p>Get total money back from drip, themes, or upgrades to $10.</p>
                             </div>
                         </li>
                     </div>
 
-                    <h2>Crypto</h2>
+                    <h2 class="big-head">Crypto<h3 class="total-achievements crypto">0/??</h3></h2>
                     <div class="flexbox">
-                        <li>
-                            <h1>🐧</h1>
-                            <div>
-                                <h3>Achievement Title</h3>
-                                <p>Achievement Description</p>
-                            </div>
-                        </li>
-                        <li>
-                            <h1>🐧</h1>
-                            <div>
-                                <h3>Achievement Title</h3>
-                                <p>Achievement Description</p>
-                            </div>
-                        </li>
-                        <li>
-                            <h1>🐧</h1>
-                            <div>
-                                <h3>Achievement Title</h3>
-                                <p>Achievement Description</p>
-                            </div>
-                        </li>
+                        <h4>None yet...</h4>
                     </div>
 
-                    <h2>The World</h2>
+                    <h2 class="big-head">The World<h3 class="total-achievements world">0/??</h3></h2>
                     <div class="flexbox">
-                        <li>
-                            <h1>🐧</h1>
-                            <div>
-                                <h3>Achievement Title</h3>
-                                <p>Achievement Description</p>
-                            </div>
-                        </li>
-                        <li>
-                            <h1>🐧</h1>
-                            <div>
-                                <h3>Achievement Title</h3>
-                                <p>Achievement Description</p>
-                            </div>
-                        </li>
-                        <li>
-                            <h1>🐧</h1>
-                            <div>
-                                <h3>Achievement Title</h3>
-                                <p>Achievement Description</p>
-                            </div>
-                        </li>
+                        <h4>None yet...</h4>
                     </div>
-
-                    <h2>Extras</h2>
+                    
+                    <h2 class="big-head">Extras<h3 class="total-achievements extras">0/TBD</h3></h2>
                     <div class="flexbox">
-                        <li>
-                            <h1>🐧</h1>
+                        <li onclick="unlockAchievement(30)" data-achivementId="30" class="achivement-box">
+                            <h1>🖱️</h1>
                             <div>
-                                <h3>Achievement Title</h3>
-                                <p>Achievement Description</p>
+                                <h3>Clickerfest</h3>
+                                <p>Click this achievement.</p>
                             </div>
                         </li>
-                        <li>
-                            <h1>🐧</h1>
+                        <li data-achivementId="31" class="achivement-box">
+                            <h1>💸</h1>
                             <div>
-                                <h3>Achievement Title</h3>
-                                <p>Achievement Description</p>
+                                <h3>Scammed</h3>
+                                <p>Exchange over $13.50 for ₡1,000.</p>
                             </div>
                         </li>
-                        <li>
-                            <h1>🐧</h1>
+                        <li data-achivementId="32" class="achivement-box">
+                            <h1>🤑</h1>
                             <div>
-                                <h3>Achievement Title</h3>
-                                <p>Achievement Description</p>
+                                <h3>Bargin Hunter</h3>
+                                <p>Exchange less than $11.5 for ₡1,000.</p>
+                            </div>
+                        </li>
+                        <li data-achivementId="33" class="achivement-box">
+                            <h1>🙈</h1>
+                            <div>
+                                <h3>Code Monkey</h3>
+                                <p>Find the secret code and enter it in the hacking terminal.</p>
+                            </div>
+                        </li>
+                        <li data-achivementId="34" class="achivement-box">
+                            <h1>😰</h1>
+                            <div>
+                                <h3>Dire Situation</h3>
+                                <p>Have less than $250.</p>
+                            </div>
+                        </li>
+                        <li data-achivementId="35" class="achivement-box">
+                            <h1>😵</h1>
+                            <div>
+                                <h3>An Ungodly Experience</h3>
+                                <p>Get the godly theme.</p>
+                            </div>
+                        </li>
+                        <li data-achivementId="36" class="achivement-box">
+                            <h1>✨</h1>
+                            <div>
+                                <h3>The Stars Align</h3>
+                                <p>Get a jackpot with 7️⃣7️⃣7️⃣.</p>
+                            </div>
+                        </li>
+                        <li data-achivementId="37" class="achivement-box">
+                            <h1>👀</h1>
+                            <div>
+                                <h3>A Bizarre Feeling</h3>
+                                <p>Something feels bizarre...</p>
+                            </div>
+                        </li>
+                        <li data-achivementId="38" class="achivement-box">
+                            <h1>🎬</h1>
+                            <div>
+                                <h3>Credited</h3>
+                                <p>Click the credits!</p>
+                            </div>
+                        </li>
+                        <li data-achivementId="39" class="achivement-box">
+                            <h1>📜</h1>
+                            <div>
+                                <h3>Version History</h3>
+                                <p>Click the version number.</p>
+                            </div>
+                        </li>
+                        <li data-achivementId="40" class="achivement-box">
+                            <h1>🫠</h1>
+                            <div>
+                                <h3>2025-2026</h3>
+                                <p>Good times...</p>
+                            </div>
+                        </li>
+                        <li data-achivementId="41" class="achivement-box">
+                            <h1>🍔</h1>
+                            <div>
+                                <h3>3/24/2026</h3>
+                                <p>That was a good lunch...</p>
+                            </div>
+                        </li>
+                        <li data-achivementId="42" class="achivement-box">
+                            <h1>🛋️</h1>
+                            <div>
+                                <h3>Just Lazy</h3>
+                                <p>Use the menu to get to the slot machine.</p>
+                            </div>
+                        </li>
+                        <li data-achivementId="43" class="achivement-box">
+                            <h1>🌈</h1>
+                            <div>
+                                <h3>Just a Dream</h3>
+                                <p>Get ALL of the slot machine achievements.</p>
                             </div>
                         </li>
                     </div>
@@ -459,6 +686,34 @@
                 </div>
             </section>
 
+            <section id="slotLootbox" class="slot-lootbox large-cont">
+                <h2>Lootbox</h2>
+                <div class="lootbox slot">
+                    <div class="cont">
+                        <h1>7️⃣</h1>
+                        <h1>8️⃣</h1>
+                        <h1>9️⃣</h1>
+                        <h1>🔟</h1>
+                        <h1>💻</h1>
+                        <h1>1️⃣</h1>
+                        <h1>2️⃣</h1>
+                        <h1>3️⃣</h1>
+                        <h1 class="lb-n n-1">4️⃣</h1>
+                        <h1 class="lb-n n">5️⃣</h1>
+                        <h1 class="lb-n n+1">6️⃣</h1>
+                        <h1>7️⃣</h1>
+                        <h1>8️⃣</h1>
+                        <h1>9️⃣</h1>
+                        <h1>🔟</h1>
+                        <h1>💻</h1>
+                        <h1>1️⃣</h1>
+                        <h1>2️⃣</h1>
+                        <h1>3️⃣</h1>
+                    </div>
+                </div>
+                <button class="buy-lootbox slot secondary yellow">$250</button>
+            </section>
+
             <section class="unlocked-trophies large-cont hidden">
                 <h2>Unlocked Trophies</h2>
                 <div class="flexbox">
@@ -541,6 +796,7 @@
             <h1>You Win!</h1>
             <h2>Congratulations!</h2>
             <h3>You've beat the game but there is still more you can do.</h3>
+            <h4>You got all upgrades, drips, and themes! This is a big accomplishment!</h4>
             <button class="primary yellow play-again">Keep Playing!</button>
         </section>
         <section class="game-over-screen lose hidden large-cont">
@@ -550,14 +806,28 @@
             <button class="primary red game-lose">Reset Game</button>
         </section>
 
+        <div id="hackingTerminal" class="hacking-terminal large-cont hidden">
+            <h2>Hacking Terminal</h2>
+                <div class="terminal-output">
+                    <p>Welcome to the Hacking Terminal.</p>
+                    <p>Type 'help' for a list of commands.</p>
+                    <p class="last-login">Last login: 2026-01-01 00:00:00 from an unknown IP.</p>
+                    <div class="terminal-input">
+                        <span class="prompt">> </span><input type="text" placeholder="Start hacking..." class="input-field ht" maxlength="20">
+                    </div>
+                    <div class="terminal-history"></div>
+                </div>
+            </div>
+        </div>
+
         <div id="settings" class="settings large-cont">
             <h2>Settings</h2>
             <div class="flexbox">
                 <button onclick="checkMuteToggle(this)" class="mute-btn secondary">&nbsp;Mute&nbsp;</button>
                 <button onclick="showAdvancedMute(this)" class="advanced-mute teritry">Show Advanced Mute</button>
-                <button onclick="saveGameToJSON()" class="secondary green save-to-json">Save to JSON</button>
-                <button onclick="saveGameToTXT()" class="secondary green save-to-txt">Save to TXT</button>
-                <button onclick="loadGame()" class="secondary yellow load-game">Load Game</button>
+                <button disabled onclick="saveGameToJSON()" class="secondary green save-to-json">Save to JSON</button>
+                <button disabled onclick="saveGameToTXT()" class="secondary green save-to-txt">Save to TXT</button>
+                <button disabled onclick="loadGame()" class="secondary yellow load-game">Load Game</button>
                 <button onclick="resetGameAsk()" class="secondary red " id="resetGameBtn">Reset Game</button>
             </div>
             <div class="advanced-mute-cont hidden">
@@ -582,10 +852,31 @@
             </div>
         </div>
 
-        <div class="credits">
+        <div class="cheats-menu-background background large-cont">
+            <div class="cheats-menu">
+                <h3 onclick="cheatsClose()">✖</h3>
+                <h2>Admin Panel</h2>
+                <div class="flexbox">
+                    <button class="get-money green" onclick="cheatsGetCurrency('money')">Get Money</button>
+                    <button class="get-crypto primary" onclick="cheatsGetCurrency('crypto')">Get Crypto</button>
+                    <button class="get-stardust yellow" onclick="cheatsGetCurrency('stardust')">Get Stardust</button>
+                </div>
+                <div class="flexbox">
+                    <button class="unlock-all-achievements red" onclick="cheatsUnlockAllAchievements()">Unlock All Achievements</button>
+                </div>
+                <div class="flexbox">
+                    <button class="edit-all-text" onclick="cheatsEditAllText(this)">Enable Text Editing</button>
+                </div>
+            </div>
+        </div>
+        <button class="toggle-cheats secondary hidden" onclick="toggleCheatsDiv()">Toggle Cheats</button>
+
+        <div onclick="unlockAchievement(38)" class="credits">
             <h3>Credits</h3>
             <p>Game developed by <strong><i><a href="https://arpan-shah-102.github.io/" target="_blank">Arpan Shah</a></i></strong>.</p>
+            <p>Slot Lootbox backgrounds from <strong><i>Carson Montes</i></strong>.</p>
             <p>Sound assets from <strong><i><a href="https://pixabay.com/sound-effects/" target="_blank">Pixaby</a></i></strong>.</p>
+            <p>Special thanks to <strong><i>my family members</i></strong> for providing some special slot sfx.</p>
             <p class="copyright">&copy; 2026 Arpan Shah. All rights reserved.</p>
         </div>
 
@@ -594,33 +885,17 @@
             document.querySelector('.copyright').innerHTML = `&copy; ${year} Arpan Shah. All rights reserved.`;
         </script>
 
-        <!-- <button class="primary">Primary</button>
-        <button disabled class="primary">Primary</button>
-        <button class="secondary">Secondary</button>
-        <button disabled class="secondary">Secondary</button>
-        <button class="teritry">Teritry</button>
-        <button disabled class="teritry">Teritry</button>
-        <button class="red">Red</button>
-        <button disabled class="red">Red</button>
-        <button class="red secondary">Red</button>
-        <button disabled class="red secondary">Red</button>
-        <button class="yellow">Yellow</button>
-        <button disabled class="yellow">Yellow</button>
-        <button class="yellow secondary">Yellow</button>
-        <button disabled class="yellow secondary">Yellow</button>
-        <button class="green">Green</button>
-        <button disabled class="green">Green</button>
-        <button class="green secondary">Green</button>
-        <button disabled class="green secondary">Green</button> -->
-
-        <p class="version-label">V1</p>
+        <p onclick="unlockAchievement(39)" class="version-label">V2.0</p>
 
         <script src="./js/utils.js"></script>
         <script src="./js/sfx-manager.js"></script>
+        <script src="./js/achievement-manager.js"></script>
+        <script src="./js/hack-terminal-function.js"></script>
         <script src="./js/navbar.js"></script>
         <script src="./js/slot-machine.js"></script>
         <script src="./js/crypto.js"></script>
         <script src="./js/the-world.js"></script>
+        <script src="./js/cheats.js"></script>
         <script src="./js/main.js"></script>
     </body>
 </html>

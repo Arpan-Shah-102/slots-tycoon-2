@@ -69,16 +69,16 @@ function formatMoney(amount, type = 'm') {
     }
 }
 
-function delayAlert(msg) {
+function delayAlert(msg, timeout = 50) {
     setTimeout(() => {
         alert(msg);
-    }, 50);
+    }, timeout);
 }
 
 function getAchievementsUnlocked() {
     return JSON.parse(localStorage.getItem('achievementsUnlocked')) || [];
 }
-function unlockAchievement(id) {
+function unlockAchievementLocalStorage(id) {
     const achievementsUnlocked = getAchievementsUnlocked();
     if (!achievementsUnlocked.includes(id)) {
         achievementsUnlocked.push(id);
@@ -86,8 +86,37 @@ function unlockAchievement(id) {
     }
 }
 function isAchievementUnlocked(id) {
-    const achievementsUnlocked = getAchievementsUnlocked();
-    return achievementsUnlocked.includes(id);
+    return getAchievementsUnlocked().includes(id);
+}
+
+function incrementAchievementProgress(lsKey, getFunc) {
+    let unlocked = getFunc();
+    unlocked += 1;
+    localStorage.setItem(lsKey, unlocked);
+}
+function getSlotsAchievementsUnlocked() {
+    return parseInt(localStorage.getItem('slotsAchievementsUnlocked')) || 0;
+}
+function incrementSlotsAchievementsUnlocked() {
+    incrementAchievementProgress('slotsAchievementsUnlocked', getSlotsAchievementsUnlocked);
+}
+function getCryptoAchievementsUnlocked() {
+    return parseInt(localStorage.getItem('cryptoAchievementsUnlocked')) || 0;
+}
+function incrementCryptoAchievementsUnlocked() {
+    incrementAchievementProgress('cryptoAchievementsUnlocked', getCryptoAchievementsUnlocked);
+}
+function getWorldAchievementsUnlocked() {
+    return parseInt(localStorage.getItem('worldAchievementsUnlocked')) || 0;
+}
+function incrementWorldAchievementsUnlocked() {
+    incrementAchievementProgress('worldAchievementsUnlocked', getWorldAchievementsUnlocked);
+}
+function getExtrasAchievementsUnlocked() {
+    return parseInt(localStorage.getItem('extrasAchievementsUnlocked')) || 0;
+}
+function incrementExtrasAchievementsUnlocked() {
+    incrementAchievementProgress('extrasAchievementsUnlocked', getExtrasAchievementsUnlocked);
 }
 
 function getTheme() {
@@ -147,6 +176,8 @@ function setAdvancedMute(type, value) {
     localStorage.setItem('advancedMute', JSON.stringify(advancedMute));
 }
 
+let gamemodeSelected = 'slot-machine';
+
 // Slot Machine
 
 function isGameWon() {
@@ -157,7 +188,7 @@ function setGameWon() {
 }
 
 function getSlotSymbols() {
-    return JSON.parse(localStorage.getItem('slotSymbols')) || ['7️⃣', '💎', '🍒', '🍀', '💵', '👑', '🎰', '🍇', '⭐', '💰', '🍉', '🪙'];
+    return JSON.parse(localStorage.getItem('slotSymbols')) || ['7️⃣', '💎', '🍒', '💵', '👑', '🎰', '🍀', '🍇', '⭐'];
 }
 function removeSlotSymbol() {
     const symbols = getSlotSymbols();
@@ -229,6 +260,7 @@ function getThemeBonusValues() {
         'fire': [0.75, 0, 0], 'ice': [0.75, 0, 0], 'nature': [0.75, 0, 0], 'space': [2.5, 0, 0], 'cosmic': [5.99, 0, 0], 'godly': [7.77, 0, 0],
         // crypto values
         // the world values
+        'slot-bg-1': [-2.5, 100, 0], 'slot-bg-2': [-2.5, 100, 0], 'slot-bg-3': [-2.5, 100, 0], 'slot-bg-4': [-2.5, 100, 0], 'slot-bg-5': [-2.5, 100, 0], 'slot-bg-6': [-2.5, 0, 1], 'slot-bg-7': [-2.5, 0, 1], 'slot-bg-8': [-2.5, 0, 1], 'slot-bg-9': [-2.5, 0, 1], 'slot-bg-10': [-2.5, 0, 1],
     }
 }
 function getBonusAndVanityThemes() {
@@ -253,4 +285,56 @@ function unlockSlotTrophy(trophy) {
 function isSlotTrophyUnlocked(trophy) {
     const trophies = slotTrophiesUnlocked();
     return trophies.includes(trophy);
+}
+
+function getSlotLootboxPrizes() {
+    return JSON.parse(localStorage.getItem('slotLootboxPrizes')) || ['slot-bg-1', 'slot-bg-2', 'slot-bg-3', 'slot-bg-4', 'slot-bg-5', 'slot-bg-6', 'slot-bg-7', 'slot-bg-8', 'slot-bg-9', 'slot-bg-10', 'hacking-terminal'];
+}
+function changeSlotLootboxPrize(prize, index) {
+    const prizes = getSlotLootboxPrizes();
+    prizes[index] = prize;
+    localStorage.setItem('slotLootboxPrizes', JSON.stringify(prizes));
+}
+function isHackingTerminalUnlocked() {
+    return getSlotLootboxPrizes().includes('hacking-terminal');
+}
+function getSlotLootboxIcons() {
+    return JSON.parse(localStorage.getItem('slotLootboxIcons')) || ['7️⃣', '8️⃣', '9️⃣', '🔟', '💻', '1️⃣', '2️⃣', '3️⃣', '4️⃣', '5️⃣', '6️⃣', '7️⃣', '8️⃣', '9️⃣', '🔟', '💻', '1️⃣', '2️⃣', '3️⃣'];
+}
+function changeSlotLootboxIcon(icon, index) {
+    const icons = getSlotLootboxIcons();
+    icons[index] = icon;
+    localStorage.setItem('slotLootboxIcons', JSON.stringify(icons));
+}
+function isHackingTerminalUnlocked() {
+    return !getSlotLootboxPrizes().includes('hacking-terminal');
+}
+
+function getAmountDonatedToYahu() {
+    return parseInt(localStorage.getItem('amountDonatedToYahu')) || 0;
+}
+function donateToYahu() {
+    let amountDonatedToYahu = getAmountDonatedToYahu();
+    amountDonatedToYahu += 50;
+    localStorage.setItem('amountDonatedToYahu', amountDonatedToYahu);
+}
+
+function getDailyPrizeDateClaimed() {
+    return localStorage.getItem('dailyPrizeDateClaimed') || 10000000;
+}
+function setDailyPrizeDateClaimed(date) {
+    localStorage.setItem('dailyPrizeDateClaimed', date);
+}
+function getVaultMessage() {
+    return localStorage.getItem('vaultMessage') || '';
+}
+function setVaultMessage(message) {
+    localStorage.setItem('vaultMessage', message);
+}
+
+function isTheFunRuined() {
+    return JSON.parse(localStorage.getItem('theFunRuined')) || false;
+}
+function ruinTheFunSet() {
+    localStorage.setItem('theFunRuined', true);
 }

@@ -36,6 +36,12 @@ if (isTheWorldUnlocked()) {
     stardustExchanges.forEach(exchange => exchange.classList.remove('hidden'));
 }
 
+if (isHackingTerminalUnlocked()) {
+    hackingTerminalDiv.classList.remove('hidden');
+    hackingTerminalLink.classList.remove('hidden');
+    setLastLoginWithIP();
+}
+
 const gameModePrices = [0, 7777.77, 1234567];
 selectors.forEach((selector, index) => {
     addBaseSFX(selector);
@@ -72,9 +78,18 @@ selectors.forEach((selector, index) => {
         theWorldLinks.classList.add('hidden');
         links[index].classList.remove('hidden');
 
-        if (index == 0) {moneyLabel.textContent = formatMoney(getMoney());}
-        else if (index == 1) {moneyLabel.textContent = formatMoney(getCrypto(), 'c');}
-        else if (index == 2) {moneyLabel.textContent = formatMoney(getStardust(), 's');}
+        if (index == 0) {
+            moneyLabel.textContent = formatMoney(getMoney());
+            gamemodeSelected = 'slot-machine';
+        }
+        else if (index == 1) {
+            moneyLabel.textContent = formatMoney(getCrypto(), 'c');
+            gamemodeSelected = 'crypto';
+        }
+        else if (index == 2) {
+            moneyLabel.textContent = formatMoney(getStardust(), 's');
+            gamemodeSelected = 'the-world';
+        }
 
         if (slotMachineLinks.classList.contains('hidden')) {
             clearInterval(autoSpinInterval);

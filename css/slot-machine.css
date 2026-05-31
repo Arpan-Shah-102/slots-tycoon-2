@@ -1,6 +1,8 @@
+@import url('https://fonts.googleapis.com/css2?family=Source+Code+Pro:ital,wght@0,200..900;1,200..900&display=swap');
+
 body.light {
     & .slot-upgrades-section .slot-upgrade {
-        background-color: rgba(255, 255, 255, 0.5);
+        background-color: rgba(255, 255, 255);
         border: 2px solid #333;
     }
     & .slot-stats .table-itm {
@@ -186,6 +188,67 @@ body.light {
     }
 }
 
+.hacking-terminal.hidden {
+    display: none;
+}
+.hacking-terminal > div {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    gap: 20px;
+    text-align: center;
+    line-height: 1.5;
+
+    & .prompt {
+        color: teal;
+        font-weight: bold;
+    }
+}
+.ht {
+    background-color: transparent;
+    color: #0f0;
+    border: 2px solid teal;
+    font-family: 'Source Code Pro', monospace;
+    border-radius: 8px;
+    padding: 4px 8px;
+
+    &::placeholder {
+        color: teal;
+        opacity: 0.5;
+    }
+    &:focus {
+        caret-color: teal;
+        outline: 1px solid #0f0;
+    }
+}
+.terminal-history {
+    display: flex;
+    flex-direction: column-reverse;
+    color: teal;
+    background-color: rgb(19, 19, 20);
+    border-radius: 8px;
+    margin-top: -4px;
+
+    & > p {
+        line-height: 1.1;
+        margin: 6px 12px;
+
+        &:first-child {
+            margin-bottom: 12px;
+        }
+        &:last-child {
+            margin-top: 12px;
+        }
+        & > .code {
+            color: #0f0;
+            font-family: 'Source Code Pro', monospace;
+            font-size: 12px;
+            line-height: 1.2;
+        }
+    }
+}
+
 @keyframes spinning {
     0% {
         transform: translateY(-50px);
@@ -323,6 +386,35 @@ body.light {
     text-align: center;
 
     & > * {margin: 0;}
+}
+
+.lootbox {
+    background-color: gray;
+    border: 4px solid black;
+    border-radius: 12px;
+    width: 200px;
+    overflow-x: hidden;
+    box-shadow: inset 0px 0px 20px rgba(0, 0, 0);
+
+    & .cont {
+        display: flex;
+        justify-content: center;
+    }
+    &.opening > .cont {
+        animation: opening 1s infinite linear;
+    }
+}
+
+@keyframes opening {
+    0% {
+        transform: translate(-150%);
+    }
+    50% {
+        transform: translate(0%);
+    }
+    100% {
+        transform: translate(150%);
+    }
 }
 
 @media (max-width: 400px) {

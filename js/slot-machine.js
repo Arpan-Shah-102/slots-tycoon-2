@@ -1,15 +1,3 @@
-const slotSfx = {
-    spin: new Audio(sfxPathSlots + 'spin.mp3'),
-    jackpot: new Audio(sfxPathSlots + 'jackpot.mp3'),
-    nearMiss: new Audio(sfxPathSlots + 'near-miss.mp3'),
-    ding: new Audio(sfxPathSlots + 'ding.mp3'),
-    upgrade: new Audio(sfxPathSlots + 'upgrade.mp3'),
-    getTheme: new Audio(sfxPathSlots + 'get-theme.mp3'),
-    getDrip: new Audio(sfxPathSlots + 'get-drip.mp3'),
-    exchange: new Audio(sfxPathSlots + 'exchange.mp3'),
-    getTrophy: new Audio(sfxPathSlots + 'get-trophy.mp3'),
-}
-
 const slotDisplays = document.querySelectorAll('.reel > p');
 const slotTerminal = document.querySelector('.result-message');
 const gWinLabel = document.querySelector('.g-win');
@@ -65,7 +53,12 @@ function spinSlots() {
     calcMoney(-10 + getSlotsStats().upgrades.cashback + getSlotsStats().dripBonus + getSlotsStats().themeBonus);
     moneyLabel.textContent = formatMoney(getMoney());
     setSlotsStats('spins', getSlotsStats().spins + 1);
+    unlockAchievement(0);
     playSound(slotSfx.spin);
+    if (getSlotsStats().spins == 10) {unlockAchievement(1);}
+    else if (getSlotsStats().spins == 100) {unlockAchievement(23);}
+    else if (getSlotsStats().spins == 1000) {unlockAchievement(24);}
+    else if (getSlotsStats().spins == 10000) {unlockAchievement(25);}
 
     spinLever.classList.add('spinning');
     slotDisplays.forEach(display => {
@@ -109,13 +102,21 @@ function spinSlots() {
             moneyLabel.textContent = formatMoney(getMoney());
             playSound(slotSfx.jackpot);
             setSlotsStats('jackpots', getSlotsStats().jackpots + 1);
-        } else if (reelResults[0] == reelResults[1] || reelResults[1] == reelResults[2] || reelResults[0] == reelResults[2]) {
+
+            if (getSlotsStats().jackpots == 1) {unlockAchievement(3);}
+            else if (getSlotsStats().jackpots == 10) {unlockAchievement(26);}
+            else if (getSlotsStats().jackpots == 100) {unlockAchievement(27);}
+            if (reelResults.every(s => s == '7️⃣')) {unlockAchievement(36);}
+        }
+        else if (reelResults[0] == reelResults[1] || reelResults[1] == reelResults[2] || reelResults[0] == reelResults[2]) {
             slotTerminal.textContent = 'Near Miss! You win ' + formatMoney(getSlotsStats().upgrades.payout[0]) + '!';
             calcMoney(getSlotsStats().upgrades.payout[0]);
             moneyLabel.textContent = formatMoney(getMoney());
             playSound(slotSfx.nearMiss);
             setSlotsStats('nearMisses', getSlotsStats().nearMisses + 1);
-        } else {
+            unlockAchievement(2);
+        }
+        else {
             slotTerminal.textContent = 'No win. Try again!';
         }
 
@@ -141,6 +142,7 @@ slotUpgrades.forEach((upgrade, index) => {
                 moneyLabel.textContent = formatMoney(getMoney());
                 unlockAutoSpin();
                 playSound(slotSfx.upgrade);
+                unlockAchievement(5);
                 updateSlotUI();
                 gameOverCheck();
             }
@@ -162,6 +164,8 @@ slotUpgrades.forEach((upgrade, index) => {
                 moneyLabel.textContent = formatMoney(getMoney());
                 upgradeFunctions[index - 1]();
                 playSound(slotSfx.upgrade);
+                unlockAchievement(4);
+                if (getSlotUpgradeLevels()[upgradeType] == 5) {unlockAchievement(5 + index);}
                 updateSlotUI();
                 gameOverCheck();
                 return;
@@ -215,6 +219,10 @@ allDripConts.forEach((cont, index) => {
         unlockDrip(item);
         setSlotsStats('dripBonus', getSlotsStats().dripBonus + (price / (1000 - index)));
         playSound(slotSfx.getDrip);
+        unlockAchievement(10);
+        if ([11, 14, 16, 24].includes(index)) {unlockAchievement(37);}
+        if (getDripUnlocked().length == allDripConts.length) {unlockAchievement(11);}
+        if (getSlotsStats().dripBonus >= 5) {unlockAchievement(28);}
         updateSlotUI();
         gameOverCheck();
     });
@@ -264,6 +272,11 @@ shopThemes.forEach(theme => {
         calcMoney(-themePrice);
         moneyLabel.textContent = formatMoney(getMoney());
         unlockTheme(themeName);
+        unlockAchievement(12);
+        if (getThemeBonusValues()[themeName][0] >= 5) {unlockAchievement(13);}
+        if (themeName == 'godly') {unlockAchievement(35);}
+        if (shopThemes.every(t => isThemeUnlocked(t.dataset.theme))) {unlockAchievement(14);}
+
         setBonusOrVanityTheme('bonus', themeName);
         setSlotsStats('themeBonus', getThemeBonusValues()[themeName][0] || 0);
         setBonusOrVanityTheme('vanity', themeName);
@@ -298,6 +311,10 @@ exchangeDivs.forEach((div, index) => {
         else if (index == 1) {calcStardust(value);}
         moneyLabel.textContent = formatMoney(getMoney());
         playSound(slotSfx.exchange);
+
+        if (price >= 13.5 && index == 0) {unlockAchievement(31);}
+        else if (price <= 11.5 && index == 0) {unlockAchievement(32);}
+
         price = +(base * (1 + (Math.random() * 0.2 - 0.1))).toFixed(2);
         priceSpan.textContent = `${formatMoney(price)}`;
     });
@@ -320,10 +337,76 @@ trophies.forEach((trophy, index) => {
         calcMoney(-trophyPrices[index]);
         moneyLabel.textContent = formatMoney(getMoney());
         unlockSlotTrophy(index);
+        unlockAchievement(18 + index);
         playSound(slotSfx.getTrophy);
         updateSlotUI();
         gameOverCheck();
     });
+});
+
+const slotLootboxDiv = document.querySelector('.slot.lootbox');
+const slotLBNumber = slotLootboxDiv.querySelectorAll('.lb-n');
+const slotLBTxt = slotLootboxDiv.querySelectorAll('h1');
+const buyLootboxBtn = document.querySelector('.buy-lootbox');
+
+const hackingTerminalDiv = document.querySelector('.hacking-terminal');
+const hackingTerminalLink = document.querySelector('.hacking-terminal-link');
+
+buyLootboxBtn.addEventListener('click', () => {
+    if (!enoughMoney(250)) {
+        delayAlert('Not enough money to buy a lootbox!');
+        playSound(baseSfx.denied);
+        return;
+    }
+    calcMoney(-250);
+    moneyLabel.textContent = formatMoney(getMoney());
+    buyLootboxBtn.disabled = true;
+    playSound(slotSfx.buyLootbox);
+    slotLootboxDiv.classList.add('opening');
+    const lbPrize = Math.floor(Math.random() * 11);
+    slotLBNumber[0].textContent = getSlotLootboxIcons()[8];
+    slotLBNumber[1].textContent = getSlotLootboxIcons()[9];
+    slotLBNumber[2].textContent = getSlotLootboxIcons()[10];
+
+    setTimeout(() => {playSound(slotSfx.lootboxOpening);}, 250);
+
+    setTimeout(() => {
+        slotLootboxDiv.classList.remove('opening');
+        slotLBNumber[0].textContent = getSlotLootboxIcons()[lbPrize + 4];
+        slotLBNumber[1].textContent = getSlotLootboxIcons()[lbPrize + 5];
+        slotLBNumber[2].textContent = getSlotLootboxIcons()[lbPrize + 6];
+        delayAlert(`Congratulations! You won ${getSlotLootboxPrizes()[lbPrize] == 'hacking-terminal' ? 'the hacking terminal' : isFinite(getSlotLootboxPrizes()[lbPrize]) ? `$${getSlotLootboxPrizes()[lbPrize]}.00` : 'background '+ (lbPrize + 1)}!`)
+        unlockAchievement(15);
+
+        if (getSlotLootboxPrizes()[lbPrize] == 'hacking-terminal') {
+            changeSlotLootboxPrize(500, lbPrize);
+            changeSlotLootboxIcon('💸', lbPrize + 5);
+            changeSlotLootboxIcon('💸', 4);
+            unlockAchievement(16);
+            slotLBNumber[1].textContent = '💸';
+            hackingTerminalDiv.classList.remove('hidden');
+            hackingTerminalLink.classList.remove('hidden');
+            setLastLoginWithIP();
+        }
+        else if (isFinite(getSlotLootboxPrizes()[lbPrize])) {
+            calcMoney(getSlotLootboxPrizes()[lbPrize]);
+            moneyLabel.textContent = formatMoney(getMoney());
+        }
+        else {
+            unlockTheme(getSlotLootboxPrizes()[lbPrize]);
+            setBonusOrVanityTheme('vanity', getSlotLootboxPrizes()[lbPrize]);
+            generateThemeOptions();
+            changeSlotLootboxPrize(150, lbPrize);
+            changeSlotLootboxIcon('💵', lbPrize + 5);
+            if (lbPrize != 4 && lbPrize != 5 && lbPrize != 6) {
+                changeSlotLootboxIcon('💵', (lbPrize + 16) % 19);
+            }
+        }
+        if (getSlotLootboxPrizes().every(p => p.isFinite)) {unlockAchievement(17);}
+        playSound(slotSfx.winLootbox);
+        buyLootboxBtn.disabled = false;
+        updateSlotUI();
+    }, 3000);
 });
 
 const slotStats = document.querySelectorAll('.slot-stats .table-itm > .stat');
@@ -415,6 +498,13 @@ function updateSlotUI() {
             trophiesFlexbox.innerHTML += `<h1>${trophyIcons[trophyIndex]}</h1>`;
         });
     }
+
+    // lootbox
+    slotLBTxt.forEach((num, index) => {
+        if (index != 8 && index != 9 && index != 10) {
+            num.textContent = getSlotLootboxIcons()[index];
+        }
+    });
 }
 function generateThemeOptions() {
     themeSelect.innerHTML = '';
@@ -433,8 +523,9 @@ function generateThemeOptions() {
     });
 }
 function updateSlotStats() {
+    const slotsStats = getSlotsStats();
+    if (slotsStats.upgrades.cashback + slotsStats.dripBonus + slotsStats.themeBonus >= 10) {unlockAchievement(29);}
     slotStats.forEach((stat, index) => {
-        const slotsStats = getSlotsStats();
         switch (index) {
             case 0:
             case 1:
@@ -462,7 +553,6 @@ function updateSlotStats() {
 }
 
 const slotExchange = document.querySelector('.slot-exchange');
-// const slotExchangeDiv = document.querySelector('.slot-exchange-div');
 
 const gameWinScreen = document.querySelector('.game-over-screen.win');
 const gameLoseScreen = document.querySelector('.game-over-screen.lose');
@@ -475,12 +565,88 @@ gameLoseScreen.querySelector('button').addEventListener('click', () => {
 });
 function gameOverCheck() {
     setTimeout(() => {
+        if (getMoney() < 250) {unlockAchievement(34);}
         if (!isCryptoGamemodeUnlocked() && getMoney() < (10 - getSlotsStats().upgrades.cashback + getSlotsStats().dripBonus + getSlotsStats().themeBonus)) {
             alert("You're out of money I see...");
             playSound(baseSfx.lose);
             gameLoseScreen.classList.remove('hidden');
+            return;
+        }
+        if (!isAchievementUnlocked(22) && isAchievementUnlocked(6) && isAchievementUnlocked(7) && isAchievementUnlocked(8) && isAchievementUnlocked(9) && isAchievementUnlocked(11) && isAchievementUnlocked(14)) {
+            alert("You've gotten gotten all upgrades, drips, and themes I see...");
+            playSound(baseSfx.win);
+            gameWinScreen.classList.remove('hidden');
+            unlockAchievement(22);
         }
     }, 50);
 }
 generateThemeOptions();
 updateSlotUI();
+
+const terminalInput = document.querySelector('.input-field.ht');
+const lastLoginLabel = document.querySelector('.last-login');
+
+async function getIP() {
+    const res = await fetch('https://api.ipify.org?format=json', { cache: 'no-store' });
+    const json = await res.json();
+    return json.ip;
+}
+async function setLastLoginWithIP() {
+    const time = new Date().toLocaleString();
+    try {
+        const ip = await getIP();
+        lastLoginLabel.textContent = `Last Login: ${time} from ${ip}`;
+    } catch {
+        lastLoginLabel.textContent = `Last Login: ${time} from unknown`;
+    }
+}
+
+const commandHistory = [''];
+let commandIndex = 0;
+terminalInput.addEventListener('keydown', async (e) => {
+    if (e.key == 'Enter') {
+        const command = terminalInput.value.trim().toLowerCase();
+        if (command == '') {terminalInput.blur(); return;}
+        terminalInput.value = '';
+        let success = false;
+        unlockAchievement(21);
+        commandHistory.pop();
+        commandHistory.push(command);
+        commandHistory.push('');
+        commandIndex = commandHistory.length - 1;
+
+        commandNames.forEach((name, index) => {
+            if (command == name || command == commandAbbreviations[index]) {
+                allCommands[index]();
+                success = true;
+                gameOverCheck();
+            }
+        });
+        if (!success) {
+            delayAlert('Unknown command. Type "help" for a list of commands.');
+            playSound(baseSfx.denied);
+        }
+
+        if (command != 'cth' && command != 'clearterminalhistory') {
+            const ip = await getIP();
+            const newTerminalEntry = document.createElement('p');
+            newTerminalEntry.innerHTML = `> <span class="code">${command}</span><br>Status - ${success ? 'Success' : 'Failed'}${success ? `<br>Command Executed: ${fullCommandNames[commandNames.indexOf(command)] || fullCommandNames[commandAbbreviations.indexOf(command)]}` : ''}<br>Time Stamp - ${new Date().toLocaleTimeString()}<br>Connection - ${ip || 'unknown'}`;
+            terminalHistory.appendChild(newTerminalEntry);
+            setLastLoginWithIP();
+        }
+    } else if (e.key === 'ArrowUp') {
+        e.preventDefault();
+        commandIndex--;
+        if (commandIndex < 0) commandIndex = 0;
+        terminalInput.value = commandHistory[commandIndex] || '';
+        terminalInput.focus();
+        terminalInput.setSelectionRange(terminalInput.value.length, terminalInput.value.length);
+    } else if (e.key === 'ArrowDown') {
+        e.preventDefault();
+        commandIndex++;
+        if (commandIndex >= commandHistory.length) commandIndex = commandHistory.length - 1;
+        terminalInput.value = commandHistory[commandIndex] || '';
+        terminalInput.focus();
+        terminalInput.setSelectionRange(terminalInput.value.length, terminalInput.value.length);
+    }
+});

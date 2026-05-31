@@ -4,6 +4,19 @@ body {
     &.light .theme {
         color: white
     }
+    &.slot-bg-1 {background: url('../assets/images/slot-backgrounds/slot-bg-1.webp');}
+    &.slot-bg-2 {background: url('../assets/images/slot-backgrounds/slot-bg-2.webp');}
+    &.slot-bg-3 {background: url('../assets/images/slot-backgrounds/slot-bg-3.webp');}
+    &.slot-bg-4 {background: url('../assets/images/slot-backgrounds/slot-bg-4.webp');}
+    &.slot-bg-5 {background: url('../assets/images/slot-backgrounds/slot-bg-5.webp');}
+    &.slot-bg-6 {background: url('../assets/images/slot-backgrounds/slot-bg-6.webp');}
+    &.slot-bg-7 {background: url('../assets/images/slot-backgrounds/slot-bg-7.webp');}
+    &.slot-bg-8 {background: url('../assets/images/slot-backgrounds/slot-bg-8.webp');}
+    &.slot-bg-9 {background: url('../assets/images/slot-backgrounds/slot-bg-9.webp');}
+    &.slot-bg-10 {background: url('../assets/images/slot-backgrounds/slot-bg-10.webp');}
+    &.slot-bg-1, &.slot-bg-2, &.slot-bg-3, &.slot-bg-4, &.slot-bg-5, &.slot-bg-6, &.slot-bg-7, &.slot-bg-8, &.slot-bg-9, &.slot-bg-10 {
+        color: white;
+    }
 }
 
 @property --godly-spin {
