@@ -62,8 +62,6 @@ slots-tycoon-2/     # main project directory
 
 ## Update Log
 
-// Crypto Cat - battle cats reference
-
 ### Update V2.0 - 5/30/2026
 1. Added Lootbox
 2. Added Hacking Terminal (25+ commands)
