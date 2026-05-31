@@ -168,7 +168,7 @@ function setMasterVolume(volume) {
     localStorage.setItem('masterVolume', volume);
 }
 function getAdvancedMute() {
-    return JSON.parse(localStorage.getItem('advancedMute')) || { 'click-1': true, 'click-2': true, 'win': true, 'lose': true, 'denied': true, 'spin': true, 'jackpot': true, 'near-miss': true, 'ding': true, 'upgrade': true, 'get-theme': true, 'get-drip': true, 'get-trophy': true, 'exchange': true };
+    return JSON.parse(localStorage.getItem('advancedMute')) || { 'click-1': false, 'click-2': false, 'win': false, 'lose': false, 'denied': false, 'notify': false, 'achievement': false, 'cheat': false, 'spin': false, 'jackpot': false, 'near-miss': false, 'ding': false, 'upgrade': false, 'get-theme': false, 'get-drip': false, 'get-trophy': false, 'exchange': false, 'lootbox-opening': false, 'buy-lootbox': false, 'bizarre-1': false, 'bizarre-2': false, 'bizarre-3': false, 'bizarre-4': false, 'fart-1': false, 'fart-2': false, 'fart-3': false, 'fart-4': false, 'fart-5': false, 'fart-6': false };
 }
 function setAdvancedMute(type, value) {
     const advancedMute = getAdvancedMute();

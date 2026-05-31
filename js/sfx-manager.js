@@ -93,7 +93,7 @@ function playSound(sfx) {
     if (isMuted()) return;
     const sfxSrcSplit = sfx.src.split('/');
     const sfxName = sfxSrcSplit[sfxSrcSplit.length - 1].split('.')[0];
-    if (!getAdvancedMute()[sfxName]) return;
+    if (getAdvancedMute()[sfxName]) return;
     const audio = sfx.cloneNode();
     audio.volume = getMasterVolume() / 100;
     audio.play();
@@ -137,10 +137,10 @@ function showAdvancedMute(btn) {
     advancedMuteSettings.classList.toggle('hidden');
 }
 advancedMuteSettings.querySelectorAll('.flexbox > label > input').forEach(input => {
-    input.checked = getAdvancedMute()[input.dataset.sound];
+    input.checked = !getAdvancedMute()[input.dataset.sound];
     addBaseSFX(input.parentElement);
     input.addEventListener('change', () => {
         const sound = input.dataset.sound;
-        setAdvancedMute(sound, input.checked);
+        setAdvancedMute(sound, !input.checked);
     });
 });
