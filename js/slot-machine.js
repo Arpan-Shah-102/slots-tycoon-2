@@ -275,7 +275,7 @@ shopThemes.forEach(theme => {
         unlockAchievement(12);
         if (getThemeBonusValues()[themeName][0] >= 5) {unlockAchievement(13);}
         if (themeName == 'godly') {unlockAchievement(35);}
-        if (shopThemes.every(t => isThemeUnlocked(t.dataset.theme))) {unlockAchievement(14);}
+        if ([...shopThemes].every(t => isThemeUnlocked(t.dataset.theme))) {unlockAchievement(14);}
 
         setBonusOrVanityTheme('bonus', themeName);
         setSlotsStats('themeBonus', getThemeBonusValues()[themeName][0] || 0);

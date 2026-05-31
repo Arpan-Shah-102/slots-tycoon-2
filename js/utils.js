@@ -162,7 +162,7 @@ function toggleMute() {
 }
 function getMasterVolume() {
     const volume = parseFloat(localStorage.getItem('masterVolume'));
-    return isNaN(volume) ? 100 : volume;
+    return isNaN(volume) ? 50 : volume;
 }
 function setMasterVolume(volume) {
     localStorage.setItem('masterVolume', volume);
