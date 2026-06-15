@@ -63,18 +63,18 @@ const allSpecialSlotSfx = {
         nearMiss: new Audio(sfxPathSlots + 'sfx-3/near-miss.mp3'),
         ding: new Audio(sfxPathSlots + 'sfx-3/ding.mp3'),
     },
-    // sfxSet4: {
-    //     ...defaultSlotSfx,
-    //     spin: new Audio(sfxPathSlots + 'sfx-4/spin.mp3'),
-    //     jackpot: new Audio(sfxPathSlots + 'sfx-4/jackpot.mp3'),
-    //     nearMiss: new Audio(sfxPathSlots + 'sfx-4/near-miss.mp3'),
-    //     ding: new Audio(sfxPathSlots + 'sfx-4/ding.mp3'),
-    // }
+    sfxSet4: {
+        ...defaultSlotSfx,
+        spin: new Audio(sfxPathSlots + 'sfx-4/spin.mp3'),
+        jackpot: new Audio(sfxPathSlots + 'sfx-4/jackpot.mp3'),
+        nearMiss: new Audio(sfxPathSlots + 'sfx-4/near-miss.mp3'),
+        ding: new Audio(sfxPathSlots + 'sfx-4/ding.mp3'),
+    }
 }
 let slotSfx = defaultSlotSfx;
 
 const cryptoSfx = {
-
+    mineCoin: new Audio(sfxPathCrypto + 'mine-coin.mp3'),
 }
 const theWorldSfx = {
 

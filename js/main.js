@@ -42,6 +42,25 @@ if (isHackingTerminalUnlocked()) {
     setLastLoginWithIP();
 }
 
+if (getGamemodeSelected() != 'slot-machine') {
+    sections.forEach(s => s.classList.add('hidden'));
+    selectors.forEach(s => s.classList.remove('selected'));
+    links.forEach(link => link.classList.add('hidden'));
+    
+    if (getGamemodeSelected() == 'crypto') {
+        moneyLabel.textContent = formatMoney(getCrypto(), 'c');
+        cryptoSection.classList.remove('hidden');
+        cryptoSelect.classList.add('selected');
+        cryptoLinks.classList.remove('hidden');
+    }
+    else if (getGamemodeSelected() == 'the-world') {
+        moneyLabel.textContent = formatMoney(getStardust(), 's');
+        theWorldSection.classList.remove('hidden');
+        theWorldSelect.classList.add('selected');
+        theWorldLinks.classList.remove('hidden');
+    }
+}
+
 const gameModePrices = [0, 7777.77, 1234567];
 selectors.forEach((selector, index) => {
     addBaseSFX(selector);
@@ -70,25 +89,24 @@ selectors.forEach((selector, index) => {
         }
         selectors.forEach(s => s.classList.remove('selected'));
         selector.classList.add('selected');
+
         sections.forEach(s => s.classList.add('hidden'));
         sections[index].classList.remove('hidden');
 
-        slotMachineLinks.classList.add('hidden');
-        cryptoLinks.classList.add('hidden');
-        theWorldLinks.classList.add('hidden');
+        links.forEach(link => link.classList.add('hidden'));
         links[index].classList.remove('hidden');
 
         if (index == 0) {
             moneyLabel.textContent = formatMoney(getMoney());
-            gamemodeSelected = 'slot-machine';
+            setGamemodeSelected('slot-machine');
         }
         else if (index == 1) {
             moneyLabel.textContent = formatMoney(getCrypto(), 'c');
-            gamemodeSelected = 'crypto';
+            setGamemodeSelected('crypto');
         }
         else if (index == 2) {
             moneyLabel.textContent = formatMoney(getStardust(), 's');
-            gamemodeSelected = 'the-world';
+            setGamemodeSelected('the-world');
         }
 
         if (slotMachineLinks.classList.contains('hidden')) {
@@ -98,6 +116,7 @@ selectors.forEach((selector, index) => {
             autoSpinBtn.classList.add('green');
             autoSpinBtn.textContent = 'Activate Auto-Spin';
         }
+        toggleMenu();
     });
 });
 

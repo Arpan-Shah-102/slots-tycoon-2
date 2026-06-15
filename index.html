@@ -785,11 +785,106 @@
         </section>
 
         <section class="crypto-game hidden large-game-sect">
-            <main></main>
+            <main class="game-cont large-cont">
+                <div class="crypto-thing">
+                    <h1 class="crypto-click">₡</h1>
+                </div>
+                <p class="crypto-per-click">₡0/click</p>
+                <button class="auto-mine yellow">Start Auto Mine</button>
+            </main>
+
+            <section id="wallet" class="crypto-wallet large-cont">
+                <h2>Wallet</h2>
+                <h4 class="money-owned-temp">$3,000.00</h4>
+                <div class="flexbox">
+                    <div class="big-itm">
+                        <div class="wallet-itm dogecoin">
+                            <h3>Dogecoin</h3>
+                            <img src="./assets/images/crypto/dogecoin.png" alt="Dogecoin Icon">
+                            <p class="give-value">+₡100</p>
+                            <p class="owned">0 owned</p>
+                            <p class="bonus">+₡0/click</p>
+                            <button class="buy primary">$1,000</button>
+                        </div>
+                        <div class="boost dogecoin">
+                            <h3>Boost</h3>
+                            <p class="boost-value">+₡100 ➤ +₡150</p>
+                            <button class="buy-boost secondary">₡20,000</button>
+                        </div>
+                    </div>
+                    <div class="big-itm">
+                        <div class="wallet-itm ethereum">
+                            <h3>Ethereum</h3>
+                            <img src="./assets/images/crypto/ethereum.png" alt="Ethereum Icon">
+                            <p class="give-value">+₡750</p>
+                            <p class="owned">0 owned</p>
+                            <p class="bonus">+₡0/click</p>
+                            <button class="green buy">$7,500</button>
+                        </div>
+                        <div class="boost ethereum">
+                            <h3>Boost</h3>
+                            <p class="boost-value">+₡750 ➤ +₡1,125</p>
+                            <button class="buy-boost green secondary">₡150,000</button>
+                        </div>
+                    </div>
+                    <div class="big-itm">
+                        <div class="wallet-itm bitcoin">
+                            <h3>Bitcoin</h3>
+                            <img src="./assets/images/crypto/bitcoin.png" alt="Bitcoin Icon">
+                            <p class="give-value">+₡2,500</p>
+                            <p class="owned">0 owned</p>
+                            <p class="bonus">+₡0/click</p>
+                            <button class="yellow buy">$50,000</button>
+                        </div>
+                        <div class="boost bitcoin">
+                            <h3>Boost</h3>
+                            <p class="boost-value">+₡2,500 ➤ +₡3,750</p>
+                            <button class="buy-boost yellow secondary">₡500,000</button>
+                        </div>
+                    </div>
+                </div>
+            </section>
+
+            <section id="cryptoStats" class="crypto-stats large-cont">
+                <h2>Stats</h2>
+                <div class="flexbox">
+                    <div class="table-itm">
+                        <h3>Total Clicks</h3>
+                        <p class="clicks stat">0</p>
+                    </div>
+                    <div class="table-itm">
+                        <h3>Coins Owned</h3>
+                        <p class="coinsOwned stat">0</p>
+                    </div>
+                    <div class="table-itm">
+                        <h3>Coin Bonus</h3>
+                        <p class="coinBonus stat">+₡0/click</p>
+                    </div>
+                    <div class="table-itm">
+                        <h3>NFT Bonus</h3>
+                        <p class="nftBonus stat">+₡0/click</p>
+                    </div>
+                    <div class="table-itm">
+                        <h3>Theme Bonus</h3>
+                        <p class="themeBonus stat">+₡0/click</p>
+                    </div>
+                </div>
+            </section>
         </section>
 
         <section class="the-world-game hidden large-game-sect">
-            <main></main>
+            <main>
+                <div class="planet-icon planet-icon-1"></div>
+                <div class="planet-icon planet-icon-2"></div>
+                <div class="planet-icon planet-icon-3"></div>
+                <div class="planet-icon planet-icon-4"></div>
+                <div class="planet-icon planet-icon-5"></div>
+                <div class="planet-icon planet-icon-6"></div>
+                <div class="planet-icon planet-icon-7"></div>
+                <div class="planet-icon planet-icon-8"></div>
+                <div class="planet-icon planet-icon-9"></div>
+                <div class="planet-icon planet-icon-10"></div>
+            </main>
         </section>
 
         <section class="game-over-screen win hidden large-cont">
@@ -853,6 +948,7 @@
                     <label>Cheat: <input checked data-sound="cheat" type="checkbox"></label>
                     <label>Lootbox Opening: <input checked data-sound="lootbox-opening" type="checkbox"></label>
                     <label>Buy Lootbox: <input checked data-sound="buy-lootbox" type="checkbox"></label>
+                    <label>Mine Coin: <input checked data-sound="mine-coin" type="checkbox"></label>
                 </div>
             </div>
         </div>
@@ -890,7 +986,7 @@
             document.querySelector('.copyright').innerHTML = `&copy; ${year} Arpan Shah. All rights reserved.`;
         </script>
 
-        <p onclick="unlockAchievement(39)" class="version-label">V2.0</p>
+        <p onclick="unlockAchievement(39)" class="version-label">V2.3</p>
 
         <script src="./js/utils.js"></script>
         <script src="./js/sfx-manager.js"></script>

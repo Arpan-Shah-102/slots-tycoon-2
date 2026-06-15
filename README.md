@@ -62,6 +62,11 @@ slots-tycoon-2/     # main project directory
 
 ## Update Log
 
+### Update V2.3 - 6/14/2026
+1. Finished Crypto coin section
+2. Added Crypto Stats
+3. Added Coins you can buy in crypto
+
 ### Update V2.0 - 5/30/2026
 1. Added Lootbox
 2. Added Hacking Terminal (25+ commands)

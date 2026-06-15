@@ -168,7 +168,7 @@ function setMasterVolume(volume) {
     localStorage.setItem('masterVolume', volume);
 }
 function getAdvancedMute() {
-    return JSON.parse(localStorage.getItem('advancedMute')) || { 'click-1': false, 'click-2': false, 'win': false, 'lose': false, 'denied': false, 'notify': false, 'achievement': false, 'cheat': false, 'spin': false, 'jackpot': false, 'near-miss': false, 'ding': false, 'upgrade': false, 'get-theme': false, 'get-drip': false, 'get-trophy': false, 'exchange': false, 'lootbox-opening': false, 'buy-lootbox': false, 'bizarre-1': false, 'bizarre-2': false, 'bizarre-3': false, 'bizarre-4': false, 'fart-1': false, 'fart-2': false, 'fart-3': false, 'fart-4': false, 'fart-5': false, 'fart-6': false };
+    return JSON.parse(localStorage.getItem('advancedMute')) || { 'click-1': false, 'click-2': false, 'win': false, 'lose': false, 'denied': false, 'notify': false, 'achievement': false, 'cheat': false, 'spin': false, 'jackpot': false, 'near-miss': false, 'ding': false, 'upgrade': false, 'get-theme': false, 'get-drip': false, 'get-trophy': false, 'exchange': false, 'lootbox-opening': false, 'buy-lootbox': false, 'mine-coin': false, 'bizarre-1': false, 'bizarre-2': false, 'bizarre-3': false, 'bizarre-4': false, 'fart-1': false, 'fart-2': false, 'fart-3': false, 'fart-4': false, 'fart-5': false, 'fart-6': false };
 }
 function setAdvancedMute(type, value) {
     const advancedMute = getAdvancedMute();
@@ -176,7 +176,12 @@ function setAdvancedMute(type, value) {
     localStorage.setItem('advancedMute', JSON.stringify(advancedMute));
 }
 
-let gamemodeSelected = 'slot-machine';
+function getGamemodeSelected() {
+    return localStorage.getItem('gamemodeSelected') || 'slot-machine';
+}
+function setGamemodeSelected(gamemode) {
+    localStorage.setItem('gamemodeSelected', gamemode);
+}
 
 // Slot Machine
 
@@ -337,4 +342,55 @@ function isTheFunRuined() {
 }
 function ruinTheFunSet() {
     localStorage.setItem('theFunRuined', true);
+}
+
+// Crypto
+
+function getCryptoStats() {
+    return JSON.parse(localStorage.getItem('cryptoStats')) || { clicks: 0, coinsOwned: 0, coinBonus: 0, nftBonus: 0, themeBonus: 0 };
+}
+function setCryptoStats(stat, value, set=false) {
+    const cryptoStats = getCryptoStats();
+    cryptoStats[stat] = !set ? cryptoStats[stat] + value : value;
+    localStorage.setItem('cryptoStats', JSON.stringify(cryptoStats));
+}
+
+function getCryptoPerClick() {
+    const cryptoStats = getCryptoStats();
+    let perClick = cryptoStats.coinBonus + cryptoStats.nftBonus + cryptoStats.themeBonus;
+    return perClick;
+}
+
+function getCoinsOwned() {
+    return JSON.parse(localStorage.getItem('coinsOwned')) || [0, 0, 0];
+}
+function setCoinOwned(index, amount) {
+    const coinsOwned = getCoinsOwned();
+    coinsOwned[index] = amount;
+    localStorage.setItem('coinsOwned', JSON.stringify(coinsOwned));
+}
+function getCoinPrices() {
+    return JSON.parse(localStorage.getItem('coinPrices')) || [1000, 7500, 50000];
+}
+function setCoinPrice(index, price) {
+    const coinPrices = getCoinPrices();
+    coinPrices[index] = price;
+    localStorage.setItem('coinPrices', JSON.stringify(coinPrices));
+}
+
+function getCoinsBoostedPrice() {
+    return JSON.parse(localStorage.getItem('coinsBoostedPrice')) || [20000, 150000, 500000];
+}
+function setCoinPriceBoost(index, price) {
+    const coinsBoostedPrice = getCoinsBoostedPrice();
+    coinsBoostedPrice[index] = price;
+    localStorage.setItem('coinsBoostedPrice', JSON.stringify(coinsBoostedPrice));
+}
+function getCoinBonuses() {
+    return JSON.parse(localStorage.getItem('coinBonuses')) || [100, 750, 2500];
+}
+function setCoinBonus(index, bonus) {
+    const coinBonuses = getCoinBonuses();
+    coinBonuses[index] = bonus;
+    localStorage.setItem('coinBonuses', JSON.stringify(coinBonuses));
 }

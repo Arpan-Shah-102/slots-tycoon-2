@@ -30,11 +30,11 @@ function cheatsGetCurrency(currency) {
     } else if (currency === 'stardust') {
         calcWorld(parseInt(currencyAmount));
     }
-    if (gamemodeSelected == 'slot-machine') {
+    if (getGamemodeSelected() == 'slot-machine') {
         moneyLabel.textContent = formatMoney(getMoney());
-    } else if (gamemodeSelected == 'crypto') {
+    } else if (getGamemodeSelected() == 'crypto') {
         cryptoLabel.textContent = formatMoney(getCrypto(), 'c');
-    } else if (gamemodeSelected == 'the-world') {
+    } else if (getGamemodeSelected() == 'the-world') {
         worldLabel.textContent = formatMoney(getWorld(), 'w');
     }
     delayAlert("Transaction successful.");

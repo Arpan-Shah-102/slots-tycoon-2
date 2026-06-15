@@ -491,8 +491,6 @@ function updateSlotUI() {
 
         unlockedTrophies.forEach((trophyIndex, index) => {
             const btn = trophies[trophyIndex].querySelector('button');
-            btn.classList.remove('secondary');
-            btn.classList.add('teritry');
             btn.disabled = true;
             btn.textContent = 'Owned';
             trophiesFlexbox.innerHTML += `<h1>${trophyIcons[trophyIndex]}</h1>`;
@@ -566,7 +564,7 @@ gameLoseScreen.querySelector('button').addEventListener('click', () => {
 function gameOverCheck() {
     setTimeout(() => {
         if (getMoney() < 250) {unlockAchievement(34);}
-        if (!isCryptoGamemodeUnlocked() && getMoney() < (10 - getSlotsStats().upgrades.cashback + getSlotsStats().dripBonus + getSlotsStats().themeBonus)) {
+        if ((!isCryptoGamemodeUnlocked() || isCryptoGamemodeUnlocked() && getCryptoPerClick() <= 0) && getMoney() < (10 - getSlotsStats().upgrades.cashback + getSlotsStats().dripBonus + getSlotsStats().themeBonus)) {
             alert("You're out of money I see...");
             playSound(baseSfx.lose);
             gameLoseScreen.classList.remove('hidden');

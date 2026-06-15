@@ -1,5 +1,5 @@
 function updateMoneyLabelIfSlotMachine() {
-    if (gamemodeSelected === 'slot-machine') {
+    if (getGamemodeSelected() === 'slot-machine') {
         moneyLabel.textContent = formatMoney(getMoney());
     }
 }
@@ -60,14 +60,14 @@ function htDailyPrize() {
         playSound(baseSfx.win);
     } else if (prizeType == '2' || prizeType.toLowerCase() == 'c') {
         calcCrypto(10000);
-        if (gamemodeSelected === 'crypto') {
+        if (getGamemodeSelected() === 'crypto') {
             moneyLabel.textContent = formatMoney(getCrypto(), 'c');
         }
         delayAlert('You claimed ₡10,000 crypto as your daily prize!');
         playSound(baseSfx.win);
     } else if (prizeType == '3' || prizeType.toLowerCase() == 's') {
         calcStardust(1);
-        if (gamemodeSelected === 'the-world') {
+        if (getGamemodeSelected() === 'the-world') {
             moneyLabel.textContent = formatMoney(getStardust(), 's');
         }
         delayAlert('You claimed ✺1 stardust as your daily prize!');
@@ -110,9 +110,9 @@ function htDonate() {
         delayAlert('Yahu is pleased with your generosity. He donates to you ₡1,000,000 and ✺10!\nYahu won\'t feel this generous again so count yourself lucky!', 100);
         calcCrypto(1000000);
         calcStardust(10);
-        if (gamemodeSelected === 'crypto') {
+        if (getGamemodeSelected() === 'crypto') {
             moneyLabel.textContent = formatMoney(getCrypto(), 'c');
-        } else if (gamemodeSelected === 'the-world') {
+        } else if (getGamemodeSelected() === 'the-world') {
             moneyLabel.textContent = formatMoney(getStardust(), 's');
         }
         playSound(baseSfx.win);
@@ -369,11 +369,9 @@ function css3() {
     playSound(slotSfx.jackpot);
 }
 function css4() {
-    // slotSfx = allSpecialSlotSfx.sfxSet4;
-    // delayAlert('Slot machine sound effects changed to set 4!');
-    // playSound(baseSfx.notify);
-    delayAlert('Sound set 4 is currently unavailable. Please choose another sound set or change back to default!');
-    playSound(baseSfx.denied);
+    slotSfx = allSpecialSlotSfx.sfxSet4;
+    delayAlert('Slot machine sound effects changed to set 4!');
+    playSound(slotSfx.jackpot);
 }
 function cssD() {
     slotSfx = defaultSlotSfx;

@@ -1,0 +1,123 @@
+.planet-icon {
+    position: relative;
+    aspect-ratio: 1 / 1;
+    border-radius: 50%;
+    height: 200px;
+    overflow: hidden;
+    isolation: isolate;
+    background: #44506f;
+    box-shadow:
+        inset -10px -14px 22px rgba(0, 0, 0, 0.45),
+        inset 10px 10px 18px rgba(255, 255, 255, 0.12),
+        0 10px 24px rgba(0, 0, 0, 0.22);
+}
+
+.planet-icon::before,
+.planet-icon::after {
+    content: '';
+    position: absolute;
+    inset: 0;
+    border-radius: inherit;
+    pointer-events: none;
+}
+
+.planet-icon::before {
+    background:
+        radial-gradient(circle at 32% 28%, rgba(255, 255, 255, 0.35) 0 8%, rgba(255, 255, 255, 0) 20%),
+        radial-gradient(circle at 68% 72%, rgba(0, 0, 0, 0.28) 0 16%, rgba(0, 0, 0, 0) 36%);
+}
+
+.planet-icon::after {
+    background: radial-gradient(circle at 28% 24%, rgba(255, 255, 255, 0.18) 0 10%, rgba(255, 255, 255, 0) 30%);
+}
+
+.planet-icon-1 {
+    background:
+        radial-gradient(circle at 38% 36%, rgba(255, 255, 255, 0.18) 0 4%, rgba(255, 255, 255, 0) 7%),
+        radial-gradient(circle at 68% 66%, rgba(67, 61, 58, 0.55) 0 12%, rgba(67, 61, 58, 0) 15%),
+        radial-gradient(circle at 28% 74%, rgba(104, 96, 92, 0.5) 0 9%, rgba(104, 96, 92, 0) 13%),
+        linear-gradient(145deg, #b8b3ad 0%, #776f6b 48%, #463f3d 100%);
+}
+
+.planet-icon-2 {
+    background:
+        repeating-linear-gradient(
+            180deg,
+            #f0d08a 0 10%,
+            #d99b44 10% 21%,
+            #bf6b1f 21% 30%,
+            #eebf70 30% 39%,
+            #9e5318 39% 49%,
+            #e7c17f 49% 58%,
+            #8a4415 58% 68%,
+            #f0d08a 68% 78%,
+            #c77b21 78% 88%,
+            #9d5217 88% 100%
+        );
+}
+
+.planet-icon-3 {
+    background:
+        radial-gradient(circle at 24% 68%, rgba(255, 255, 255, 0.16) 0 6%, rgba(255, 255, 255, 0) 12%),
+        radial-gradient(circle at 72% 36%, rgba(255, 255, 255, 0.14) 0 8%, rgba(255, 255, 255, 0) 18%),
+        linear-gradient(145deg, #7fd9ff 0%, #4e95e8 42%, #1f4c9f 100%);
+}
+
+.planet-icon-4 {
+    background:
+        radial-gradient(circle at 30% 28%, rgba(119, 201, 116, 0.78) 0 18%, rgba(119, 201, 116, 0) 25%),
+        radial-gradient(circle at 70% 60%, rgba(48, 126, 59, 0.85) 0 14%, rgba(48, 126, 59, 0) 21%),
+        radial-gradient(circle at 42% 76%, rgba(25, 80, 37, 0.6) 0 9%, rgba(25, 80, 37, 0) 14%),
+        linear-gradient(145deg, #b5ef95 0%, #5fb65d 45%, #2d6d32 100%);
+}
+
+.planet-icon-5 {
+    background:
+        radial-gradient(circle at 34% 32%, rgba(255, 255, 255, 0.22) 0 6%, rgba(255, 255, 255, 0) 12%),
+        radial-gradient(circle at 66% 68%, rgba(110, 77, 170, 0.72) 0 16%, rgba(110, 77, 170, 0) 24%),
+        linear-gradient(145deg, #dfb8ff 0%, #935edb 44%, #53307f 100%);
+}
+
+.planet-icon-6 {
+    background:
+        radial-gradient(circle at 64% 34%, rgba(255, 190, 129, 0.65) 0 12%, rgba(255, 190, 129, 0) 19%),
+        radial-gradient(circle at 28% 70%, rgba(175, 53, 26, 0.75) 0 18%, rgba(175, 53, 26, 0) 25%),
+        linear-gradient(145deg, #ffb36e 0%, #e35d31 42%, #8a1d16 100%);
+}
+
+.planet-icon-7 {
+    background:
+        radial-gradient(circle at 34% 34%, rgba(255, 255, 255, 0.2) 0 5%, rgba(255, 255, 255, 0) 11%),
+        radial-gradient(circle at 72% 72%, rgba(37, 145, 173, 0.7) 0 14%, rgba(37, 145, 173, 0) 21%),
+        linear-gradient(145deg, #9ff1ff 0%, #4fc0d6 45%, #1c6d82 100%);
+}
+
+.planet-icon-8 {
+    background:
+        radial-gradient(circle at 54% 28%, rgba(255, 255, 255, 0.16) 0 8%, rgba(255, 255, 255, 0) 17%),
+        radial-gradient(circle at 30% 68%, rgba(89, 112, 255, 0.45) 0 16%, rgba(89, 112, 255, 0) 24%),
+        linear-gradient(145deg, #eef0ff 0%, #9aa4ef 40%, #5560bf 100%);
+}
+
+.planet-icon-8::before {
+    inset: 16% -22%;
+    border-radius: 50%;
+    border: 5px solid rgba(214, 221, 255, 0.78);
+    background: transparent;
+    transform: rotate(-18deg);
+    box-shadow: 0 0 14px rgba(214, 221, 255, 0.15);
+}
+
+.planet-icon-9 {
+    background:
+        radial-gradient(circle at 42% 30%, rgba(255, 255, 255, 0.2) 0 4%, rgba(255, 255, 255, 0) 9%),
+        radial-gradient(circle at 70% 64%, rgba(24, 24, 35, 0.85) 0 18%, rgba(24, 24, 35, 0) 26%),
+        linear-gradient(145deg, #6e7386 0%, #3b3f4b 48%, #17191f 100%);
+}
+
+.planet-icon-10 {
+    background:
+        radial-gradient(circle at 34% 34%, rgba(255, 255, 255, 0.18) 0 6%, rgba(255, 255, 255, 0) 12%),
+    radial-gradient(circle at 66% 70%, rgba(255, 98, 169, 0.7) 0 14%, rgba(255, 98, 169, 0) 22%),
+    linear-gradient(145deg, #ff93df 0%, #e34eb5 42%, #8c2c73 100%);
+}
