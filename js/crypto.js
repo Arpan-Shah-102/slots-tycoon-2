@@ -53,6 +53,7 @@ cryptoWalletBtns.forEach((coin, index) => {
         setCryptoStats("coinsOwned", 1);
         moneyOwned.textContent = formatMoney(getMoney());
         calcCoinBonus();
+        playSound(cryptoSfx.buyCoin);
         updateCryptoUI();
         gameOverCheck();
     });
@@ -66,23 +67,86 @@ cryptoWalletBtns.forEach((coin, index) => {
         moneyLabel.textContent = formatMoney(getCrypto(), 'c');
         setCoinBonus(index, getCoinBonuses()[index] * 1.5);
         setCoinPriceBoost(index, getCoinsBoostedPrice()[index] * 1.75);
+        playSound(cryptoSfx.boostCoin);
         calcCoinBonus();
         updateCryptoUI();
     });
 });
 
+const nftDivs = document.querySelectorAll('.nft-itm');
+const nextRefreshLabel = document.querySelector('.next-refresh');
+const nftsOwnedContainter = document.querySelector('#nftsOwned .flexbox');
+let timer = 60;
+nftDivs.forEach((nft, index) => {
+    const buyBtn = nft.querySelector('button');
+    const bonus = parseInt(buyBtn.dataset.bonus);
+    const item = buyBtn.dataset.item;
+    const price = parseInt(buyBtn.dataset.price);
+    
+    let newPrice = price + Math.floor((Math.random() - 0.5) * price);
+    buyBtn.dataset.true = newPrice;
+    buyBtn.textContent = `${formatMoney(newPrice, 'c')}`;
+    
+    buyBtn.addEventListener('click', () => {
+        const truePrice = parseInt(buyBtn.dataset.true);
+        if (!enoughMoney(truePrice, 'c')) {
+            playSound(baseSfx.denied);
+            delayAlert('Not enough crypto to buy this NFT!');
+            return;
+        }
+        calcCrypto(-truePrice);
+        moneyLabel.textContent = formatMoney(getCrypto(), 'c');
+        unlockNft(item);
+        playSound(cryptoSfx.buyNft);
+        setCryptoStats("nftBonus", bonus);
+        updateCryptoUI();
+    });
+});
+
+setInterval(() => {
+    nftDivs.forEach((nft, index) => {
+        const buyBtn = nft.querySelector('button');
+        const truePrice = parseInt(buyBtn.dataset.true);
+        const price = parseInt(buyBtn.dataset.price);
+        const item = buyBtn.dataset.item;
+
+        if (isNftUnlocked(item)) {
+            buyBtn.disabled = true;
+            buyBtn.textContent = 'Owned';
+            return;
+        }
+        let newPrice = price + Math.floor((Math.random() - 0.5) * price);
+        truePrice.value = newPrice;
+        buyBtn.textContent = `${formatMoney(newPrice, 'c')}`;
+        nft.classList.add('flash');
+        setTimeout(() => {nft.classList.remove('flash');}, 250);
+    });
+}, 60000);
+setInterval(() => {
+    timer--;
+    if (timer <= 0) {
+        timer = 60;
+    }
+    nextRefreshLabel.textContent = timer == 60 ? '1:00' : timer < 10 ? `0:0${timer}` : `0:${timer}`;
+}, 1000);
+
 function calcCoinBonus() {
     const coinsOwned = getCoinsOwned();
     const coinBonuses = getCoinBonuses();
+    const nftBonus = getCryptoStats().nftBonus;
+    const themeBonus = getCryptoStats().themeBonus;
+
     let totalBonus = 0;
     coinsOwned.forEach((owned, index) => {
         totalBonus += owned * coinBonuses[index];
     });
+    totalBonus += nftBonus;
+    totalBonus += themeBonus;
     setCryptoStats("coinBonus", totalBonus, true);
 }
 
 function updateCryptoUI() {
-    cryptoPerClickLabel.textContent = `₡${getCryptoPerClick()}/click`;
+    cryptoPerClickLabel.textContent = `${formatMoney(getCryptoPerClick(), 'c')}/click`;
     updateCryptoStats();
 }
 
@@ -112,12 +176,31 @@ function updateCryptoStats() {
         const boostValueLabel = coin.querySelector('.boost-value');
 
         buyBtn.textContent = `$${getCoinPrices()[index].toLocaleString()}`;
-        totalCoinBonusLabel.textContent = `+₡${getCoinBonuses()[index] * getCoinsOwned()[index]}/click`;
+        totalCoinBonusLabel.textContent = `+${formatMoney(getCoinBonuses()[index] * getCoinsOwned()[index], 'c')}/click`;
         coinsOwnedLabel.textContent = `${getCoinsOwned()[index]} owned`;
-        coinBonusLabel.textContent = `+₡${getCoinBonuses()[index]}`;
+        coinBonusLabel.textContent = `+${formatMoney(getCoinBonuses()[index], 'c')}`;
 
         boostValueLabel.textContent = `+${formatMoney(getCoinBonuses()[index], 'c')} ➤ +${formatMoney(getCoinBonuses()[index] * 1.5, 'c')}`;
         buyBoostBtn.textContent = formatMoney(getCoinsBoostedPrice()[index], 'c');
+    });
+
+    // NFTs
+    nftsOwnedContainter.innerHTML = '';
+    nftDivs.forEach((nft, index) => {
+        const buyBtn = nft.querySelector('button');
+        const bonus = parseInt(buyBtn.dataset.bonus);
+        const item = buyBtn.dataset.item;
+        const price = parseInt(buyBtn.dataset.price);
+
+        if (isNftUnlocked(item)) {
+            nft.classList.remove('locked');
+            buyBtn.disabled = true;
+            buyBtn.textContent = 'Owned';
+            buyBtn.classList.remove('secondary');
+            buyBtn.classList.add('teritry');
+            nftsOwnedContainter.parentElement.classList.remove('hidden');
+            nftsOwnedContainter.innerHTML += `<h1>${item}</h1>`;
+        }
     });
 }
 

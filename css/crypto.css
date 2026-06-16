@@ -137,9 +137,46 @@
         font-size: 16px;
     }
 }
-.money-owned-temp {
+
+h4:has(.next-refresh), .money-owned-temp {
     font-size: 18px;
     color: gold;
     text-shadow: 0 0 10px goldenrod;
     margin-top: -20px;
+}
+.nfts-owned {
+    &.hidden {display: none;}
+    & > .flexbox {
+        justify-content: center;
+        gap: 40px;
+        padding: 0 30px;
+
+        & > h1 {font-size: 54px;}
+    }
+}
+.nft-itm {
+    background-color: rgba(0, 0, 0, 0.5);
+    border: 2px solid teal;
+    border-radius: 12px;
+    padding: 20px;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    height: 350px;
+    width: 175px;
+    
+    &.flash {filter: brightness(10);}
+    & > * {margin: 0;}
+    & > h1 {font-size: 42px;}
+    &.small {
+        & > .bonus {font-size: 14px;}
+        & > h3 {font-size: 20px;}
+    }
+    & .bonus {
+        font-size: 16px;
+        color: gold;
+        text-shadow: 0 0 10px goldenrod;
+    }
+    & p {text-align: center; font-size: 10px;}
+    & button {font-size: 16px;}
 }

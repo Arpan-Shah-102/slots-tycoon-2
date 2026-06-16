@@ -61,7 +61,7 @@ if (getGamemodeSelected() != 'slot-machine') {
     }
 }
 
-const gameModePrices = [0, 7777.77, 1234567];
+const gameModePrices = [0, 7777.77, 123456789];
 selectors.forEach((selector, index) => {
     addBaseSFX(selector);
     selector.addEventListener('click', () => {
@@ -76,7 +76,7 @@ selectors.forEach((selector, index) => {
                 moneyExchange.classList.remove('hidden');
                 playSound(baseSfx.win);
                 return;
-            } else if (index == 2 && enoughMoney(gameModePrices[index], 'c') && confirm(`Would you like to unlock The World gamemode for 1,234,567 crypto?`)) {
+            } else if (index == 2 && enoughMoney(gameModePrices[index], 'c') && confirm(`Would you like to unlock The World gamemode for ₡123,456,789?`)) {
                 calcCrypto(-gameModePrices[index]);
                 moneyLabel.textContent = formatMoney(getCrypto(), 'c');
                 unlockTheWorld();
@@ -165,7 +165,7 @@ moneyLabel.addEventListener('click', () => {
     moneyClickCount++;
     if (moneyClickCount > 0 && moneyClickCount % 20 == 0) {
         calcMoney(10000);
-        calcCrypto(2000000);
+        calcCrypto(200000000);
         calcStardust(500);
         playSound(baseSfx.win);
 

@@ -62,10 +62,17 @@ slots-tycoon-2/     # main project directory
 
 ## Update Log
 
+### NFT Update: Update V2.5 - 6/15/2026
+1. Added NFTs into the crypto section
+2. Added changing prices to NFTs
+3. Added SFX to crypto wallet and NFTs
+4. Bug Fixes
+
 ### Update V2.3 - 6/14/2026
 1. Finished Crypto coin section
 2. Added Crypto Stats
 3. Added Coins you can buy in crypto
+4. Bug Fixes
 
 ### Update V2.0 - 5/30/2026
 1. Added Lootbox

@@ -75,6 +75,9 @@ let slotSfx = defaultSlotSfx;
 
 const cryptoSfx = {
     mineCoin: new Audio(sfxPathCrypto + 'mine-coin.mp3'),
+    buyCoin: new Audio(sfxPathCrypto + 'buy-coin.mp3'),
+    boostCoin: new Audio(sfxPathCrypto + 'boost-coin.mp3'),
+    buyNft: new Audio(sfxPathCrypto + 'buy-nft.mp3'),
 }
 const theWorldSfx = {
 

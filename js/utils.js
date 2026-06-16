@@ -168,7 +168,7 @@ function setMasterVolume(volume) {
     localStorage.setItem('masterVolume', volume);
 }
 function getAdvancedMute() {
-    return JSON.parse(localStorage.getItem('advancedMute')) || { 'click-1': false, 'click-2': false, 'win': false, 'lose': false, 'denied': false, 'notify': false, 'achievement': false, 'cheat': false, 'spin': false, 'jackpot': false, 'near-miss': false, 'ding': false, 'upgrade': false, 'get-theme': false, 'get-drip': false, 'get-trophy': false, 'exchange': false, 'lootbox-opening': false, 'buy-lootbox': false, 'mine-coin': false, 'bizarre-1': false, 'bizarre-2': false, 'bizarre-3': false, 'bizarre-4': false, 'fart-1': false, 'fart-2': false, 'fart-3': false, 'fart-4': false, 'fart-5': false, 'fart-6': false };
+    return JSON.parse(localStorage.getItem('advancedMute')) || { 'click-1': false, 'click-2': false, 'win': false, 'lose': false, 'denied': false, 'notify': false, 'achievement': false, 'cheat': false, 'spin': false, 'jackpot': false, 'near-miss': false, 'ding': false, 'upgrade': false, 'get-theme': false, 'get-drip': false, 'get-trophy': false, 'exchange': false, 'lootbox-opening': false, 'buy-lootbox': false, 'mine-coin': false, 'buy-coin': false, 'boost-coin': false, 'buy-nft': false, 'bizarre-1': false, 'bizarre-2': false, 'bizarre-3': false, 'bizarre-4': false, 'fart-1': false, 'fart-2': false, 'fart-3': false, 'fart-4': false, 'fart-5': false, 'fart-6': false };
 }
 function setAdvancedMute(type, value) {
     const advancedMute = getAdvancedMute();
@@ -393,4 +393,19 @@ function setCoinBonus(index, bonus) {
     const coinBonuses = getCoinBonuses();
     coinBonuses[index] = bonus;
     localStorage.setItem('coinBonuses', JSON.stringify(coinBonuses));
+}
+
+function getNftsUnlocked() {
+    return JSON.parse(localStorage.getItem('nftsUnlocked')) || [];
+}
+function unlockNft(type) {
+    const nftsUnlocked = getNftsUnlocked();
+    if (!nftsUnlocked.includes(type)) {
+        nftsUnlocked.push(type);
+        localStorage.setItem('nftsUnlocked', JSON.stringify(nftsUnlocked));
+    }
+}
+function isNftUnlocked(type) {
+    const nftsUnlocked = getNftsUnlocked();
+    return nftsUnlocked.includes(type);
 }
