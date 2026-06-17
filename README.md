@@ -62,6 +62,12 @@ slots-tycoon-2/     # main project directory
 
 ## Update Log
 
+### Lootbox Update V3.1 - 6/17/2026
+1. Finish Crypto Lootbox
+2. Add Crypto Hacking Terminal Commands (5+)
+3. Added Crypto Cat
+4. Bug Fixes
+
 ### Trophy Update V2.85 - 6/16/2026
 1. Added trophies to crypto update
 2. Bug Fixes

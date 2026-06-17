@@ -5,7 +5,7 @@ document.querySelectorAll('a[href^="#"]').forEach(link => {
         if (!target) return;
         e.preventDefault();
         target.scrollIntoView({ behavior: 'smooth', block: 'start' });
-        history.replaceState(null, '', '#' + hash); // update URL without reloading
+        toggleMenu();
     });
 });
 

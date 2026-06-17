@@ -42,7 +42,7 @@
                     </abbr>
                 </div>
                 <div class="slot-machine-links">
-                    <li><a href="#" onclick="unlockAchievement(42)">Slot Machine</a></li>
+                    <li><a href="#slotMachine" onclick="unlockAchievement(42)">Slot Machine</a></li>
                     <li><a href="#slotUpgrades">Upgrades</a></li>
                     <li><a href="#drip">Drip</a></li>
                     <li><a href="#slotThemes">Themes</a></li>
@@ -52,7 +52,7 @@
                     <li><a href="#slotStats">Stats</a></li>
                 </div>
                 <div class="crypto-links hidden">
-                    <li><a href="#">Crypto</a></li>
+                    <li><a href="#crypto">Crypto</a></li>
                     <li><a href="#wallet">Wallet</a></li>
                     <li><a href="#nfts">NFTs</a></li>
                     <li><a href="#cryptoThemes">Themes</a></li>
@@ -62,7 +62,7 @@
                     <li><a href="#cryptoStats">Stats</a></li>
                 </div>
                 <div class="the-world-links hidden">
-                    <li><a href="#">The World</a></li>
+                    <li><a href="#theWorld">The World</a></li>
                     <li><a href="#planetExchange">Planet Exchange</a></li>
                     <li><a href="#blackMarket">Black Market</a></li>
                     <li><a href="#theWorldThemes">Themes</a></li>
@@ -404,13 +404,27 @@
                                 <p>Get ALL of the slot machine achievements.</p>
                             </div>
                         </li>
+                        <li data-achivementId="44" class="achivement-box">
+                            <h1>🏪</h1>
+                            <div>
+                                <h3>A Special Shop</h3>
+                                <p>Find the secret catfood shop and buy something from it.</p>
+                            </div>
+                        </li>
+                        <li data-achivementId="45" class="achivement-box">
+                            <h1>🕵️‍♂️</h1>
+                            <div>
+                                <h3>A Crypto Secret</h3>
+                                <p>Enter a code into the hacking terminal after unlocking crypto commands.</p>
+                            </div>
+                        </li>
                     </div>
                 </ul>
             </div>
         </div>
 
         <section class="slot-machine-game large-game-sect">
-            <main class="game-cont large-cont">
+            <main id="slotMachine" class="game-cont large-cont">
                 <h1>Slot Machine</h1>
                 <div class="slotmachine-body">
                     <div class="half-circle">
@@ -787,7 +801,7 @@
         </section>
 
         <section class="crypto-game hidden large-game-sect">
-            <main class="game-cont large-cont">
+            <main id="crypto" class="game-cont large-cont">
                 <div class="crypto-thing">
                     <h1 class="crypto-click">₡</h1>
                 </div>
@@ -1111,6 +1125,34 @@
                     </div>
                 </div>
             </section>
+            
+            <section id="cryptoLootbox" class="crypto-lootbox large-cont">
+                <h2>Lootbox</h2>
+                <div class="lootbox crypto">
+                    <div class="cont">
+                        <h1>7️⃣</h1>
+                        <h1>8️⃣</h1>
+                        <h1>9️⃣</h1>
+                        <h1>🔟</h1>
+                        <h1>💻</h1>
+                        <h1>1️⃣</h1>
+                        <h1>2️⃣</h1>
+                        <h1>3️⃣</h1>
+                        <h1 class="c-lb-n c-n-1">4️⃣</h1>
+                        <h1 class="c-lb-n c-n">5️⃣</h1>
+                        <h1 class="c-lb-n c-n+1">6️⃣</h1>
+                        <h1>7️⃣</h1>
+                        <h1>8️⃣</h1>
+                        <h1>9️⃣</h1>
+                        <h1>🔟</h1>
+                        <h1>💻</h1>
+                        <h1>1️⃣</h1>
+                        <h1>2️⃣</h1>
+                        <h1>3️⃣</h1>
+                    </div>
+                </div>
+                <button class="buy-lootbox crypto secondary yellow">₡25,000</button>
+            </section>
 
             <section class="unlocked-crypto-trophies large-cont hidden">
                 <h2>Unlocked Trophies</h2>
@@ -1122,19 +1164,19 @@
                 <h2>Trophies</h2>
                 <div class="flexbox">
                     <div class="trophy-item">
-                        <h3>$10M Trophy</h3>
+                        <h3>₡10M Trophy</h3>
                         <h1>🥉</h1>
-                        <button class="buy-trophy secondary">$10,000,000</button>
+                        <button class="buy-trophy secondary">₡10,000,000</button>
                     </div>
                     <div class="trophy-item">
-                        <h3>$100M Trophy</h3>
+                        <h3>₡100M Trophy</h3>
                         <h1>🥈</h1>
-                        <button class="buy-trophy secondary green">$100,000,000</button>
+                        <button class="buy-trophy secondary green">₡100,000,000</button>
                     </div>
                     <div class="trophy-item">
-                        <h3>$1B Trophy</h3>
+                        <h3>₡1B Trophy</h3>
                         <h1>🥇</h1>
-                        <button class="buy-trophy secondary yellow">$1,000,000,000</button>
+                        <button class="buy-trophy secondary yellow">₡1,000,000,000</button>
                     </div>
                 </div>
             </section>
@@ -1272,7 +1314,7 @@
         <div onclick="unlockAchievement(38)" class="credits">
             <h3>Credits</h3>
             <p>Game developed by <strong><i><a href="https://arpan-shah-102.github.io/" target="_blank">Arpan Shah</a></i></strong>.</p>
-            <p>Slot Lootbox backgrounds from <strong><i>Carson Montes</i></strong>.</p>
+            <p>Lootbox backgrounds from <strong><i>Carson Montes</i></strong>.</p>
             <p>Sound assets from <strong><i><a href="https://pixabay.com/sound-effects/" target="_blank">Pixaby</a></i></strong>.</p>
             <p>Special thanks to <strong><i>my family members</i></strong> for providing some special slot sfx.</p>
             <p class="copyright">&copy; 2026 Arpan Shah. All rights reserved.</p>

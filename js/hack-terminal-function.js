@@ -3,23 +3,18 @@ function updateMoneyLabelIfSlotMachine() {
         moneyLabel.textContent = formatMoney(getMoney());
     }
 }
+function updateMoneyLabelIfCrypto() {
+    if (getGamemodeSelected() === 'crypto') {
+        moneyLabel.textContent = formatMoney(getCrypto(), 'c');
+    }
+}
+function updateMoneyLabelIfTheWorld() {
+    if (getGamemodeSelected() === 'the-world') {
+        moneyLabel.textContent = formatMoney(getStardust(), 's');
+    }
+}
 
-const helpMsg = `Available commands:
-dp / dailyPrize  -  claim a daily prize
-st / steal  -  attempt to steal $50 money (40% success rate, 10% ultra lucky (5x), 50% chance to lose $100)
-d / donate  -  give $50 to the overlords that control everything (something might happen if you to this enough times)
-cth / clearTerminalHistory  -  clear the history of the terminal (you know, the messages that pop up when you type in commands)
-ua / unlockAchievement  -  unlock a secret achievement
-f / fart  -  self explanatory
-j / joke  -  get a random joke
-htm / hackTheMachine  -  attempt to hack the slot machine (10% success rate to get $500, 90% chance to break the machine and and pay a fine of $75)
-i / inspire  -  get a random inspirational quote
-g / gamble  -  gamble an amount of money in a follow-up prompt with a 40% chance to double, 5% chance to get 5x, and 55% chance to lose it all
-cf / coinFlip  -  bet on heads or tails in a follow-up prompt with a 50/50% chance to double or lose your money
-v / vault  -  access the secret vault (who knows what's inside?)
-cssc / changeSlotSoundCommands  -  view the commands to change the slot machine sound effects
-a / admin  -  view higher level commands
-etc... (find out more by experimenting with commands!)`;
+let helpMsg = getHelpMsg();
 
 const adminHelpMsg = `Admin commands:
 cle / clearEverything: clears all styling, html, and javascript
@@ -37,6 +32,16 @@ css 1 / changeSlotSound 1 - change slot machine sound effects to set 1
 css 2 / changeSlotSound 2 - change slot machine sound effects to set 2
 css 3 / changeSlotSound 3 - change slot machine sound effects to set 3
 css 4 / changeSlotSound 4 - change slot machine sound effects to set 4`;
+
+const cryptoHelpMsg = `Crypto commands:
+fcc / feedCryptoCat - feed the crypto cat. Who knows what it eats? Maybe it\'s just a metaphor for investing in crypto, who can say for sure?
+cfo / catFood - check how much catfood you have. You might be able to trade it for something in the future, or maybe it\'s just for bragging rights, who knows?
+rw / rewire - your next click will either give you 10x or take away 20x of your crypto per click.
+sc / scam - attempt to scam the crypto overseer. 0.01% sucess rate but 1,000,000,000X rewards! Failing is very bad though, you might want to make sure you have a lot of crypto before trying this one...
+uca / unlockCryptoAchievement - unlocks a secret crypto achievement. I wonder what it could be?
+htc / hackTheCoin - try to hack the crypto coin (10% success rate to get 1,000,000 crypto, otherwise you lose 100,000 crypto)
+gc / gambleCrypto - gamble an amounnt of crypto in a follow up prompt. 40% chance to double your crypto, 5% chance to get 6x your crypto, and 55% chance to lose the crypto you gambled
+w / war - you and a crypto rival will draw up to 2 cards. closest to 10 wins.`;
 
 function htHelp() {
     delayAlert(helpMsg);
@@ -107,8 +112,8 @@ function htDonate() {
     updateMoneyLabelIfSlotMachine();
 
     if (getAmountDonatedToYahu() == 10000) {
-        delayAlert('Yahu is pleased with your generosity. He donates to you ₡1,000,000 and ✺10!\nYahu won\'t feel this generous again so count yourself lucky!', 100);
-        calcCrypto(1000000);
+        delayAlert('Yahu is pleased with your generosity. He donates to you ₡10,000,000 and ✺10!\nYahu won\'t feel this generous again so count yourself lucky!', 100);
+        calcCrypto(10000000);
         calcStardust(10);
         if (getGamemodeSelected() === 'crypto') {
             moneyLabel.textContent = formatMoney(getCrypto(), 'c');
@@ -388,7 +393,278 @@ function s3242026() {
     delayAlert("Oh hey! A polaroid of me!", 100);
 }
 
-const allCommands = [htHelp, htDailyPrize, htSteal, htDonate, htClearTerminalHistory, htUnlockAchievement, htFart, htJoke, htHackTheMachine, htInspire, htGamble, htCoinFlip, htVault, htAdmin, htaClearEverything, htaClearHTML, htaClearJavascript, htaClearCSS, htaWhileDestroy, htaRemoteAccess, htaBizarre, htaRuinTheFun, cssInfo, css1, css2, css3, css4, cssD, s2526, s3242026];
-const commandAbbreviations = ['h', 'dp', 'st', 'd', 'cth', 'ua', 'f', 'j', 'htm', 'i', 'g', 'cf', 'v', 'a', 'cle', 'clh', 'clj', 'clc', 'wd', 'ra', 'b', 'rtf', 'cssc', 'css 1', 'css 2', 'css 3', 'css 4', 'css d', '2526', '3242026'];
-const commandNames = ['help', 'dailyprize', 'steal', 'donate', 'clearterminalhistory', 'unlockachievement', 'fart', 'joke', 'hackthemachine', 'inspire', 'gamble', 'coinflip', 'vault', 'admin', 'cleareverything', 'clearhtml', 'clearjavascript', 'clearcss', 'whiledestroy', 'remoteaccess', 'bizarre', 'ruinthefun', 'changeslotsoundcommands', 'changeslotsound 1', 'changeslotsound 2', 'changeslotsound 3', 'changeslotsound 4', 'changeslotsound default', '2025-2026', '3/24/2026'];
-const fullCommandNames = ['Help', 'Daily Prize', 'Steal', 'Donate', 'Clear Terminal History', 'Unlock Achievement', 'Fart', 'Joke', 'Hack The Machine', 'Inspire', 'Gamble', 'Coin Flip', 'Vault', 'Admin', 'Clear Everything', 'Clear HTML', 'Clear Javascript', 'Clear CSS', 'While Destroy', 'Remote Access', 'Bizarre', 'Ruin The Fun', 'Change Slot Sound Commands', 'Change Slot Sound 1', 'Change Slot Sound 2', 'Change Slot Sound 3', 'Change Slot Sound 4', 'Change Slot Sound Default', '6 Years of iEagle', 'Polaroid of Me'];
+function handleCryptoCommandsLocked() {
+    if (!areCryptoCommandsUnlocked()) {
+        delayAlert('Crypto commands in the hacking terminal are locked! Obtain them as a lootbox prize to unlock them!');
+        playSound(baseSfx.denied);
+        return false;
+    }
+    return true;
+}
+function htCryptoMsg() {
+    if (!handleCryptoCommandsLocked()) {return}
+    delayAlert(cryptoHelpMsg);
+    playSound(baseSfx.notify);
+}
+function htFeedCryptoCat() {
+    if (!handleCryptoCommandsLocked()) {return}
+    if (enoughMoney(1000, 'c')) {
+        delayAlert('You fed the crypto cat ₡1,000.');
+        calcCrypto(-1000);
+        feedCryptoCat();
+
+        if (getAmountFedToCryptoCat() % 10000 === 0) {
+            delayAlert('The crypto cat wants to give you 10 catfood for feeding it!');
+            calcCatfood(10);
+            playSound(baseSfx.notify);
+        }
+    } else {
+        delayAlert('You do not have enough crypto to feed the crypto cat! You need at least ₡1,000 to feed it.');
+        playSound(baseSfx.denied);
+    }
+}
+function htCatfood() {
+    if (!handleCryptoCommandsLocked()) {return}
+    delayAlert(`You have ${getCatfood()} catfood.`);
+    playSound(baseSfx.notify);
+}
+function htCatfoodShop() {
+    if (!handleCryptoCommandsLocked()) {return}
+    const choice = prompt('Welcome to the catfood shop! What would you like to buy?\n1. Exchange for $10 (10 cf)\n2. Exchange for ₡100,000 (₡500 cf)\n3. Exchange for ✺1 (100 cf)\n4. Get cat background (1,000 cf)\n5. Feed to crypto cat (10 cf)\n\nYou have '+ getCatfood() +' catfood.\n[1/2/3/4/5]');
+    if (choice === '1') {
+        if (getCatfood() < 10) {
+            delayAlert('You do not have enough catfood for this purchase!');
+            playSound(baseSfx.denied);
+            return;
+        }
+        calcCatfood(-10);
+        calcMoney(10);
+        updateMoneyLabelIfSlotMachine();
+        delayAlert('You exchanged 10 catfood for $10!');
+        playSound(baseSfx.win);
+    } else if (choice === '2') {
+        if (getCatfood() < 500) {
+            delayAlert('You do not have enough catfood for this purchase!');
+            playSound(baseSfx.denied);
+            return;
+        }
+        calcCatfood(-500);
+        calcCrypto(100000);
+        updateMoneyLabelIfCrypto();
+        delayAlert('You exchanged 500 catfood for ₡100,000 crypto!');
+        playSound(baseSfx.win);
+    } else if (choice === '3') {
+        if (getCatfood() < 100) {
+            delayAlert('You do not have enough catfood for this purchase!');
+            playSound(baseSfx.denied);
+            return;
+        }
+        calcCatfood(-100);
+        calcStardust(1);
+        updateMoneyLabelIfTheWorld();
+        delayAlert('You exchanged 100 catfood for ✺1 stardust!');
+        playSound(baseSfx.win);
+    } else if (choice === '4') {
+        if (isThemeUnlocked('cat-background')) {
+            delayAlert('You have already unlocked the cat background!');
+            playSound(baseSfx.denied);
+            return;
+        }
+        if (getCatfood() < 1000) {
+            delayAlert('You do not have enough catfood for this purchase!');
+            playSound(baseSfx.denied);
+            return;
+        }
+        calcCatfood(-1000);
+        unlockTheme('cat-background');
+        setBonusOrVanityTheme('vanity', 'cat-background');
+        setBonusOrVanityTheme('bonus', 'cat-background');
+        generateThemeOptions();
+        delayAlert('You exchanged 1000 catfood for the cat background! It has been added to your themes!');
+        playSound(baseSfx.win);
+    } else if (choice === '5') {
+        if (getCatfood() < 10) {
+            delayAlert('You do not have enough catfood for this purchase!');
+            playSound(baseSfx.denied);
+            return;
+        }
+        calcCatfood(-10);
+        feedCryptoCat();
+        delayAlert('You fed the crypto cat 10 catfood!');
+        delayAlert('The crypto cat appreciates your kind gesture!');
+        playSound(baseSfx.win);
+    } else {
+        delayAlert('Invalid choice entered.');
+        playSound(baseSfx.denied);
+    }
+
+    if (choice in ['1', '2', '3', '4', '5']) {
+        unlockAchievement(44);
+    }
+}
+
+let rewireStatus = false;
+function htRewire() {
+    if (!handleCryptoCommandsLocked()) {return}
+    if (rewireStatus) {
+        delayAlert('Your crypto connections are already rewired for your next click! Try again after you have clicked!');
+        playSound(baseSfx.denied);
+        return;
+    }
+    if (!confirm('Are you sure you want to rewire your crypto connections? This will cause your next click to either give you 10x or take away 20x of your crypto per click.')) {
+        return;
+    }
+    const rand = Math.random();
+    if (rand < 0.5) {
+        rewireStatus = 'p';
+    } else {
+        rewireStatus = 'n';
+    }
+    delayAlert("Your crypto coin has been rewired for your next click! Good luck!");
+    playSound(baseSfx.notify);
+}
+function htScam() {
+    if (!handleCryptoCommandsLocked()) {return}
+    if (!confirm('Are you sure you want to attempt to scam the crypto overseer? This has a 0.01% success rate but rewards 1,000,000,000X your crypto! Failing is very bad though, you might want to make sure you have a lot of crypto before trying this one...')) {
+        return;
+    }
+    const rand = Math.random();
+    if (rand < 0.0001) {
+        const reward = getCryptoPerClick() * 1000000000;
+        calcCrypto(reward);
+        delayAlert(`Congratulations! You successfully scammed the crypto overseer and got ${formatMoney(reward, 'c')}!`);
+        playSound(baseSfx.win);
+    } else {
+        const loss = getCryptoPerClick() * 100;
+        calcCrypto(-loss);
+        delayAlert(`Unlucky! You failed to scam the crypto overseer and lost ${formatMoney(loss, 'c')}!`);
+        playSound(baseSfx.lose);
+    }
+    updateMoneyLabelIfCrypto();
+}
+function htUnlockCryptoAchievement() {
+    if (!handleCryptoCommandsLocked()) {return}
+    if (isAchievementUnlocked(45)) {
+        delayAlert('You have already unlocked this achievement!');
+        playSound(baseSfx.denied);
+        return;
+    }
+    unlockAchievement(45);
+}
+function htHackTheCoin() {
+    if (!handleCryptoCommandsLocked()) {return}
+    if (!confirm('Are you sure you want to try and hack the crypto coin? This has a 10% success rate to get 1,000,000 crypto, but otherwise you lose 100,000 crypto.')) {
+        return;
+    }
+    const rand = Math.random();
+    if (rand < 0.1) {
+        calcCrypto(1000000);
+        delayAlert('Congratulations! You successfully hacked the crypto coin and got ₡1,000,000!');
+        playSound(baseSfx.win);
+    } else {
+        calcCrypto(-100000);
+        delayAlert('You failed to hack the crypto coin and lost ₡100,000!');
+        playSound(baseSfx.lose);
+    }
+    updateMoneyLabelIfCrypto();
+}
+function htGambleCrypto() {
+    if (!handleCryptoCommandsLocked()) {return}
+    const amountStr = prompt('Enter the amount of crypto you want to gamble:');
+    if (!isFinite(amountStr)) {
+        delayAlert('Invalid amount entered.');
+        playSound(baseSfx.denied);
+        return;
+    }
+    const amount = parseInt(amountStr);
+    if (amount <= 0) {
+        delayAlert('Amount must be greater than 0.');
+        playSound(baseSfx.denied);
+        return;
+    }
+    if (amount > getCrypto()) {
+        delayAlert('You cannot gamble more crypto than you have!');
+        playSound(baseSfx.denied);
+        return;
+    }
+    calcCrypto(-amount);
+    const rand = Math.random();
+    let alertMsg;
+    if (rand < 0.4) {
+        calcCrypto(amount * 2);
+        playSound(baseSfx.win);
+        alertMsg = `Congratulations! You won and doubled your crypto to ${formatMoney(getCrypto(), 'c')}!`;
+    } else if (rand < 0.45) {
+        calcCrypto(amount * 6);
+        playSound(baseSfx.win);
+        alertMsg = `Incredible! You hit the jackpot and got 6x your crypto! You now have ${formatMoney(getCrypto(), 'c')}!`;
+    } else {
+        playSound(baseSfx.lose);
+        alertMsg = `Unlucky! You lost all the crypto you gambled and now have ${formatMoney(getCrypto(), 'c')}. Better luck next time!`;
+    }
+    delayAlert(alertMsg);
+    updateMoneyLabelIfCrypto();
+}
+function htWar() {
+    if (!handleCryptoCommandsLocked()) {return}
+    const amountStr = prompt('Enter the amount of crypto you want to bet:');
+    if (!isFinite(amountStr)) {
+        delayAlert('Invalid amount entered.');
+        playSound(baseSfx.denied);
+        return;
+    }
+    const amount = parseInt(amountStr);
+    if (amount <= 0) {
+        delayAlert('Amount must be greater than 0.');
+        playSound(baseSfx.denied);
+        return;
+    }
+    if (amount > getCrypto()) {
+        delayAlert('You cannot gamble more crypto than you have!');
+        playSound(baseSfx.denied);
+        return;
+    }
+    calcCrypto(-amount);
+    const playerCard1 = Math.floor(Math.random() * 10) + 1;
+    const playerCard2 = Math.floor(Math.random() * 10) + 1;
+    const rivalCard1 = Math.floor(Math.random() * 10) + 1;
+    const rivalCard2 = Math.floor(Math.random() * 10) + 1;
+
+    let playerTotal = playerCard1;
+    let rivalTotal = rivalCard1;
+    let choseToDraw = false;
+
+    if (rivalTotal < 7) {
+        rivalTotal += rivalCard2;
+        choseToDraw = true;
+    }
+
+    let drawChoice = confirm(`Your first card you drew is ${playerCard1}. You rival decided ${choseToDraw ? 'to draw' : 'not to draw'}. Do you want to draw another card to add to your total?`);
+    if (drawChoice) {
+        playerTotal += playerCard2;
+    }
+    alert(`Your total is ${playerTotal} and your rival's total is ${rivalTotal}.`);
+    let alertMsg;
+    const playerDiff = Math.abs(10 - playerTotal);
+    const rivalDiff = Math.abs(10 - rivalTotal);
+
+    if (playerDiff < rivalDiff) {
+        calcCrypto(amount * 2);
+        playSound(baseSfx.win);
+        alertMsg = `Congratulations! You won the war and doubled your crypto to ${formatMoney(getCrypto(), 'c')}!`;
+    } else if (playerDiff > rivalDiff) {
+        playSound(baseSfx.lose);
+        alertMsg = `Unlucky! You lost the war and lost the crypto you bet. You now have ${formatMoney(getCrypto(), 'c')}. Better luck next time!`;
+    } else {
+        calcCrypto(amount);
+        playSound(baseSfx.notify);
+        alertMsg = `It's a tie! You get your crypto back and still have ${formatMoney(getCrypto(), 'c')}.`;
+    }
+    delayAlert(alertMsg);
+    updateMoneyLabelIfCrypto();
+}
+
+const allCommands = [htHelp, htDailyPrize, htSteal, htDonate, htClearTerminalHistory, htUnlockAchievement, htFart, htJoke, htHackTheMachine, htInspire, htGamble, htCoinFlip, htVault, htAdmin, htaClearEverything, htaClearHTML, htaClearJavascript, htaClearCSS, htaWhileDestroy, htaRemoteAccess, htaBizarre, htaRuinTheFun, cssInfo, css1, css2, css3, css4, cssD, s2526, s3242026, htCryptoMsg, htFeedCryptoCat, htCatfood, htCatfoodShop, htRewire, htScam, htUnlockCryptoAchievement, htHackTheCoin, htGambleCrypto, htWar];
+const commandAbbreviations = ['h', 'dp', 'st', 'd', 'cth', 'ua', 'f', 'j', 'htm', 'i', 'g', 'cf', 'v', 'a', 'cle', 'clh', 'clj', 'clc', 'wd', 'ra', 'b', 'rtf', 'cssc', 'css 1', 'css 2', 'css 3', 'css 4', 'css d', '2526', '3242026', 'c', 'fcc', 'cfo', 'cfs', 'rw', 'sc', 'uca', 'htc', 'gc', 'w'];
+const commandNames = ['help', 'dailyprize', 'steal', 'donate', 'clearterminalhistory', 'unlockachievement', 'fart', 'joke', 'hackthemachine', 'inspire', 'gamble', 'coinflip', 'vault', 'admin', 'cleareverything', 'clearhtml', 'clearjavascript', 'clearcss', 'whiledestroy', 'remoteaccess', 'bizarre', 'ruinthefun', 'changeslotsoundcommands', 'changeslotsound 1', 'changeslotsound 2', 'changeslotsound 3', 'changeslotsound 4', 'changeslotsound default', '2025-2026', '3/24/2026', 'crypto', 'feedcryptocat', 'catfoodowned', 'catfoodshop', 'rewire', 'scam', 'unlockcryptoachievement', 'hackthecoin', 'gamblecrypto', 'war'];
+const fullCommandNames = ['Help', 'Daily Prize', 'Steal', 'Donate', 'Clear Terminal History', 'Unlock Achievement', 'Fart', 'Joke', 'Hack The Machine', 'Inspire', 'Gamble', 'Coin Flip', 'Vault', 'Admin', 'Clear Everything', 'Clear HTML', 'Clear Javascript', 'Clear CSS', 'While Destroy', 'Remote Access', 'Bizarre', 'Ruin The Fun', 'Change Slot Sound Commands', 'Change Slot Sound 1', 'Change Slot Sound 2', 'Change Slot Sound 3', 'Change Slot Sound 4', 'Change Slot Sound Default', '6 Years of iEagle', 'Polaroid of Me', 'Crypto Commands', 'Feed Crypto Cat', 'See Cat Food Owned', 'View Catfood Shop', 'Rewired Coin', 'Scam Crypto Overseer', 'Unlock Achievement', 'Hack The Coin', 'Gamble Crypto', 'War'];

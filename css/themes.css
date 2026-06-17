@@ -17,6 +17,24 @@ body {
     &.slot-bg-1, &.slot-bg-2, &.slot-bg-3, &.slot-bg-4, &.slot-bg-5, &.slot-bg-6, &.slot-bg-7, &.slot-bg-8, &.slot-bg-9, &.slot-bg-10 {
         color: white;
     }
+    &.crypto-bg-1 {background: url('../assets/images/crypto/backgrounds/crypto-bg-1.webp');}
+    &.crypto-bg-2 {background: url('../assets/images/crypto/backgrounds/crypto-bg-2.webp');}
+    &.crypto-bg-3 {background: url('../assets/images/crypto/backgrounds/crypto-bg-3.webp');}
+    &.crypto-bg-4 {background: url('../assets/images/crypto/backgrounds/crypto-bg-4.webp');}
+    &.crypto-bg-5 {background: url('../assets/images/crypto/backgrounds/crypto-bg-5.webp');}
+    &.crypto-bg-6 {background: url('../assets/images/crypto/backgrounds/crypto-bg-6.webp');}
+    &.crypto-bg-7 {background: url('../assets/images/crypto/backgrounds/crypto-bg-7.webp');}
+    &.crypto-bg-8 {background: url('../assets/images/crypto/backgrounds/crypto-bg-8.webp');}
+    &.crypto-bg-9 {background: url('../assets/images/crypto/backgrounds/crypto-bg-9.webp');}
+    &.crypto-bg-10 {background: url('../assets/images/crypto/backgrounds/crypto-bg-10.webp');}
+    &.crypto-bg-1, &.crypto-bg-2, &.crypto-bg-3, &.crypto-bg-4, &.crypto-bg-5, &.crypto-bg-6, &.crypto-bg-7, &.crypto-bg-8, &.crypto-bg-9, &.crypto-bg-10 {
+        color: white;
+    }
+
+    &.cat-background {
+        background: url('../assets/images/cat-background.webp');
+        color: white;
+    }
 }
 
 @property --godly-spin {

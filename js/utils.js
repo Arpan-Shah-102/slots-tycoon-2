@@ -266,6 +266,9 @@ function getThemeBonusValues() {
         'dogecoin': [0, 100, 0], 'ethereum': [1, 1180, 0], 'bitcoin': [5, 5244, 0], 'neon': [6, 19314, 0], 'matrix': [7, 100000, 1], 'quantum': [14, 98100, 10],
         // the world values
         'slot-bg-1': [-2.5, 1234, 0], 'slot-bg-2': [-2.5, 1234, 0], 'slot-bg-3': [-2.5, 1234, 0], 'slot-bg-4': [-2.5, 1234, 0], 'slot-bg-5': [-2.5, 1234, 0], 'slot-bg-6': [-2.5, 0, 1], 'slot-bg-7': [-2.5, 0, 1], 'slot-bg-8': [-2.5, 0, 1], 'slot-bg-9': [-2.5, 0, 1], 'slot-bg-10': [-2.5, 0, 1],
+        'crypto-bg-1': [9.99, -25000, 0], 'crypto-bg-2': [9.99, -25000, 0], 'crypto-bg-3': [9.99, -25000, 0], 'crypto-bg-4': [9.99, -25000, 0], 'crypto-bg-5': [9.99, -25000, 0], 'crypto-bg-6': [0, -25000, 7], 'crypto-bg-7': [0, -25000, 7], 'crypto-bg-8': [0, -25000, 7], 'crypto-bg-9': [0, -25000, 7], 'crypto-bg-10': [0, -25000, 7],
+        // the world lb bg values
+        'cat-background': [7, 7, 7]
     }
 }
 function getBonusAndVanityThemes() {
@@ -342,6 +345,28 @@ function isTheFunRuined() {
 }
 function ruinTheFunSet() {
     localStorage.setItem('theFunRuined', true);
+}
+
+function getHelpMsg() {
+    return localStorage.getItem('helpMsg') || `Available commands:
+dp / dailyPrize  -  claim a daily prize
+st / steal  -  attempt to steal $50 money (40% success rate, 10% ultra lucky (5x), 50% chance to lose $100)
+d / donate  -  give $50 to the overlords that control everything (something might happen if you to this enough times)
+cth / clearTerminalHistory  -  clear the history of the terminal (you know, the messages that pop up when you type in commands)
+ua / unlockAchievement  -  unlock a secret achievement
+f / fart  -  self explanatory
+j / joke  -  get a random joke
+htm / hackTheMachine  -  attempt to hack the slot machine (10% success rate to get $500, 90% chance to break the machine and and pay a fine of $75)
+i / inspire  -  get a random inspirational quote
+g / gamble  -  gamble an amount of money in a follow-up prompt with a 40% chance to double, 5% chance to get 5x, and 55% chance to lose it all
+cf / coinFlip  -  bet on heads or tails in a follow-up prompt with a 50/50% chance to double or lose your money
+v / vault  -  access the secret vault (who knows what's inside?)
+cssc / changeSlotSoundCommands  -  view the commands to change the slot machine sound effects
+a / admin  -  view higher level commands
+etc... (find out more by experimenting with commands!)`;;
+}
+function setHelpMsg(msg) {
+    localStorage.setItem('helpMsg', msg);
 }
 
 // Crypto
@@ -423,6 +448,55 @@ function unlockCryptoTrophy(trophy) {
 function isCryptoTrophyUnlocked(trophy) {
     const trophies = getCryptoTrophiesUnlocked();
     return trophies.includes(trophy);
+}
+
+function getCryptoLootboxPrizes() {
+    return JSON.parse(localStorage.getItem('cryptoLootboxPrizes')) || ['crypto-bg-1', 'crypto-bg-2', 'crypto-bg-3', 'crypto-bg-4', 'crypto-bg-5', 'crypto-bg-6', 'crypto-bg-7', 'crypto-bg-8', 'crypto-bg-9', 'crypto-bg-10', 'hacking-terminal'];
+}
+function changeCryptoLootboxPrize(prize, index) {
+    const prizes = getCryptoLootboxPrizes();
+    prizes[index] = prize;
+    localStorage.setItem('cryptoLootboxPrizes', JSON.stringify(prizes));
+}
+function getCryptoLootboxIcons() {
+    return JSON.parse(localStorage.getItem('cryptoLootboxIcons')) || ['7️⃣', '8️⃣', '9️⃣', '🔟', '💻', '1️⃣', '2️⃣', '3️⃣', '4️⃣', '5️⃣', '6️⃣', '7️⃣', '8️⃣', '9️⃣', '🔟', '💻', '1️⃣', '2️⃣', '3️⃣'];
+}
+function changeCryptoLootboxIcon(icon, index) {
+    const icons = getCryptoLootboxIcons();
+    icons[index] = icon;
+    localStorage.setItem('cryptoLootboxIcons', JSON.stringify(icons));
+}
+
+function areCryptoCommandsUnlocked() {
+    return JSON.parse(localStorage.getItem('cryptoCommandsUnlocked')) || false;
+}
+function unlockCryptoCommandsInTerminal() {
+    localStorage.setItem('cryptoCommandsUnlocked', true);
+}
+
+function getAmountFedToCryptoCat() {
+    return parseInt(localStorage.getItem('amountFedToCryptoCat')) || 0;
+}
+function feedCryptoCat() {
+    let amountFedToCryptoCat = getAmountFedToCryptoCat();
+    amountFedToCryptoCat += 1000;
+    localStorage.setItem('amountFedToCryptoCat', amountFedToCryptoCat);
+}
+
+function getCatfood() {
+    return JSON.parse(localStorage.getItem('catfood')) || 0;
+}
+function calcCatfood(amount, symbol = '+') {
+    let currentCatfood = getCatfood();
+    if (symbol === '+') {
+        currentCatfood += amount;
+    } else if (symbol === '-') {
+        currentCatfood -= amount;
+    }
+    localStorage.setItem('catfood', currentCatfood);
+}
+function setCatfood(amount) {
+    localStorage.setItem('catfood', amount);
 }
 
 // The World

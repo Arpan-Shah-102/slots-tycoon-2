@@ -404,6 +404,7 @@ buyLootboxBtn.addEventListener('click', () => {
         else {
             unlockTheme(getSlotLootboxPrizes()[lbPrize]);
             setBonusOrVanityTheme('vanity', getSlotLootboxPrizes()[lbPrize]);
+            setBonusOrVanityTheme('bonus', getSlotLootboxPrizes()[lbPrize]);
             generateThemeOptions();
             changeSlotLootboxPrize(150, lbPrize);
             changeSlotLootboxIcon('💵', lbPrize + 5);

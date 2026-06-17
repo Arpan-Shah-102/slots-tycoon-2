@@ -319,6 +319,18 @@ const achievementData = {
         icon: '🌈',
         type: 'extras',
     },
+    44: {
+        name: "A Special Shop",
+        description: "Find the secret catfood shop and buy something from it.",
+        icon: '🏪',
+        type: 'extras',
+    },
+    45: {
+        name: "A Crypto Secret",
+        description: "Enter a code into the hacking terminal after unlocking crypto commands.",
+        icon: '🕵️‍♂️',
+        type: 'extras',
+    }
     // 18: {
     //     name: "Money Laundering",
     //     description: "Exchange money for crypto for the first time.",
