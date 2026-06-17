@@ -236,6 +236,8 @@ const slotThemeBonusValues = {}
 themeSelect.addEventListener('change', () => {
     setBonusOrVanityTheme('bonus', themeSelect.value);
     setSlotsStats('themeBonus', getThemeBonusValues()[themeSelect.value][0] || 0);
+    setCryptoStats('themeBonus', getThemeBonusValues()[themeSelect.value][1] || 0, true);
+    // setTheWorldStats('themeBonus', getThemeBonusValues()[themeSelect.value][2] || 0, true);
     generateThemeOptions();
     updateSlotUI();
 });
@@ -258,6 +260,8 @@ shopThemes.forEach(theme => {
         if (isThemeUnlocked(themeName)) {
             setBonusOrVanityTheme('bonus', themeName);
             setSlotsStats('themeBonus', getThemeBonusValues()[themeName][0] || 0);
+            setCryptoStats('themeBonus', getThemeBonusValues()[themeName][1] || 0, true);
+            setTheWorldStats('themeBonus', getThemeBonusValues()[themeName][2] || 0, true);
             setBonusOrVanityTheme('vanity', themeName);
             generateThemeOptions();
             updateSlotUI();
@@ -279,6 +283,8 @@ shopThemes.forEach(theme => {
 
         setBonusOrVanityTheme('bonus', themeName);
         setSlotsStats('themeBonus', getThemeBonusValues()[themeName][0] || 0);
+        setCryptoStats('themeBonus', getThemeBonusValues()[themeName][1] || 0, true);
+        setTheWorldStats('themeBonus', getThemeBonusValues()[themeName][2] || 0, true);
         setBonusOrVanityTheme('vanity', themeName);
         generateThemeOptions();
         addBaseSFX(theme);
@@ -295,10 +301,12 @@ exchangeDivs.forEach((div, index) => {
     const btn = div.querySelector('button');
     const priceSpan = div.querySelector('p .price');
     const valueSpan = div.querySelector('p .item');
+    const currentOwnedSpan = div.querySelector('p .currently-owned');
     const base = exchangePrices[index];
     let price = +(base * (1 + (Math.random() * 0.2 - 0.1))).toFixed(2);
     const value = exchangeValues[index];
     priceSpan.textContent = `${formatMoney(price)}`;
+    currentOwnedSpan.textContent = index == 0 ? formatMoney(getCrypto(), 'c') : formatMoney(getStardust(), 's');
 
     btn.addEventListener('click', () => {
         if (!enoughMoney(price)) {
@@ -317,6 +325,7 @@ exchangeDivs.forEach((div, index) => {
 
         price = +(base * (1 + (Math.random() * 0.2 - 0.1))).toFixed(2);
         priceSpan.textContent = `${formatMoney(price)}`;
+        currentOwnedSpan.textContent = index == 0 ? formatMoney(getCrypto(), 'c') : formatMoney(getStardust(), 's');
     });
 });
 
@@ -519,6 +528,8 @@ function generateThemeOptions() {
         option.textContent = theme.charAt(0).toUpperCase() + theme.slice(1);
         vanityThemeSelect.appendChild(option);
     });
+    themeSelect.value = getBonusAndVanityThemes().bonus;
+    vanityThemeSelect.value = getBonusAndVanityThemes().vanity;
 }
 function updateSlotStats() {
     const slotsStats = getSlotsStats();

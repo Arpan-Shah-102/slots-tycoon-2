@@ -62,7 +62,14 @@ slots-tycoon-2/     # main project directory
 
 ## Update Log
 
-### NFT Update: Update V2.5 - 6/15/2026
+// Crypto Cat - battle cats reference
+
+## Theme Update V2.75 - 6/15/2026
+1. Added Themes for Crypto Udpate
+2. Added Currency Exchange for Crypto
+3. Bug Fixes
+
+### NFT Update V2.5 - 6/15/2026
 1. Added NFTs into the crypto section
 2. Added changing prices to NFTs
 3. Added SFX to crypto wallet and NFTs

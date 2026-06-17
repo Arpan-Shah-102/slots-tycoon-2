@@ -676,11 +676,13 @@
                     <div class="money exchange-item">
                         <h3>$ ➙ ₡</h3>
                         <p>Buy <span class="m-to-c c item">₡1,000</span> for <span class="m-to-c m price">$12.50</span></p>
+                        <p>Currently Owned: <span class="currently-owned crypto">₡0</span></p>
                         <button class="primary">Exchange</button>
                     </div>
                     <div class="stardust-exchange money exchange-item hidden">
                         <h3>$ ➙ ✺</h3>
                         <p>Buy <span class="m-to-s s item">✺1</span> for <span class="m-to-s m price">$250.00</span></p>
+                        <p>Currently Owned: <span class="currently-owned stardust">✺0</span></p>
                         <button class="primary">Exchange</button>
                     </div>
                 </div>
@@ -1032,6 +1034,83 @@
                     </div>
                 </div>
             </section>
+            
+            <section id="cryptoThemes" class="crypto-themes large-cont">
+                <h2>Themes</h2>
+                <div class="theme-selection">
+                    <p>Theme Bonus:
+                        <select class="theme-bonus-select">
+                            <option value="dark">Dark</option>
+                            <option value="light">Light</option>
+                            <option value="red">Red</option>
+                            <option value="green">Green</option>
+                            <option value="blue">Blue</option>
+                            <option value="purple">Purple</option>
+                        </select>
+                    </p>
+                    <p>Vanity Theme:
+                        <select class="theme-vanity-select">
+                            <option value="dark">Dark</option>
+                            <option value="light">Light</option>
+                            <option value="red">Red</option>
+                            <option value="green">Green</option>
+                            <option value="blue">Blue</option>
+                            <option value="purple">Purple</option>
+                        </select>
+                    </p>
+                </div>
+
+                <div class="buy-themes flexbox">
+                    <div data-theme="dogecoin" data-price="75000" class="dogecoin crypto-theme theme">
+                        <h3>Dogecoin</h3>
+                        <p class="price">₡75,000</p>
+                        <p class="bonus">+₡100</p>
+                    </div>
+                    <div data-theme="ethereum" data-price="225000" class="ethereum crypto-theme theme">
+                        <h3>Ethereum</h3>
+                        <p class="price">₡225,000</p>
+                        <p class="bonus">+$1/₡1,180</p>
+                    </div>
+                    <div data-theme="bitcoin" data-price="750000" class="bitcoin crypto-theme theme">
+                        <h3>Bitcoin</h3>
+                        <p class="price">₡750,000</p>
+                        <p class="bonus">+$5/₡5,244</p>
+                    </div>
+                    <div data-theme="neon" data-price="7500000" class="neon crypto-theme theme">
+                        <h3>Neon</h3>
+                        <p class="price">₡7,500,000</p>
+                        <p class="bonus">+$6/₡19,314</p>
+                    </div>
+                    <div data-theme="matrix" data-price="50000000" class="matrix crypto-theme theme">
+                        <h3>Matrix</h3>
+                        <p class="price">₡50,000,000</p>
+                        <p class="bonus">+$7/₡97,565/✺1</p>
+                    </div>
+                    <div data-theme="quantum" data-price="100000000" class="quantum crypto-theme theme">
+                        <h3>Quantum</h3>
+                        <p class="price">₡100,000,000</p>
+                        <p class="bonus">+$14/₡100,000/✺10</p>
+                    </div>
+                </div>
+            </section>
+
+            <section id="cryptoExchange" class="crypto-exchange large-cont">
+                <h2>Crypto Exchange</h2>
+                <div class="flexbox">
+                    <div class="crypto exchange-item">
+                        <h3>₡ ➙ $</h3>
+                        <p>Buy <span class="c-to-m c item">$10</span> for <span class="m-to-c m price">₡5,000</span></p>
+                        <p>Currently Owned: <span class="currently-owned money">$3,000</span></p>
+                        <button class="primary">Exchange</button>
+                    </div>
+                    <div class="stardust-exchange crypto exchange-item hidden">
+                        <h3>₡ ➙ ✺</h3>
+                        <p>Buy <span class="c-to-s s item">✺1</span> for <span class="m-to-s m price">₡100,000</span></p>
+                        <p>Currently Owned: <span class="currently-owned stardust">✺0</span></p>
+                        <button class="primary">Exchange</button>
+                    </div>
+                </div>
+            </section>
 
             <section id="cryptoStats" class="crypto-stats large-cont">
                 <h2>Stats</h2>
@@ -1177,7 +1256,7 @@
             document.querySelector('.copyright').innerHTML = `&copy; ${year} Arpan Shah. All rights reserved.`;
         </script>
 
-        <p onclick="unlockAchievement(39)" class="version-label">V2.5</p>
+        <p onclick="unlockAchievement(39)" class="version-label">V2.75</p>
 
         <script src="./js/utils.js"></script>
         <script src="./js/sfx-manager.js"></script>

@@ -263,9 +263,9 @@ function getThemeBonusValues() {
     return {
         'dark': [0, 0, 0], 'light': [0, 0, 0], 'red': [0, 0, 0], 'green': [0, 0, 0], 'blue': [0, 0, 0], 'purple': [0, 0, 0],
         'fire': [0.75, 0, 0], 'ice': [0.75, 0, 0], 'nature': [0.75, 0, 0], 'space': [2.5, 0, 0], 'cosmic': [5.99, 0, 0], 'godly': [7.77, 0, 0],
-        // crypto values
+        'dogecoin': [0, 100, 0], 'ethereum': [1, 1180, 0], 'bitcoin': [5, 5244, 0], 'neon': [6, 19314, 0], 'matrix': [7, 100000, 1], 'quantum': [14, 98100, 10],
         // the world values
-        'slot-bg-1': [-2.5, 100, 0], 'slot-bg-2': [-2.5, 100, 0], 'slot-bg-3': [-2.5, 100, 0], 'slot-bg-4': [-2.5, 100, 0], 'slot-bg-5': [-2.5, 100, 0], 'slot-bg-6': [-2.5, 0, 1], 'slot-bg-7': [-2.5, 0, 1], 'slot-bg-8': [-2.5, 0, 1], 'slot-bg-9': [-2.5, 0, 1], 'slot-bg-10': [-2.5, 0, 1],
+        'slot-bg-1': [-2.5, 1234, 0], 'slot-bg-2': [-2.5, 1234, 0], 'slot-bg-3': [-2.5, 1234, 0], 'slot-bg-4': [-2.5, 1234, 0], 'slot-bg-5': [-2.5, 1234, 0], 'slot-bg-6': [-2.5, 0, 1], 'slot-bg-7': [-2.5, 0, 1], 'slot-bg-8': [-2.5, 0, 1], 'slot-bg-9': [-2.5, 0, 1], 'slot-bg-10': [-2.5, 0, 1],
     }
 }
 function getBonusAndVanityThemes() {
@@ -408,4 +408,15 @@ function unlockNft(type) {
 function isNftUnlocked(type) {
     const nftsUnlocked = getNftsUnlocked();
     return nftsUnlocked.includes(type);
+}
+
+// The World
+
+function getTheWorldStats() {
+    return JSON.parse(localStorage.getItem('theWorldStats')) || { themeBonus: 0 };
+}
+function setTheWorldStats(stat, value, set=false) {
+    const theWorldStats = getTheWorldStats();
+    theWorldStats[stat] = !set ? theWorldStats[stat] + value : value;
+    localStorage.setItem('theWorldStats', JSON.stringify(theWorldStats));
 }

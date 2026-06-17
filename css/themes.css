@@ -168,6 +168,113 @@ body {
 }
 
 
+@property --quantum-spin {
+    syntax: '<angle>';
+    initial-value: 0deg;
+    inherits: false;
+}
+
+.dogecoin {
+    color: white;
+    background: linear-gradient(
+        90deg,
+        #120e00 0%,
+        #2e2200 18%,
+        #5c4500 36%,
+        #8f6d00 54%,
+        #c2a633 72%,
+        #e8cc55 88%,
+        #fff0a0 100%
+    );
+}
+.bitcoin {
+    color: white;
+    background: linear-gradient(
+        90deg,
+        #1a0800 0%,
+        #3d1500 18%,
+        #7a3200 36%,
+        #b35000 54%,
+        #e07800 72%,
+        #f7931a 88%,
+        #ffd080 100%
+    );
+}
+.ethereum {
+    color: white;
+    background: linear-gradient(
+        90deg,
+        #0a0018 0%,
+        #1a0035 18%,
+        #340060 36%,
+        #5500a0 54%,
+        #8247e5 72%,
+        #b48ff5 88%,
+        #e8d5ff 100%
+    );
+}
+.neon {
+    color: white;
+    background:
+        radial-gradient(ellipse at 15% 50%, rgba(0, 255, 240, 0.38) 0%, rgba(0, 255, 240, 0) 45%),
+        radial-gradient(ellipse at 85% 50%, rgba(255, 0, 220, 0.32) 0%, rgba(255, 0, 220, 0) 48%),
+        radial-gradient(ellipse at 50% 85%, rgba(120, 0, 255, 0.22) 0%, rgba(120, 0, 255, 0) 40%),
+        linear-gradient(
+            105deg,
+            #060010 0%,
+            #100028 22%,
+            #1a0040 45%,
+            #0a1540 68%,
+            #001530 86%,
+            #000d20 100%
+        );
+}
+.matrix {
+    color: #00ff41;
+    --matrix-a: 1;
+    --matrix-b: 0.55;
+    animation: matrix-flicker 2.6s linear infinite;
+    background:
+        radial-gradient(circle, rgba(0, 255, 65, calc(0.9 * var(--matrix-a))) 0 1px, rgba(0, 255, 65, 0) 1.4px) 0 0 / 55px 55px repeat,
+        radial-gradient(circle, rgba(0, 220, 55, calc(0.65 * var(--matrix-b))) 0 1px, rgba(0, 220, 55, 0) 1.5px) 18px 12px / 88px 88px repeat,
+        radial-gradient(circle, rgba(0, 180, 40, calc(0.5 * var(--matrix-a))) 0 1.2px, rgba(0, 180, 40, 0) 2px) 8px 35px / 120px 120px repeat,
+        radial-gradient(ellipse at 50% 0%, rgba(0, 255, 65, 0.25) 0%, rgba(0, 255, 65, 0) 60%),
+        linear-gradient(180deg, #000a00 0%, #000f00 30%, #001800 60%, #000f00 100%);
+}
+.quantum {
+    color: white;
+    --quantum-spin: 0deg;
+    animation: quantum-rays-spin 100s linear infinite;
+    background:
+        repeating-conic-gradient(from var(--quantum-spin) at 50% 18%, rgba(100, 210, 255, 0.22) 0deg 7deg, rgba(100, 210, 255, 0) 7deg 14deg),
+        radial-gradient(110% 90% at 50% 0%, rgba(80, 180, 255, 0.55) 0%, rgba(80, 180, 255, 0) 50%),
+        radial-gradient(80% 65% at 50% 22%, rgba(160, 100, 255, 0.3) 0%, rgba(160, 100, 255, 0) 55%),
+        linear-gradient(
+            118deg,
+            #000814 0%,
+            #001228 18%,
+            #001e45 36%,
+            #0a2a6e 54%,
+            #2244a8 72%,
+            #4477dd 88%,
+            #88bbff 100%
+        );
+}
+
+@keyframes matrix-flicker {
+    0%,  100% { --matrix-a: 1;    --matrix-b: 0.55; }
+    22%        { --matrix-a: 0.35; --matrix-b: 0.95; }
+    44%        { --matrix-a: 0.85; --matrix-b: 0.3;  }
+    66%        { --matrix-a: 0.5;  --matrix-b: 1;    }
+    88%        { --matrix-a: 0.9;  --matrix-b: 0.45; }
+}
+
+@keyframes quantum-rays-spin {
+    from { --quantum-spin: 0deg; }
+    to   { --quantum-spin: 360deg; }
+}
+
+
 .theme-selection {
     display: flex;
     gap: 20px;
@@ -206,6 +313,7 @@ body {
     font-weight: bold;
     display: flex;
     align-items: center;
+    flex-direction: column;
     justify-content: center;
 
     &:hover {
@@ -216,5 +324,14 @@ body {
         transform: scale(0.95);
         border-width: 3px;
         opacity: 0.8;
+    }
+    & .price {
+        font-size: 18px;
+        font-weight: normal;
+    }
+    & .bonus {
+        font-size: 14px;
+        font-weight: normal;
+        margin-top: 4px;
     }
 }

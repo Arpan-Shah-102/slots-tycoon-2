@@ -116,7 +116,7 @@ setInterval(() => {
             return;
         }
         let newPrice = price + Math.floor((Math.random() - 0.5) * price);
-        truePrice.value = newPrice;
+        buyBtn.dataset.true = newPrice;
         buyBtn.textContent = `${formatMoney(newPrice, 'c')}`;
         nft.classList.add('flash');
         setTimeout(() => {nft.classList.remove('flash');}, 250);
@@ -129,6 +129,113 @@ setInterval(() => {
     }
     nextRefreshLabel.textContent = timer == 60 ? '1:00' : timer < 10 ? `0:0${timer}` : `0:${timer}`;
 }, 1000);
+
+const cryptoThemeDivs = document.querySelectorAll('.crypto-theme');
+const cryptoBonusThemeSelect = document.querySelector('#cryptoThemes .theme-selection .theme-bonus-select');
+const cryptoVanityThemeSelect = document.querySelector('#cryptoThemes .theme-selection .theme-vanity-select');
+cryptoBonusThemeSelect.addEventListener('change', () => {
+    const theme = cryptoBonusThemeSelect.value;
+    setBonusOrVanityTheme('bonus', theme);
+    setSlotsStats('themeBonus', getThemeBonusValues()[theme][0] || 0);
+    setCryptoStats('themeBonus', getThemeBonusValues()[theme][1] || 0, true);
+    // setTheWorldStats('themeBonus', getThemeBonusValues()[theme][2] || 0, true);
+    generateCryptoThemeOptions();
+    updateCryptoUI();
+});
+cryptoVanityThemeSelect.addEventListener('change', () => {
+    const theme = cryptoVanityThemeSelect.value;
+    setBonusOrVanityTheme('vanity', theme);
+    generateCryptoThemeOptions();
+    updateCryptoUI();
+});
+cryptoThemeDivs.forEach((theme, index) => {
+    const themeName = theme.dataset.theme;
+    const themePrice = theme.dataset.price;
+    if (isThemeUnlocked(themeName)) {addBaseSFX(theme);}
+
+    theme.addEventListener('click', () => {
+        if (getUnlockedThemes().includes(themeName)) {
+            setSlotsStats('themeBonus', getThemeBonusValues()[themeName][0] || 0);
+            setCryptoStats('themeBonus', getThemeBonusValues()[themeName][1] || 0, true);
+            setTheWorldStats('themeBonus', getThemeBonusValues()[themeName][2] || 0, true);
+            setBonusOrVanityTheme('bonus', themeName);
+            setBonusOrVanityTheme('vanity', themeName);
+            generateCryptoThemeOptions();
+            updateCryptoUI();
+            return;
+        }
+        if (!enoughMoney(themePrice, 'c')) {
+            delayAlert("Not enough crypto to buy this theme!");
+            playSound(baseSfx.denied);
+            return;
+        }
+        calcCrypto(-themePrice);
+        moneyLabel.textContent = formatMoney(getCrypto(), 'c');
+        unlockTheme(themeName);
+        document.body.classList = `${themeName}`;
+        setSlotsStats('themeBonus', getThemeBonusValues()[themeName][0] || 0);
+        setCryptoStats('themeBonus', getThemeBonusValues()[themeName][1] || 0, true);
+        setTheWorldStats('themeBonus', getThemeBonusValues()[themeName][2] || 0, true);
+        setBonusOrVanityTheme('bonus', themeName);
+        setBonusOrVanityTheme('vanity', themeName);
+        playSound(slotSfx.getTheme);
+        addBaseSFX(theme);
+        generateCryptoThemeOptions();
+        updateCryptoUI();
+    });
+});
+function generateCryptoThemeOptions() {
+    cryptoBonusThemeSelect.innerHTML = '';
+    getUnlockedThemes().forEach(theme => {
+        const option = document.createElement('option');
+        option.value = theme;
+        option.textContent = theme.charAt(0).toUpperCase() + theme.slice(1) + ` (+$${getThemeBonusValues()[theme][0]}${getThemeBonusValues()[theme][1] ? `/₡${getThemeBonusValues()[theme][1]}` : ''}${getThemeBonusValues()[theme][2] ? `/✺${getThemeBonusValues()[theme][2]}` : ''})`;
+        cryptoBonusThemeSelect.appendChild(option);
+    });
+    cryptoVanityThemeSelect.innerHTML = '';
+    getUnlockedThemes().forEach(theme => {
+        const option = document.createElement('option');
+        option.value = theme;
+        option.textContent = theme.charAt(0).toUpperCase() + theme.slice(1);
+        cryptoVanityThemeSelect.appendChild(option);
+    });
+    cryptoBonusThemeSelect.value = getBonusAndVanityThemes().bonus;
+    cryptoVanityThemeSelect.value = getBonusAndVanityThemes().vanity;
+}
+generateCryptoThemeOptions();
+
+const cryptoExchangeValues = [10, 1];
+const cryptoExchangePrices = [5000, 100000];
+const cryptoExchangeDivs = document.querySelectorAll('.crypto.exchange-item');
+
+cryptoExchangeDivs.forEach((div, index) => {
+    const btn = div.querySelector('button');
+    const priceSpan = div.querySelector('p .price');
+    const valueSpan = div.querySelector('p .item');
+    const currentOwnedSpan = div.querySelector('p .currently-owned');
+    const base = cryptoExchangePrices[index];
+    let price = +(base * (1 + (Math.random() * 0.4 - 0.2)));
+    const value = cryptoExchangeValues[index];
+    priceSpan.textContent = `${formatMoney(price, 'c')}`;
+    currentOwnedSpan.textContent = index == 0 ? formatMoney(getMoney()) : formatMoney(getCrypto(), 'c');
+
+    btn.addEventListener('click', () => {
+        if (!enoughMoney(price, 'c')) {
+            delayAlert('Not enough crypto to exchange!');
+            playSound(baseSfx.denied);
+            return;
+        }
+        calcCrypto(-price);
+        if (index == 0) {calcMoney(value);}
+        else if (index == 1) {calcStardust(value);}
+        moneyLabel.textContent = formatMoney(getCrypto(), 'c');
+        playSound(slotSfx.exchange);
+
+        price = +(base * (1 + (Math.random() * 0.2 - 0.1)));
+        priceSpan.textContent = `${formatMoney(price, 'c')}`;
+        currentOwnedSpan.textContent = index == 0 ? formatMoney(getMoney()) : formatMoney(getCrypto(), 'c');
+    });
+});
 
 function calcCoinBonus() {
     const coinsOwned = getCoinsOwned();
@@ -162,7 +269,7 @@ function updateCryptoStats() {
             case 2:
             case 3:
             case 4:
-                stat.textContent = `+₡${Object.values(cryptoStats)[index]}/click`
+                stat.textContent = `+${formatMoney(Object.values(cryptoStats)[index], 'c')}/click`
         }
     });
 
@@ -200,6 +307,20 @@ function updateCryptoStats() {
             buyBtn.classList.add('teritry');
             nftsOwnedContainter.parentElement.classList.remove('hidden');
             nftsOwnedContainter.innerHTML += `<h1>${item}</h1>`;
+        }
+    });
+
+    // Themes
+    themeSelect.value = getBonusAndVanityThemes().bonus;
+    vanityThemeSelect.value = getBonusAndVanityThemes().vanity;
+    document.body.classList = getBonusAndVanityThemes().vanity;
+    cryptoThemeDivs.forEach((theme, index) => {
+        const themeName = theme.dataset.theme;
+        const themePrice = theme.dataset.price;
+        const buyBtn = theme.querySelector('button');
+
+        if (isThemeUnlocked(themeName)) {
+            theme.textContent = 'Switch';
         }
     });
 }

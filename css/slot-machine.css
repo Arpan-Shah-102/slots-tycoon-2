@@ -5,15 +5,15 @@ body.light {
         background-color: rgba(255, 255, 255);
         border: 2px solid #333;
     }
-    & .slot-stats .table-itm {
+    & .slot-stats .table-itm, .crypto-stats .table-itm {
         background-color: rgba(255, 255, 255, 0.5);
         border: 2px solid #333;
     }
-    & .slot-drip > .flexbox > .drip-item {
+    & .slot-drip > .flexbox > .drip-item, .crypto-nfts > .flexbox > .nft-itm {
         background-color: rgba(255, 255, 255, 0.5);
         border: 2px solid #333;
     }
-    & .money-exchange > .flexbox > .exchange-item {
+    & .money-exchange > .flexbox > .exchange-item, .crypto-exchange > .flexbox > .exchange-item {
         background-color: rgba(255, 255, 255, 0.5);
         border: 2px solid #333;
     }
@@ -354,7 +354,7 @@ body.light {
     }
 }
 
-.money-exchange > .flexbox > .exchange-item {
+.money-exchange > .flexbox > .exchange-item, .crypto-exchange > .flexbox > .exchange-item {
     background-color: rgba(0, 0, 0, 0.5);
     border: 2px solid teal;
     border-radius: 12px;

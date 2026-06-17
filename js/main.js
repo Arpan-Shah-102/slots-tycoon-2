@@ -116,6 +116,9 @@ selectors.forEach((selector, index) => {
             autoSpinBtn.classList.add('green');
             autoSpinBtn.textContent = 'Activate Auto-Spin';
         }
+        generateThemeOptions();
+        generateCryptoThemeOptions();
+        // generateTheWorldThemeOptions();
         toggleMenu();
     });
 });
