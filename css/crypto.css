@@ -144,7 +144,7 @@ h4:has(.next-refresh), .money-owned-temp {
     text-shadow: 0 0 10px goldenrod;
     margin-top: -20px;
 }
-.nfts-owned {
+.nfts-owned, .unlocked-crypto-trophies {
     &.hidden {display: none;}
     & > .flexbox {
         justify-content: center;

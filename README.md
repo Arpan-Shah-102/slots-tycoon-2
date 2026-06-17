@@ -62,9 +62,11 @@ slots-tycoon-2/     # main project directory
 
 ## Update Log
 
-// Crypto Cat - battle cats reference
+### Trophy Update V2.85 - 6/16/2026
+1. Added trophies to crypto update
+2. Bug Fixes
 
-## Theme Update V2.75 - 6/15/2026
+## Theme Update V2.75 - 6/16/2026
 1. Added Themes for Crypto Udpate
 2. Added Currency Exchange for Crypto
 3. Bug Fixes

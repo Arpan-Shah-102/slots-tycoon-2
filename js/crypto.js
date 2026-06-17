@@ -237,6 +237,27 @@ cryptoExchangeDivs.forEach((div, index) => {
     });
 });
 
+const cryptoTrophies = document.querySelectorAll('.crypto-trophies .trophy-item');
+const unlockedCryptoTrophies = document.querySelector('.unlocked-crypto-trophies .flexbox');
+const cryptoTrophyPrices = [10000000, 100000000, 1000000000];
+cryptoTrophies.forEach((trophy, index) => {
+    const price = cryptoTrophyPrices[index];
+    const buyBtn = trophy.querySelector('button');
+
+    buyBtn.addEventListener('click', () => {
+        if (!enoughMoney(price, 'c')) {
+            delayAlert('Not enough crypto to buy this trophy!');
+            playSound(baseSfx.denied);
+            return;
+        }
+        calcCrypto(-price);
+        moneyLabel.textContent = formatMoney(getCrypto(), 'c');
+        unlockCryptoTrophy(index);
+        playSound(slotSfx.getTrophy);
+        updateCryptoUI();
+    });
+});
+
 function calcCoinBonus() {
     const coinsOwned = getCoinsOwned();
     const coinBonuses = getCoinBonuses();
@@ -323,6 +344,22 @@ function updateCryptoStats() {
             theme.textContent = 'Switch';
         }
     });
+
+    // Trophies
+    if (getCryptoTrophiesUnlocked().length > 0) {
+        unlockedCryptoTrophies.innerHTML = '';
+        unlockedCryptoTrophies.parentElement.classList.remove('hidden');
+
+        cryptoTrophies.forEach((trophy, index) => {
+            const price = cryptoTrophyPrices[index];
+            const buyBtn = trophy.querySelector('button');
+            if (isCryptoTrophyUnlocked(index)) {
+                buyBtn.disabled = true;
+                buyBtn.textContent = 'Owned';
+                unlockedCryptoTrophies.innerHTML += `<h1>${['🥉', '🥈', '🥇'][index]}</h1>`;
+            }
+        });
+    }
 }
 
 updateCryptoUI();

@@ -410,6 +410,21 @@ function isNftUnlocked(type) {
     return nftsUnlocked.includes(type);
 }
 
+function getCryptoTrophiesUnlocked() {
+    return JSON.parse(localStorage.getItem('cryptoTrophiesUnlocked')) || [];
+}
+function unlockCryptoTrophy(trophy) {
+    const trophies = getCryptoTrophiesUnlocked();
+    if (!trophies.includes(trophy)) {
+        trophies.push(trophy);
+        localStorage.setItem('cryptoTrophiesUnlocked', JSON.stringify(trophies));
+    }
+}
+function isCryptoTrophyUnlocked(trophy) {
+    const trophies = getCryptoTrophiesUnlocked();
+    return trophies.includes(trophy);
+}
+
 // The World
 
 function getTheWorldStats() {
