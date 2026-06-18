@@ -13,10 +13,16 @@ autoMineBtn.addEventListener('click', () => {
         cryptoClick.classList.remove('auto-mine');
         return;
     }
+    if (getCryptoPerClick() <= 0) {
+        delayAlert('Please buy some crypto to start auto mining!');
+        playSound(baseSfx.denied);
+        return;
+    }
     autoMineBtn.classList.remove('yellow');
     autoMineBtn.classList.add('green');
     autoMineBtn.textContent = 'Stop Auto Mining';
     cryptoClick.classList.add('auto-mine');
+    unlockAchievement(79);
     autoMineInterval = setInterval(() => {
         cryptoClick.click();
     }, 1000);
@@ -28,7 +34,7 @@ function mineCrypto() {
         alert('No crypto owned to mine! Buy some to start mining!');
         return;
     }
-    playSound(cryptoSfx.mineCoin);
+    let savageCoin = false;
     if (rewireStatus == 'p') {
         delayAlert('You got lucky! Coin rewired to give you 10x!\nYou gained ' + formatMoney(getCryptoPerClick() * 10, 'c') + '!');
         rewireStatus = false;
@@ -38,10 +44,24 @@ function mineCrypto() {
         rewireStatus = false;
         calcCrypto(-getCryptoPerClick() * 20);
     } else {
-        calcCrypto(getCryptoPerClick());
+        if (Math.random() < getSavageClickChance()) {
+            calcCrypto(getCryptoPerClick() * 100);
+            savageCoin = true;
+            setCryptoStats("savageClicks", 1);
+            unlockAchievement(50);
+            if (getCryptoStats().savageClicks == 10) {unlockAchievement(51);}
+            playSound(cryptoSfx.savageClick);
+        } else {
+            calcCrypto(getCryptoPerClick());
+        }
     }
+    unlockAchievement(46);
+    if (!savageCoin) {playSound(cryptoSfx.mineCoin);}
     moneyLabel.textContent = formatMoney(getCrypto(), 'c');
     setCryptoStats("clicks", 1);
+    if (getCryptoStats().clicks == 10) {unlockAchievement(47);}
+    else if (getCryptoStats().clicks == 100) {unlockAchievement(48);}
+    else if (getCryptoStats().clicks == 1000) {unlockAchievement(49);}
     updateCryptoStats();
 }
 
@@ -60,10 +80,16 @@ cryptoWalletBtns.forEach((coin, index) => {
         }
         calcMoney(-getCoinPrices()[index]);
         setCoinOwned(index, getCoinsOwned()[index] + 1);
+        unlockAchievement(58);
+        if (getCoinPrices()[index] > [10000, 75000, 500000][index]) {unlockAchievement(87 + index);}
+        if (getCoinsOwned()[index] == 1) {unlockAchievement(52 + (index * 2));}
+        else if (getCoinsOwned()[index] == 10) {unlockAchievement(53 + (index * 2));}
         setCryptoStats("coinsOwned", 1);
+        if (getCryptoStats().coinsOwned == 100) {unlockAchievement(90);}
         moneyOwned.textContent = formatMoney(getMoney());
         calcCoinBonus();
         playSound(cryptoSfx.buyCoin);
+        setCoinPrice(index, Math.floor(getCoinPrices()[index] * 1.25));
         updateCryptoUI();
         gameOverCheck();
     });
@@ -74,9 +100,12 @@ cryptoWalletBtns.forEach((coin, index) => {
             return;
         }
         calcCrypto(-getCoinsBoostedPrice()[index]);
+        unlockAchievement(59);
+        unlockAchievement(60 + index);
         moneyLabel.textContent = formatMoney(getCrypto(), 'c');
         setCoinBonus(index, getCoinBonuses()[index] * 1.5);
         setCoinPriceBoost(index, getCoinsBoostedPrice()[index] * 1.75);
+        if (getCoinBonuses()[index] >= [750, 2500, 10000][index]) {unlockAchievement(80 + index);}
         playSound(cryptoSfx.boostCoin);
         calcCoinBonus();
         updateCryptoUI();
@@ -105,10 +134,14 @@ nftDivs.forEach((nft, index) => {
             return;
         }
         calcCrypto(-truePrice);
+        unlockAchievement(63);
         moneyLabel.textContent = formatMoney(getCrypto(), 'c');
+        if (truePrice < price) {unlockAchievement(65);}
         unlockNft(item);
+        if (index === 13 || index === 22) {unlockAchievement(84);}
         playSound(cryptoSfx.buyNft);
         setCryptoStats("nftBonus", bonus);
+        if (getCryptoStats().nftBonus >= 250000) {unlockAchievement(77);}
         updateCryptoUI();
     });
 });
@@ -180,12 +213,14 @@ cryptoThemeDivs.forEach((theme, index) => {
         calcCrypto(-themePrice);
         moneyLabel.textContent = formatMoney(getCrypto(), 'c');
         unlockTheme(themeName);
+        unlockAchievement(66);
         document.body.classList = `${themeName}`;
         setSlotsStats('themeBonus', getThemeBonusValues()[themeName][0] || 0);
         setCryptoStats('themeBonus', getThemeBonusValues()[themeName][1] || 0, true);
         setTheWorldStats('themeBonus', getThemeBonusValues()[themeName][2] || 0, true);
         setBonusOrVanityTheme('bonus', themeName);
         setBonusOrVanityTheme('vanity', themeName);
+        if (themeName == 'matrix') {unlockAchievement(67);}
         playSound(slotSfx.getTheme);
         addBaseSFX(theme);
         generateCryptoThemeOptions();
@@ -238,8 +273,11 @@ cryptoExchangeDivs.forEach((div, index) => {
         else if (index == 1) {calcStardust(value);}
         moneyLabel.textContent = formatMoney(getCrypto(), 'c');
         playSound(slotSfx.exchange);
+        if (index == 0 && price > 5500) {unlockAchievement(85);}
+        else if (index == 0 && price < 4500) {unlockAchievement(86);}
 
-        price = +(base * (1 + (Math.random() * 0.2 - 0.1)));
+        unlockAchievement(69 + index);
+        price = +(base * (1 + (Math.random() * 0.4 - 0.2)));
         priceSpan.textContent = `${formatMoney(price, 'c')}`;
         currentOwnedSpan.textContent = index == 0 ? formatMoney(getMoney()) : formatMoney(getCrypto(), 'c');
     });
@@ -261,6 +299,7 @@ cryptoTrophies.forEach((trophy, index) => {
         calcCrypto(-price);
         moneyLabel.textContent = formatMoney(getCrypto(), 'c');
         unlockCryptoTrophy(index);
+        unlockAchievement(74 + index);
         playSound(slotSfx.getTrophy);
         updateCryptoUI();
     });
@@ -320,6 +359,7 @@ buyCryptoLootboxBtn.addEventListener('click', () => {
             cryptoLBNumber[1].textContent = '💸';
             unlockCryptoCommandsInTerminal();
             setHelpMsg(helpMsgTxtCrypto);
+            unlockAchievement(72);
             helpMsg = getHelpMsg();
         }
         else if (isFinite(getCryptoLootboxPrizes()[lbPrize])) {
@@ -338,8 +378,10 @@ buyCryptoLootboxBtn.addEventListener('click', () => {
                 changeCryptoLootboxIcon('💵', (lbPrize + 16) % 19);
             }
         }
+        if (getCryptoLootboxPrizes().every(p => Number.isFinite(p))) {unlockAchievement(73);}
         playSound(slotSfx.winLootbox);
         buyCryptoLootboxBtn.disabled = false;
+        unlockAchievement(71);
         updateCryptoUI();
     }, 3000);
 });
@@ -347,16 +389,13 @@ buyCryptoLootboxBtn.addEventListener('click', () => {
 function calcCoinBonus() {
     const coinsOwned = getCoinsOwned();
     const coinBonuses = getCoinBonuses();
-    const nftBonus = getCryptoStats().nftBonus;
-    const themeBonus = getCryptoStats().themeBonus;
 
-    let totalBonus = 0;
+    let coinBonus = 0;
     coinsOwned.forEach((owned, index) => {
-        totalBonus += owned * coinBonuses[index];
+        coinBonus += owned * coinBonuses[index];
     });
-    totalBonus += nftBonus;
-    totalBonus += themeBonus;
-    setCryptoStats("coinBonus", totalBonus, true);
+    setCryptoStats("coinBonus", coinBonus, true);
+    if (coinBonus >= 1000000) {unlockAchievement(78);}
 }
 
 function updateCryptoUI() {
@@ -371,12 +410,14 @@ function updateCryptoStats() {
         switch (index) {
             case 0:
             case 1:
+            case 2:
                 stat.textContent = Object.values(cryptoStats)[index];
                 break;
-            case 2:
             case 3:
             case 4:
+            case 5:
                 stat.textContent = `+${formatMoney(Object.values(cryptoStats)[index], 'c')}/click`
+                break;
         }
     });
 
@@ -400,6 +441,7 @@ function updateCryptoStats() {
 
     // NFTs
     nftsOwnedContainter.innerHTML = '';
+    let nftsOwned = 0;
     nftDivs.forEach((nft, index) => {
         const buyBtn = nft.querySelector('button');
         const bonus = parseInt(buyBtn.dataset.bonus);
@@ -414,13 +456,16 @@ function updateCryptoStats() {
             buyBtn.classList.add('teritry');
             nftsOwnedContainter.parentElement.classList.remove('hidden');
             nftsOwnedContainter.innerHTML += `<h1>${item}</h1>`;
+            nftsOwned++;
         }
     });
+    if (nftsOwned == 25) {unlockAchievement(64);}
 
     // Themes
     themeSelect.value = getBonusAndVanityThemes().bonus;
     vanityThemeSelect.value = getBonusAndVanityThemes().vanity;
     document.body.classList = getBonusAndVanityThemes().vanity;
+    let themesOwned = 0;
     cryptoThemeDivs.forEach((theme, index) => {
         const themeName = theme.dataset.theme;
         const themePrice = theme.dataset.price;
@@ -428,8 +473,10 @@ function updateCryptoStats() {
 
         if (isThemeUnlocked(themeName)) {
             theme.textContent = 'Switch';
+            themesOwned++;
         }
     });
+    if (themesOwned == 6) {unlockAchievement(68);}
 
     // Lootbox
     cryptoLBTxt.forEach((num, index) => {

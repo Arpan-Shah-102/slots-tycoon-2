@@ -1,3 +1,21 @@
+const slotMachineSelect = document.querySelector('.slot-machine-select');
+const cryptoSelect = document.querySelector('.crypto-select');
+const theWorldSelect = document.querySelector('.the-world-select');
+
+const slotMachineSection = document.querySelector('.slot-machine-game');
+const cryptoSection = document.querySelector('.crypto-game');
+const theWorldSection = document.querySelector('.the-world-game');
+
+const slotMachineLinks = document.querySelector('.slot-machine-links');
+const cryptoLinks = document.querySelector('.crypto-links');
+const theWorldLinks = document.querySelector('.the-world-links');
+
+const selectors = [slotMachineSelect, cryptoSelect, theWorldSelect];
+const sections = [slotMachineSection, cryptoSection, theWorldSection];
+const links = [slotMachineLinks, cryptoLinks, theWorldLinks];
+const unlocked = [true, isCryptoGamemodeUnlocked(), isTheWorldUnlocked()];
+const stardustExchanges = document.querySelectorAll('.stardust-exchange');
+
 const fullCheatsBackground = document.querySelector('.cheats-menu-background');
 const toggleCheatsBtn = document.querySelector('.toggle-cheats');
 
@@ -10,6 +28,7 @@ fullCheatsBackground.addEventListener('click', (e) => {
     cheatsClose();
 });
 function cheatsClose() {
+    playSound(baseSfx.cheat);
     fullCheatsBackground.classList.remove('shown');
 }
 function toggleCheatsDiv() {
@@ -65,6 +84,50 @@ function cheatsEditAllText(btn) {
     isTextEditable = !isTextEditable;
     document.body.contentEditable = isTextEditable;
     btn.textContent = isTextEditable ? 'Disable Text Editing' : 'Enable Text Editing';
+    playSound(baseSfx.cheat);
+}
+let unlockCryptoBtn = document.querySelector('.unlock-crypto');
+let unlockTheWorldBtn = document.querySelector('.unlock-the-world');
+if (isCryptoGamemodeUnlocked()) {
+    unlockCryptoBtn.disabled = true;
+}
+if (isTheWorldUnlocked()) {
+    unlockTheWorldBtn.disabled = true;
+}
+function cheatsUnlockCrypto() {
+    unlockCryptoGamemode();
+    slotExchange.classList.remove('hidden');
+    theWorldSelect.classList.remove('disabled');
+    unlocked[1] = true;
+    moneyExchange.classList.remove('hidden');
+    playSound(baseSfx.cheat);
+    unlockCryptoBtn.disabled = true;
+}
+function cheatsUnlockTheWorld() {
+    unlockTheWorld();
+    slotExchange.classList.remove('hidden');
+    stardustExchanges.forEach(exchange => exchange.classList.remove('hidden'));
+    unlocked[2] = true;
+    playSound(baseSfx.cheat);
+    unlockTheWorldBtn.disabled = true;
+}
+
+const getGuaranteedJackpotBtn = document.querySelector('.guaranteed-jackpot');
+const getGuaranteedSavageClickBtn = document.querySelector('.guaranteed-savage-click');
+if (getGuaranteedJackpot()) {
+    getGuaranteedJackpotBtn.disabled = true;
+}
+if (getSavageClickChance() == 1) {
+    getGuaranteedSavageClickBtn.disabled = true;
+}
+function unlockGuaranteedJackpot() {
+    setGuaranteedJackpot(true);
+    getGuaranteedJackpotBtn.disabled = true;
+    playSound(baseSfx.cheat);
+}
+function unlockGuaranteedSavageClick() {
+    setSavageClickChance(100);
+    getGuaranteedSavageClickBtn.disabled = true;
     playSound(baseSfx.cheat);
 }
 

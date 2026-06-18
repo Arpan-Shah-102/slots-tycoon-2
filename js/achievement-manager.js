@@ -25,11 +25,12 @@ function unlockAchievement(id) {
     else if (achievement.type == 'crypto') {incrementCryptoAchievementsUnlocked();}
     else if (achievement.type == 'world') {incrementWorldAchievementsUnlocked();}
     else if (achievement.type == 'extras') {incrementExtrasAchievementsUnlocked();}
+    if (getCryptoAchievementsUnlocked() == 29) {unlockAchievement(83);}
     playSound(baseSfx.achievement);
     updateAchievementPanel();
 }
 
-const achievmentBoxes = document.querySelectorAll('.achivement-box');
+const achievmentBoxes = document.querySelectorAll('.achievement-box');
 
 const totalSlotsAchievements = document.querySelector('.total-achievements.slots');
 const totalCryptoAchievements = document.querySelector('.total-achievements.crypto');
@@ -37,11 +38,14 @@ const totalWorldAchievements = document.querySelector('.total-achievements.world
 const totalExtrasAchievements = document.querySelector('.total-achievements.extras');
 
 function updateAchievementPanel() {
-    getAchievementsUnlocked().forEach(id => {
-        achievmentBoxes[id].classList.add('unlocked');
+    achievmentBoxes.forEach(box => {
+        const id = parseInt(box.dataset.achievementId);
+        if (isAchievementUnlocked(id)) {
+            box.classList.add('unlocked');
+        }
     });
     totalSlotsAchievements.textContent = `${getSlotsAchievementsUnlocked()}/30`;
-    totalCryptoAchievements.textContent = `${getCryptoAchievementsUnlocked()}/??`;
+    totalCryptoAchievements.textContent = `${getCryptoAchievementsUnlocked()}/29`;
     totalWorldAchievements.textContent = `${getWorldAchievementsUnlocked()}/??`;
     totalExtrasAchievements.textContent = `${getExtrasAchievementsUnlocked()}/TBD`;
 }
@@ -330,11 +334,287 @@ const achievementData = {
         description: "Enter a code into the hacking terminal after unlocking crypto commands.",
         icon: '🕵️‍♂️',
         type: 'extras',
+    },
+    46: {
+        name: "Let's Hope This Doesn't Crash",
+        description: "Make your first crypto by clicking the coin.",
+        icon: '🪙',
+        type: 'crypto',
+    },
+    47: {
+        name: "Only the Beginning",
+        description: "Click the coin 10 times.",
+        icon: '🌱',
+        type: 'crypto',
+    },
+    48: {
+        name: "Crypto Addict",
+        description: "Click the coin 100 times.",
+        icon: '😤',
+        type: 'crypto',
+    },
+    49: {
+        name: "Crypto Mogul",
+        description: "Click the coin 1,000 times.",
+        icon: '🤑',
+        type: 'crypto',
+    },
+    50: {
+        name: "Savage Click",
+        description: "Mine a savage coin.",
+        icon: '💥',
+        type: 'crypto',
+    },
+    51: {
+        name: "Crazy Clickings",
+        description: "Get 10 savage clicks.",
+        icon: '🔥',
+        type: 'crypto',
+    },
+    52: {
+        name: "Dead Horse",
+        description: "Add a Dogecoin to your crypto wallet.",
+        icon: '🐕',
+        type: 'crypto',
+    },
+    53: {
+        name: "Beating the Dead Horse",
+        description: "Add 10 Dogecoins to your crypto wallet.",
+        icon: '🐶',
+        type: 'crypto',
+    },
+    54: {
+        name: "Innovation",
+        description: "Add an Ethereum to your crypto wallet.",
+        icon: '🔷',
+        type: 'crypto',
+    },
+    55: {
+        name: "Into the Future",
+        description: "Add 10 Ethereum to your crypto wallet.",
+        icon: '🚀',
+        type: 'crypto',
+    },
+    56: {
+        name: "Black Market Deals",
+        description: "Add a Bitcoin to your crypto wallet.",
+        icon: '🟠',
+        type: 'crypto',
+    },
+    57: {
+        name: "Underworld Currency",
+        description: "Add 10 Bitcoins to your crypto wallet.",
+        icon: '🌑',
+        type: 'crypto',
+    },
+    58: {
+        name: "Financing",
+        description: "Add a coin to your crypto wallet",
+        icon: '💰',
+        type: 'crypto',
+    },
+    59: {
+        name: "Illegal Techniques",
+        description: "Boost a coin in your crypto wallet.",
+        icon: '⚡',
+        type: 'crypto',
+    },
+    60: {
+        name: "Doge Uprising",
+        description: "Boost Dogecoin.",
+        icon: '🐾',
+        type: 'crypto',
+    },
+    61: {
+        name: "Empowering",
+        description: "Boost Ethereum.",
+        icon: '💠',
+        type: 'crypto',
+    },
+    62: {
+        name: "Playing Unfair",
+        description: "Boost Bitcoin.",
+        icon: '🏴‍☠️',
+        type: 'crypto',
+    },
+    63: {
+        name: "Risky Endeavors",
+        description: "Buy an NFT from the shop.",
+        icon: '🖼️',
+        type: 'crypto',
+    },
+    64: {
+        name: "Crypto Burner",
+        description: "Buy all the NFTs from the shop.",
+        icon: '🔥',
+        type: 'crypto',
+    },
+    65: {
+        name: "A Good Deal",
+        description: "Buy an NFT for below its average price.",
+        icon: '🤝',
+        type: 'extras',
+    },
+    66: {
+        name: "Swaggy Screens",
+        description: "Buy all the crypto themes.",
+        icon: '🖥️',
+        type: 'crypto',
+    },
+    67: {
+        name: "A Simulation",
+        description: "Buy the matrix theme.",
+        icon: '🟩',
+        type: 'extras',
+    },
+    68: {
+        name: "Painted Homescreen",
+        description: "Buy a crypto theme.",
+        icon: '🎨',
+        type: 'crypto',
+    },
+    69: {
+        name: "Money Laundering",
+        description: "Exchange money for crypto for the first time.",
+        icon: '💸',
+        type: 'extras',
+    },
+    70: {
+        name: "Galactic Crimes",
+        description: "Exchange crypto for stardust for the first time.",
+        icon: '🌌',
+        type: 'extras',
+    },
+    71: {
+        name: "Gambling Addict",
+        description: "Open a crypto lootbox.",
+        icon: '📦',
+        type: 'crypto',
+    },
+    72: {
+        name: "Hacker Lord",
+        description: "Obtain the crypto commands for the hacking terminal.",
+        icon: '💻',
+        type: 'crypto',
+    },
+    73: {
+        name: "Gamble 4 Life",
+        description: "Obtain all 11 crypto lootbox prizes.",
+        icon: '🎰',
+        type: 'crypto',
+    },
+    74: {
+        name: "Sweat",
+        description: "Obtain the ₡10M trophy.",
+        icon: '😅',
+        type: 'crypto',
+    },
+    75: {
+        name: "Market Manipulator",
+        description: "Obtain the ₡100M trophy.",
+        icon: '📈',
+        type: 'crypto',
+    },
+    76: {
+        name: "Crypto King",
+        description: "Obtain the ₡1B trophy.",
+        icon: '👑',
+        type: 'crypto',
+    },
+    77: {
+        name: "NFT Whale",
+        description: "Get the NFT bonus over ₡250K.",
+        icon: '🐋',
+        type: 'crypto',
+    },
+    78: {
+        name: "Mondane Millionaire",
+        description: "Get the total crypto per click over ₡1M.",
+        icon: '💹',
+        type: 'crypto',
+    },
+    79: {
+        name: "Lazy Laborer",
+        description: "Use the auto mine feature to auto mine the coin.",
+        icon: '⛏️',
+        type: 'extras',
+    },
+    80: {
+        name: "Dog Lover",
+        description: "Get each Dogecoin's crypto per click to over ₡750.",
+        icon: '🐕',
+        type: 'extras',
+    },
+    81: {
+        name: "Time Traveler",
+        description: "Get each Ethereum's crypto per click to over ₡2.5K.",
+        icon: '⏱️',
+        type: 'extras',
+    },
+    82: {
+        name: "Bit Raider",
+        description: "Get each Bitcoin's crypto per click to over ₡10K.",
+        icon: '🏴‍☠️',
+        type: 'extras',
+    },
+    83: {
+        name: "Crypto Connoisseur",
+        description: "Unlock ALL crypto achievements.",
+        icon: '🎓',
+        type: 'extras',
+    },
+    84: {
+        name: "Sibling Love",
+        description: "Unlock your sister from the NFT shop.",
+        icon: '👧',
+        type: 'extras',
+    },
+    85: {
+        name: "Crypto Bozo",
+        description: "Exchange over ₡5.5K for $10.",
+        icon: '🤡',
+        type: 'extras',
+    },
+    86: {
+        name: "Crypto Heckler",
+        description: "Exchange less than ₡4.5K for $10.",
+        icon: '😈',
+        type: 'extras',
+    },
+    87: {
+        name: "Pricy Pups",
+        description: "Pay over $10K for a Dogecoin.",
+        icon: '🦮',
+        type: 'extras',
+    },
+    88: {
+        name: "Long-Term Investor",
+        description: "Pay over $75K for an Ethereum.",
+        icon: '📊',
+        type: 'extras',
+    },
+    89: {
+        name: "Bitty Business",
+        description: "Pay over $500K for a Bitcoin.",
+        icon: '💼',
+        type: 'extras',
+    },
+    90: {
+        name: "Crypto Collector",
+        description: "Buy 100 coins of any type to your crypto wallet.",
+        icon: '🪙',
+        type: 'extras',
+    },
+    91: {
+        name: "Kitty Keeper",
+        description: "Get the cat theme.",
+        icon: '🐱',
+        type: 'extras',
+    },
+    92: {
+        name: "Dreaded Gambler",
+        description: "Gamble in the hacking terminal.",
+        icon: '🎲',
+        type: 'extras',
     }
-    // 18: {
-    //     name: "Money Laundering",
-    //     description: "Exchange money for crypto for the first time.",
-    //     icon: '💸',
-    //     type: 'crypto',
-    // },
 }

@@ -102,6 +102,7 @@ function htSteal() {
         }
 
         delayAlert(alertMsg);
+        unlockAchievement(92);
         updateMoneyLabelIfSlotMachine();
     }
 }
@@ -167,6 +168,7 @@ function htHackTheMachine() {
             alertMsg = 'You failed to hack the machine and had to pay a fine of $75!';
         }
         delayAlert(alertMsg);
+        unlockAchievement(92);
         updateMoneyLabelIfSlotMachine();
     }
 }
@@ -216,6 +218,7 @@ function htGamble() {
         alertMsg = `Unlucky! You lost all the money you gambled and now have ${formatMoney(getMoney())}. Better luck next time!`;
     }
     delayAlert(alertMsg);
+    unlockAchievement(92);
     updateMoneyLabelIfSlotMachine();
 }
 function htCoinFlip() {
@@ -259,6 +262,7 @@ function htCoinFlip() {
         alertMsg = `Unlucky! You lost your bet and now have ${formatMoney(getMoney())}. Better luck next time!`;
     }
     delayAlert(alertMsg);
+    unlockAchievement(92);
     updateMoneyLabelIfSlotMachine();
 }
 function htVault() {
@@ -430,6 +434,7 @@ function htCatfood() {
 }
 function htCatfoodShop() {
     if (!handleCryptoCommandsLocked()) {return}
+    unlockAchievement(44);
     const choice = prompt('Welcome to the catfood shop! What would you like to buy?\n1. Exchange for $10 (10 cf)\n2. Exchange for ₡100,000 (₡500 cf)\n3. Exchange for ✺1 (100 cf)\n4. Get cat background (1,000 cf)\n5. Feed to crypto cat (10 cf)\n\nYou have '+ getCatfood() +' catfood.\n[1/2/3/4/5]');
     if (choice === '1') {
         if (getCatfood() < 10) {
@@ -481,6 +486,7 @@ function htCatfoodShop() {
         setBonusOrVanityTheme('bonus', 'cat-background');
         generateThemeOptions();
         delayAlert('You exchanged 1000 catfood for the cat background! It has been added to your themes!');
+        unlockAchievement(91);
         playSound(baseSfx.win);
     } else if (choice === '5') {
         if (getCatfood() < 10) {
@@ -496,10 +502,6 @@ function htCatfoodShop() {
     } else {
         delayAlert('Invalid choice entered.');
         playSound(baseSfx.denied);
-    }
-
-    if (choice in ['1', '2', '3', '4', '5']) {
-        unlockAchievement(44);
     }
 }
 
@@ -521,6 +523,7 @@ function htRewire() {
         rewireStatus = 'n';
     }
     delayAlert("Your crypto coin has been rewired for your next click! Good luck!");
+    unlockAchievement(92);
     playSound(baseSfx.notify);
 }
 function htScam() {
@@ -540,6 +543,7 @@ function htScam() {
         delayAlert(`Unlucky! You failed to scam the crypto overseer and lost ${formatMoney(loss, 'c')}!`);
         playSound(baseSfx.lose);
     }
+    unlockAchievement(92);
     updateMoneyLabelIfCrypto();
 }
 function htUnlockCryptoAchievement() {
@@ -566,6 +570,7 @@ function htHackTheCoin() {
         delayAlert('You failed to hack the crypto coin and lost ₡100,000!');
         playSound(baseSfx.lose);
     }
+    unlockAchievement(92);
     updateMoneyLabelIfCrypto();
 }
 function htGambleCrypto() {
@@ -603,6 +608,7 @@ function htGambleCrypto() {
         alertMsg = `Unlucky! You lost all the crypto you gambled and now have ${formatMoney(getCrypto(), 'c')}. Better luck next time!`;
     }
     delayAlert(alertMsg);
+    unlockAchievement(92);
     updateMoneyLabelIfCrypto();
 }
 function htWar() {
@@ -661,6 +667,7 @@ function htWar() {
         alertMsg = `It's a tie! You get your crypto back and still have ${formatMoney(getCrypto(), 'c')}.`;
     }
     delayAlert(alertMsg);
+    unlockAchievement(92);
     updateMoneyLabelIfCrypto();
 }
 

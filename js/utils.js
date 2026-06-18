@@ -168,7 +168,7 @@ function setMasterVolume(volume) {
     localStorage.setItem('masterVolume', volume);
 }
 function getAdvancedMute() {
-    return JSON.parse(localStorage.getItem('advancedMute')) || { 'click-1': false, 'click-2': false, 'win': false, 'lose': false, 'denied': false, 'notify': false, 'achievement': false, 'cheat': false, 'spin': false, 'jackpot': false, 'near-miss': false, 'ding': false, 'upgrade': false, 'get-theme': false, 'get-drip': false, 'get-trophy': false, 'exchange': false, 'lootbox-opening': false, 'buy-lootbox': false, 'mine-coin': false, 'buy-coin': false, 'boost-coin': false, 'buy-nft': false, 'bizarre-1': false, 'bizarre-2': false, 'bizarre-3': false, 'bizarre-4': false, 'fart-1': false, 'fart-2': false, 'fart-3': false, 'fart-4': false, 'fart-5': false, 'fart-6': false };
+    return JSON.parse(localStorage.getItem('advancedMute')) || { 'click-1': false, 'click-2': false, 'win': false, 'lose': false, 'denied': false, 'notify': false, 'achievement': false, 'cheat': false, 'spin': false, 'jackpot': false, 'near-miss': false, 'ding': false, 'upgrade': false, 'get-theme': false, 'get-drip': false, 'get-trophy': false, 'exchange': false, 'lootbox-opening': false, 'buy-lootbox': false, 'mine-coin': false, 'buy-coin': false, 'boost-coin': false, 'buy-nft': false, 'savage-click': false, 'bizarre-1': false, 'bizarre-2': false, 'bizarre-3': false, 'bizarre-4': false, 'fart-1': false, 'fart-2': false, 'fart-3': false, 'fart-4': false, 'fart-5': false, 'fart-6': false };
 }
 function setAdvancedMute(type, value) {
     const advancedMute = getAdvancedMute();
@@ -184,6 +184,13 @@ function setGamemodeSelected(gamemode) {
 }
 
 // Slot Machine
+
+function getGuaranteedJackpot() {
+    return JSON.parse(localStorage.getItem('guaranteedJackpot')) || false;
+}
+function setGuaranteedJackpot(value) {
+    localStorage.setItem('guaranteedJackpot', value);
+}
 
 function isGameWon() {
     return localStorage.getItem('gameWon') === 'true';
@@ -263,7 +270,7 @@ function getThemeBonusValues() {
     return {
         'dark': [0, 0, 0], 'light': [0, 0, 0], 'red': [0, 0, 0], 'green': [0, 0, 0], 'blue': [0, 0, 0], 'purple': [0, 0, 0],
         'fire': [0.75, 0, 0], 'ice': [0.75, 0, 0], 'nature': [0.75, 0, 0], 'space': [2.5, 0, 0], 'cosmic': [5.99, 0, 0], 'godly': [7.77, 0, 0],
-        'dogecoin': [0, 100, 0], 'ethereum': [1, 1180, 0], 'bitcoin': [5, 5244, 0], 'neon': [6, 19314, 0], 'matrix': [7, 100000, 1], 'quantum': [14, 98100, 10],
+        'dogecoin': [0, 500, 0], 'ethereum': [1, 1180, 0], 'bitcoin': [5, 5244, 0], 'neon': [6, 19314, 0], 'matrix': [7, 100000, 1], 'quantum': [14, 98100, 10],
         // the world values
         'slot-bg-1': [-2.5, 1234, 0], 'slot-bg-2': [-2.5, 1234, 0], 'slot-bg-3': [-2.5, 1234, 0], 'slot-bg-4': [-2.5, 1234, 0], 'slot-bg-5': [-2.5, 1234, 0], 'slot-bg-6': [-2.5, 0, 1], 'slot-bg-7': [-2.5, 0, 1], 'slot-bg-8': [-2.5, 0, 1], 'slot-bg-9': [-2.5, 0, 1], 'slot-bg-10': [-2.5, 0, 1],
         'crypto-bg-1': [9.99, -25000, 0], 'crypto-bg-2': [9.99, -25000, 0], 'crypto-bg-3': [9.99, -25000, 0], 'crypto-bg-4': [9.99, -25000, 0], 'crypto-bg-5': [9.99, -25000, 0], 'crypto-bg-6': [0, -25000, 7], 'crypto-bg-7': [0, -25000, 7], 'crypto-bg-8': [0, -25000, 7], 'crypto-bg-9': [0, -25000, 7], 'crypto-bg-10': [0, -25000, 7],
@@ -371,8 +378,15 @@ function setHelpMsg(msg) {
 
 // Crypto
 
+function getSavageClickChance() {
+    return parseFloat(localStorage.getItem('savageClickChance')) || 0.01;
+}
+function setSavageClickChance(chance) {
+    localStorage.setItem('savageClickChance', chance/100);
+}
+
 function getCryptoStats() {
-    return JSON.parse(localStorage.getItem('cryptoStats')) || { clicks: 0, coinsOwned: 0, coinBonus: 0, nftBonus: 0, themeBonus: 0 };
+    return JSON.parse(localStorage.getItem('cryptoStats')) || { clicks: 0, savageClicks: 0, coinsOwned: 0, coinBonus: 0, nftBonus: 0, themeBonus: 0 };
 }
 function setCryptoStats(stat, value, set=false) {
     const cryptoStats = getCryptoStats();

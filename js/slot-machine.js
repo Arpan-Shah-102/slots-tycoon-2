@@ -72,7 +72,7 @@ function spinSlots() {
     updateSlotStats();
     
     let reelResults = [];
-    if (getPityJackpot() == 0) {
+    if (getPityJackpot() == 0 || getGuaranteedJackpot()) {
         setPityJackpot(getSlotsStats().upgrades.pity);
         gWinLabel.textContent = "this";
         reelResults = ['7️⃣', '7️⃣', '7️⃣'];
@@ -412,7 +412,7 @@ buyLootboxBtn.addEventListener('click', () => {
                 changeSlotLootboxIcon('💵', (lbPrize + 16) % 19);
             }
         }
-        if (getSlotLootboxPrizes().every(p => p.isFinite)) {unlockAchievement(17);}
+        if (getSlotLootboxPrizes().every(p => Number.isFinite(p))) {unlockAchievement(17);}
         playSound(slotSfx.winLootbox);
         buyLootboxBtn.disabled = false;
         updateSlotUI();
@@ -543,7 +543,7 @@ function updateSlotStats() {
                 stat.textContent = slotsStats[stat.classList[0]];
                 break;
             case 3:
-                stat.textContent = Math.round((1 / (getSlotSymbols().length < 12 ? (getSlotSymbols().length ** 2) : 10000)) * 4900) + '%';
+                stat.textContent = Math.round((1 / (getSlotSymbols().length < 9 ? (getSlotSymbols().length ** 2) : 10000)) * 1600) + '%';
                 break;
             case 4:
                 stat.textContent = `$${slotsStats.upgrades.payout[0]}, $${slotsStats.upgrades.payout[1]}`;
@@ -567,7 +567,7 @@ const slotExchange = document.querySelector('.slot-exchange');
 const gameWinScreen = document.querySelector('.game-over-screen.win');
 const gameLoseScreen = document.querySelector('.game-over-screen.lose');
 gameWinScreen.querySelector('button').addEventListener('click', () => {
-    gameWinScreen.classList.remove('shown');
+    gameWinScreen.classList.add('hidden');
 });
 gameLoseScreen.querySelector('button').addEventListener('click', () => {
     localStorage.clear();

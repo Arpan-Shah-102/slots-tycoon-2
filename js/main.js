@@ -9,24 +9,6 @@ document.querySelectorAll('a[href^="#"]').forEach(link => {
     });
 });
 
-const slotMachineSelect = document.querySelector('.slot-machine-select');
-const cryptoSelect = document.querySelector('.crypto-select');
-const theWorldSelect = document.querySelector('.the-world-select');
-
-const slotMachineSection = document.querySelector('.slot-machine-game');
-const cryptoSection = document.querySelector('.crypto-game');
-const theWorldSection = document.querySelector('.the-world-game');
-
-const slotMachineLinks = document.querySelector('.slot-machine-links');
-const cryptoLinks = document.querySelector('.crypto-links');
-const theWorldLinks = document.querySelector('.the-world-links');
-
-const selectors = [slotMachineSelect, cryptoSelect, theWorldSelect];
-const sections = [slotMachineSection, cryptoSection, theWorldSection];
-const links = [slotMachineLinks, cryptoLinks, theWorldLinks];
-const unlocked = [true, isCryptoGamemodeUnlocked(), isTheWorldUnlocked()];
-const stardustExchanges = document.querySelectorAll('.stardust-exchange');
-
 if (isCryptoGamemodeUnlocked()) {
     slotExchange.classList.remove('hidden');
     moneyExchange.classList.remove('hidden');
@@ -78,8 +60,9 @@ selectors.forEach((selector, index) => {
                 return;
             } else if (index == 2 && enoughMoney(gameModePrices[index], 'c') && confirm(`Would you like to unlock The World gamemode for ₡123,456,789?`)) {
                 calcCrypto(-gameModePrices[index]);
-                moneyLabel.textContent = formatMoney(getCrypto(), 'c');
+                updateMoneyLabelIfCrypto();
                 unlockTheWorld();
+                stardustExchanges.forEach(exchange => exchange.classList.remove('hidden'));
                 unlocked[index] = true;
                 playSound(baseSfx.win);
                 return;
@@ -109,12 +92,28 @@ selectors.forEach((selector, index) => {
             setGamemodeSelected('the-world');
         }
 
-        if (slotMachineLinks.classList.contains('hidden')) {
+        exchangeDivs.forEach((div, index) => {
+            const currentOwnedSpan = div.querySelector('p .currently-owned');
+            currentOwnedSpan.textContent = index == 0 ? formatMoney(getCrypto(), 'c') : formatMoney(getStardust(), 's');
+        });
+        cryptoExchangeDivs.forEach((div, index) => {
+            const currentOwnedSpan = div.querySelector('p .currently-owned');
+            currentOwnedSpan.textContent = index == 0 ? formatMoney(getMoney()) : formatMoney(getCrypto(), 'c');
+        });
+
+        if (getGamemodeSelected() != 'slot-machine') {
             clearInterval(autoSpinInterval);
             autoSpinInterval = null;
             autoSpinBtn.classList.remove('yellow');
             autoSpinBtn.classList.add('green');
             autoSpinBtn.textContent = 'Activate Auto-Spin';
+        } else if (getGamemodeSelected() != 'crypto') {
+            clearInterval(autoMineInterval);
+            autoMineInterval = null;
+            autoMineBtn.classList.add('yellow');
+            autoMineBtn.classList.remove('green');
+            autoMineBtn.textContent = 'Start Auto Mine';
+            cryptoClick.classList.remove('auto-mine');
         }
         generateThemeOptions();
         generateCryptoThemeOptions();
@@ -164,14 +163,19 @@ document.querySelectorAll('.credits a').forEach(link => {
 
 // money secret
 let moneyClickCount = 0;
+const screenoutDiv = document.querySelector('.screenout-div');
 moneyLabel.addEventListener('click', () => {
     moneyClickCount++;
     if (moneyClickCount > 0 && moneyClickCount % 20 == 0) {
         calcMoney(10000);
         calcCrypto(200000000);
         calcStardust(500);
-        playSound(baseSfx.win);
+        playSound(baseSfx.cheat);
 
+        screenoutDiv.classList.remove('hidden');
+        setTimeout(() => {
+            screenoutDiv.classList.add('hidden');
+        }, 500);
         if (slotMachineSelect.classList.contains('selected')) {
             moneyLabel.textContent = formatMoney(getMoney());
         } else if (cryptoSelect.classList.contains('selected')) {

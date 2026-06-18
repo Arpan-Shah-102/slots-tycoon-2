@@ -111,6 +111,7 @@
         & p {
             font-size: 16px;
             line-break: normal;
+            text-align: center;
         }
     }
 }

@@ -62,6 +62,13 @@ slots-tycoon-2/     # main project directory
 
 ## Update Log
 
+### Achivements Update V3.6 - 6/18/2026
+1. Added achievements into the crypto update (45+) ✅
+2. Added Savage Crypto Chances ✅
+3. Improved Cheats Pannel for crypto update
+4. Created 10 Basic Planets for the world gamemode
+5. Bug Fixes
+
 ### Lootbox Update V3.1 - 6/17/2026
 1. Finish Crypto Lootbox
 2. Add Crypto Hacking Terminal Commands (5+)

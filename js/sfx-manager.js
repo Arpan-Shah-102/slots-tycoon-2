@@ -78,6 +78,7 @@ const cryptoSfx = {
     buyCoin: new Audio(sfxPathCrypto + 'buy-coin.mp3'),
     boostCoin: new Audio(sfxPathCrypto + 'boost-coin.mp3'),
     buyNft: new Audio(sfxPathCrypto + 'buy-nft.mp3'),
+    savageClick: new Audio(sfxPathCrypto + 'savage-click.mp3'),
 }
 const theWorldSfx = {
 
