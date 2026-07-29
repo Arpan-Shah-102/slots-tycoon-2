@@ -87,6 +87,7 @@ cryptoWalletBtns.forEach((coin, index) => {
         setCryptoStats("coinsOwned", 1);
         if (getCryptoStats().coinsOwned == 100) {unlockAchievement(90);}
         moneyOwned.textContent = formatMoney(getMoney());
+        moneyOwnedExchange.textContent = formatMoney(getMoney());
         calcCoinBonus();
         playSound(cryptoSfx.buyCoin);
         setCoinPrice(index, Math.floor(getCoinPrices()[index] * 1.25));
@@ -248,8 +249,9 @@ function generateCryptoThemeOptions() {
 generateCryptoThemeOptions();
 
 const cryptoExchangeValues = [10, 1];
-const cryptoExchangePrices = [5000, 100000];
+const cryptoExchangePrices = [5000, 1000000];
 const cryptoExchangeDivs = document.querySelectorAll('.crypto.exchange-item');
+const moneyOwnedExchange = document.querySelectorAll('.crypto.exchange-item .currently-owned')[0];
 
 cryptoExchangeDivs.forEach((div, index) => {
     const btn = div.querySelector('button');
@@ -276,10 +278,11 @@ cryptoExchangeDivs.forEach((div, index) => {
         if (index == 0 && price > 5500) {unlockAchievement(85);}
         else if (index == 0 && price < 4500) {unlockAchievement(86);}
 
+        if (index == 0) {moneyOwned.textContent = formatMoney(getMoney());}
         unlockAchievement(69 + index);
         price = +(base * (1 + (Math.random() * 0.4 - 0.2)));
         priceSpan.textContent = `${formatMoney(price, 'c')}`;
-        currentOwnedSpan.textContent = index == 0 ? formatMoney(getMoney()) : formatMoney(getCrypto(), 'c');
+        currentOwnedSpan.textContent = index == 0 ? formatMoney(getMoney()) : formatMoney(getStardust(), 's');
     });
 });
 

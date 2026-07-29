@@ -15,7 +15,10 @@ if (isCryptoGamemodeUnlocked()) {
     theWorldSelect.classList.remove('disabled');
 }
 if (isTheWorldUnlocked()) {
-    stardustExchanges.forEach(exchange => exchange.classList.remove('hidden'));
+    stardustExchanges.forEach(exchange => {
+        exchange.classList.remove('hidden');
+        exchange.querySelector('.currently-owned').textContent = formatMoney(getStardust(), 's');
+    });
 }
 
 if (isHackingTerminalUnlocked()) {
@@ -98,7 +101,7 @@ selectors.forEach((selector, index) => {
         });
         cryptoExchangeDivs.forEach((div, index) => {
             const currentOwnedSpan = div.querySelector('p .currently-owned');
-            currentOwnedSpan.textContent = index == 0 ? formatMoney(getMoney()) : formatMoney(getCrypto(), 'c');
+            currentOwnedSpan.textContent = index == 0 ? formatMoney(getMoney()) : formatMoney(getStardust(), 's');
         });
 
         if (getGamemodeSelected() != 'slot-machine') {

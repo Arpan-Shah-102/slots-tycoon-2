@@ -6,7 +6,7 @@ Spin the reels, manage your money, unlock achievements, and work toward bigger r
 
 ## Current Features (More Soon!)
 - Multiple game modes: Slot Machine, Crypto, and The World
-- Three currencies: Money (USD), Crypto (₡), and Stardust (✺)
+- Three currencies: Money ($), Crypto (₡), and Stardust (✺)
 - Slot Machine features:
 	- Spinning reels
 	- Pity jackpot mechanic
@@ -18,7 +18,13 @@ Spin the reels, manage your money, unlock achievements, and work toward bigger r
 	- Lootboxes with randomized prizes (money, themes, hacking terminal)
 	- Trophies
 - Crypto Features:
-	- TBD
+	- Clicking coin to earn crypto
+	- Crypto wallet and balance tracking
+	- Buyable crypto upgrades and boosts
+	- NFTs and collectible crypto assets
+	- Lootboxes with randomized rewards
+	- Currency exchange between money and crypto
+	- Crypto-themed achievements and stats
 - The World Features:
 	- TBD
 - Achievement system
@@ -28,43 +34,53 @@ Spin the reels, manage your money, unlock achievements, and work toward bigger r
 - Sound effects
 - Persistent game data with LocalStorage
 - Stats and progression tracking
-#### Note: Only Slot Machine works right now!!
+#### Note: Only Slot Machine and Crypto fully work right now!!
 
 ## File System
 
 ```
-slots-tycoon-2/     # main project directory
+slots-tycoon-2/         # main project directory
 ├── index.html          # main html file
 ├── README.md           # project details
 ├── assets/             # assets for the game
-│	├── images/         # game icons
-│	└── sounds/         # sound effects
+│   ├── images/             # game icons and artwork
+│   └── sounds/             # sound effects and audio
 ├── css/                # stylesheets
-│	├── boilerplate.css     # base styles
-│	├── crypto.css          # crypto game styles
-│	├── navbar.css          # navbar styles
-│	├── slot-machine.css    # slot machine styles
-│	├── style.css           # extra website styles
-│	├── the-world.css       # the world styles
-│	└── themes.css          # theme styles
-└── js/                 # javaScript files
-	├── main.js             # website initializations
-	├── navbar.js           # navbar logic and event listeners
+│   ├── boilerplate.css     # base styles
+│   ├── crypto.css          # crypto game styles
+│   ├── navbar.css          # navbar styles
+│   ├── slot-machine.css    # slot machine styles
+│   ├── style.css           # extra website styles
+│   ├── the-world.css       # the world styles
+│   └── themes.css          # theme styles
+└── js/                 # javascript files
+    ├── achieve...anager.js # achievement system logic and data
+    ├── cheats.js           # admin panel functionality
+    ├── crypto.js           # crypto game logic
+    ├── hack-ter...ction.js # hacking terminal command logic
+    ├── main.js             # website initializations
+    ├── navbar.js           # navbar logic and event listeners
+    ├── planet-info.js      # planet metadata and helper data
     ├── sfx-manager.js      # manage sound effects
-	├── achievem...nager.js # achievement system logic and achivement data
-	├── hack-ter...ction.js # hacking terminal command logic
-	├── slot-machine.js     # slot machine logic
-	├── the-world.js        # the world logic
-	├── crypto.js           # crypto game logic
-	├── cheats.js			# handles the admin panel functionality
-	└── utils.js            # utility functions and local storage helpers
+    ├── slot-machine.js     # slot machine logic
+    ├── the-world.js        # the world logic
+    ├── utils.js            # utility functions and local storage helpers
 ```
 
 ## Update Log
 
+### The World Update V4.0 - 7/29/2026
+1. Added planet shop
+2. Added planet view of your planets
+3. Added buying planets
+4. Added selling planets
+5. Made mobile UI friendly
+6. Made theme friendly
+7. Bug Fixes
+
 ### Achivements Update V3.6 - 6/18/2026
-1. Added achievements into the crypto update (45+) ✅
-2. Added Savage Crypto Chances ✅
+1. Added achievements into the crypto update (45+)
+2. Added Savage Crypto Chances
 3. Improved Cheats Pannel for crypto update
 4. Created 10 Basic Planets for the world gamemode
 5. Bug Fixes

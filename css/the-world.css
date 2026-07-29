@@ -1,3 +1,23 @@
+body.light {
+    & .container.selling {
+        background-color: rgba(255, 255, 255, 0.5);
+        border: 2px solid black;
+
+        & .planet-profile {
+            background-color: rgba(255, 255, 255, 0.5);
+            border: 2px solid black;
+
+            & .offers {
+                padding: 0 18px 20px 18px;
+            }
+        }
+        & .planet-container {
+            background-color: rgba(255, 255, 255, 0.5);
+            border: 2px solid black;
+        }
+    }
+}
+
 .planet-icon {
     position: relative;
     aspect-ratio: 1 / 1;
@@ -11,7 +31,6 @@
         inset 10px 10px 18px rgba(255, 255, 255, 0.12),
         0 10px 24px rgba(0, 0, 0, 0.22);
 }
-
 .planet-icon::before,
 .planet-icon::after {
     content: '';
@@ -20,85 +39,121 @@
     border-radius: inherit;
     pointer-events: none;
 }
-
 .planet-icon::before {
     background:
         radial-gradient(circle at 32% 28%, rgba(255, 255, 255, 0.35) 0 8%, rgba(255, 255, 255, 0) 20%),
         radial-gradient(circle at 68% 72%, rgba(0, 0, 0, 0.28) 0 16%, rgba(0, 0, 0, 0) 36%);
 }
-
 .planet-icon::after {
     background: radial-gradient(circle at 28% 24%, rgba(255, 255, 255, 0.18) 0 10%, rgba(255, 255, 255, 0) 30%);
 }
 
+.planet-icon-empty {
+    border: 8px dashed teal;
+    background:
+        radial-gradient(circle at 30% 30%, rgba(255, 255, 255, 0.18) 0 8%, rgba(255, 255, 255, 0) 18%),
+        linear-gradient(135deg, #0e1730 0%, #1d3a64 50%, #06111e 100%);
+    box-shadow:
+        inset 0 0 0 2px rgba(255, 255, 255, 0.12),
+        0 14px 28px rgba(0, 0, 0, 0.28);
+}
+.planet-icon-empty::before {
+    content: '';
+    background: none;
+}
+.planet-icon-empty::after {
+    content: '?';
+    background: none;
+    display: grid;
+    place-items: center;
+    color: teal;
+    font-size: 72px;
+    font-weight: 700;
+    text-shadow: 0 0 18px rgba(0, 0, 0, 0.35);
+}
+
 .planet-icon-1 {
     background:
-        radial-gradient(circle at 38% 36%, rgba(255, 255, 255, 0.18) 0 4%, rgba(255, 255, 255, 0) 7%),
-        radial-gradient(circle at 68% 66%, rgba(67, 61, 58, 0.55) 0 12%, rgba(67, 61, 58, 0) 15%),
-        radial-gradient(circle at 28% 74%, rgba(104, 96, 92, 0.5) 0 9%, rgba(104, 96, 92, 0) 13%),
-        linear-gradient(145deg, #b8b3ad 0%, #776f6b 48%, #463f3d 100%);
+        repeating-radial-gradient(
+            circle at 58% 44%,
+            rgba(255, 248, 213, 0.14) 0 4%,
+            rgba(255, 248, 213, 0) 4% 11%
+        ),
+        radial-gradient(circle at 36% 62%, rgba(195, 146, 88, 0.45) 0 16%, rgba(195, 146, 88, 0) 24%),
+        linear-gradient(145deg, #f7ddb0 0%, #c58945 43%, #5a351d 100%);
 }
-
 .planet-icon-2 {
     background:
-        repeating-linear-gradient(
-            180deg,
-            #f0d08a 0 10%,
-            #d99b44 10% 21%,
-            #bf6b1f 21% 30%,
-            #eebf70 30% 39%,
-            #9e5318 39% 49%,
-            #e7c17f 49% 58%,
-            #8a4415 58% 68%,
-            #f0d08a 68% 78%,
-            #c77b21 78% 88%,
-            #9d5217 88% 100%
+        conic-gradient(
+            from 160deg at 48% 50%,
+            #1f2f62 0 14%,
+            #3d78c2 14% 26%,
+            #89d6ff 26% 38%,
+            #20568e 38% 52%,
+            #14274b 52% 66%,
+            #5aa6ea 66% 80%,
+            #193763 80% 100%
         );
 }
-
 .planet-icon-3 {
     background:
-        radial-gradient(circle at 24% 68%, rgba(255, 255, 255, 0.16) 0 6%, rgba(255, 255, 255, 0) 12%),
-        radial-gradient(circle at 72% 36%, rgba(255, 255, 255, 0.14) 0 8%, rgba(255, 255, 255, 0) 18%),
-        linear-gradient(145deg, #7fd9ff 0%, #4e95e8 42%, #1f4c9f 100%);
+        radial-gradient(56% 42% at 35% 58%, rgba(59, 152, 79, 0.98) 0 42%, rgba(59, 152, 79, 0) 64%),
+        radial-gradient(42% 34% at 67% 39%, rgba(73, 166, 95, 0.96) 0 44%, rgba(73, 166, 95, 0) 66%),
+        radial-gradient(34% 28% at 59% 71%, rgba(38, 126, 74, 0.9) 0 46%, rgba(38, 126, 74, 0) 68%),
+        radial-gradient(28% 22% at 26% 76%, rgba(91, 176, 103, 0.8) 0 48%, rgba(91, 176, 103, 0) 70%),
+        radial-gradient(55% 26% at 52% 9%, rgba(226, 245, 255, 0.34) 0 40%, rgba(226, 245, 255, 0) 76%),
+        linear-gradient(145deg, #8fe7ff 0%, #3f9ff2 43%, #134eac 100%);
 }
-
+.planet-icon-3::before {
+    background:
+        radial-gradient(26% 14% at 28% 31%, rgba(255, 255, 255, 0.4) 0 62%, rgba(255, 255, 255, 0) 100%),
+        radial-gradient(34% 17% at 66% 61%, rgba(255, 255, 255, 0.34) 0 58%, rgba(255, 255, 255, 0) 100%),
+        radial-gradient(20% 10% at 55% 24%, rgba(255, 255, 255, 0.28) 0 62%, rgba(255, 255, 255, 0) 100%),
+        radial-gradient(circle at 69% 73%, rgba(0, 0, 0, 0.22) 0 15%, rgba(0, 0, 0, 0) 36%);
+}
+.planet-icon-3::after {
+    background:
+        radial-gradient(circle at 50% 50%, rgba(125, 214, 255, 0.08) 0 66%, rgba(125, 214, 255, 0.32) 92%, rgba(125, 214, 255, 0) 100%),
+        linear-gradient(160deg, rgba(255, 255, 255, 0.14) 0 17%, rgba(255, 255, 255, 0) 36%);
+}
 .planet-icon-4 {
     background:
-        radial-gradient(circle at 30% 28%, rgba(119, 201, 116, 0.78) 0 18%, rgba(119, 201, 116, 0) 25%),
-        radial-gradient(circle at 70% 60%, rgba(48, 126, 59, 0.85) 0 14%, rgba(48, 126, 59, 0) 21%),
-        radial-gradient(circle at 42% 76%, rgba(25, 80, 37, 0.6) 0 9%, rgba(25, 80, 37, 0) 14%),
-        linear-gradient(145deg, #b5ef95 0%, #5fb65d 45%, #2d6d32 100%);
+    radial-gradient(circle at 30% 28%, rgba(94, 222, 158, 0.78) 0 18%, rgba(94, 222, 158, 0) 25%),
+    radial-gradient(circle at 70% 60%, rgba(25, 140, 106, 0.85) 0 14%, rgba(25, 140, 106, 0) 21%),
+    radial-gradient(circle at 42% 76%, rgba(12, 93, 77, 0.6) 0 9%, rgba(12, 93, 77, 0) 14%),
+    linear-gradient(145deg, #9ff7d4 0%, #3ec996 45%, #15735f 100%);
 }
-
 .planet-icon-5 {
     background:
-        radial-gradient(circle at 34% 32%, rgba(255, 255, 255, 0.22) 0 6%, rgba(255, 255, 255, 0) 12%),
-        radial-gradient(circle at 66% 68%, rgba(110, 77, 170, 0.72) 0 16%, rgba(110, 77, 170, 0) 24%),
-        linear-gradient(145deg, #dfb8ff 0%, #935edb 44%, #53307f 100%);
+        radial-gradient(circle at 30% 34%, rgba(255, 170, 210, 0.26) 0 8%, rgba(255, 170, 210, 0) 14%),
+        radial-gradient(circle at 70% 68%, rgba(255, 79, 145, 0.5) 0 16%, rgba(255, 79, 145, 0) 24%),
+        repeating-conic-gradient(
+            from 120deg at 52% 50%,
+            rgba(255, 211, 94, 0.85) 0 10deg,
+            rgba(255, 120, 70, 0.8) 10deg 20deg,
+            rgba(236, 63, 127, 0.8) 20deg 30deg,
+            rgba(136, 44, 173, 0.76) 30deg 40deg
+        ),
+        linear-gradient(145deg, #ffe27c 0%, #ff7f5e 42%, #7d2a7f 100%);
 }
-
 .planet-icon-6 {
     background:
         radial-gradient(circle at 64% 34%, rgba(255, 190, 129, 0.65) 0 12%, rgba(255, 190, 129, 0) 19%),
         radial-gradient(circle at 28% 70%, rgba(175, 53, 26, 0.75) 0 18%, rgba(175, 53, 26, 0) 25%),
         linear-gradient(145deg, #ffb36e 0%, #e35d31 42%, #8a1d16 100%);
 }
-
 .planet-icon-7 {
     background:
         radial-gradient(circle at 34% 34%, rgba(255, 255, 255, 0.2) 0 5%, rgba(255, 255, 255, 0) 11%),
         radial-gradient(circle at 72% 72%, rgba(37, 145, 173, 0.7) 0 14%, rgba(37, 145, 173, 0) 21%),
         linear-gradient(145deg, #9ff1ff 0%, #4fc0d6 45%, #1c6d82 100%);
 }
-
 .planet-icon-8 {
     background:
         radial-gradient(circle at 54% 28%, rgba(255, 255, 255, 0.16) 0 8%, rgba(255, 255, 255, 0) 17%),
         radial-gradient(circle at 30% 68%, rgba(89, 112, 255, 0.45) 0 16%, rgba(89, 112, 255, 0) 24%),
         linear-gradient(145deg, #eef0ff 0%, #9aa4ef 40%, #5560bf 100%);
 }
-
 .planet-icon-8::before {
     inset: 16% -22%;
     border-radius: 50%;
@@ -107,17 +162,363 @@
     transform: rotate(-18deg);
     box-shadow: 0 0 14px rgba(214, 221, 255, 0.15);
 }
-
 .planet-icon-9 {
     background:
         radial-gradient(circle at 42% 30%, rgba(255, 255, 255, 0.2) 0 4%, rgba(255, 255, 255, 0) 9%),
         radial-gradient(circle at 70% 64%, rgba(24, 24, 35, 0.85) 0 18%, rgba(24, 24, 35, 0) 26%),
         linear-gradient(145deg, #6e7386 0%, #3b3f4b 48%, #17191f 100%);
 }
-
 .planet-icon-10 {
     background:
-        radial-gradient(circle at 34% 34%, rgba(255, 255, 255, 0.18) 0 6%, rgba(255, 255, 255, 0) 12%),
-    radial-gradient(circle at 66% 70%, rgba(255, 98, 169, 0.7) 0 14%, rgba(255, 98, 169, 0) 22%),
-    linear-gradient(145deg, #ff93df 0%, #e34eb5 42%, #8c2c73 100%);
+        radial-gradient(circle at 50% 50%, rgba(0, 0, 0, 0.95) 0 22%, rgba(0, 0, 0, 0) 30%),
+        repeating-conic-gradient(
+            from 10deg,
+            rgba(255, 86, 86, 0.95) 0 9deg,
+            rgba(255, 175, 76, 0.92) 9deg 18deg,
+            rgba(255, 241, 122, 0.95) 18deg 27deg,
+            rgba(98, 219, 255, 0.9) 27deg 36deg,
+            rgba(158, 122, 255, 0.9) 36deg 45deg
+        ),
+        linear-gradient(145deg, #390f2f 0%, #140a1e 100%);
+}
+.planet-icon-11 {
+    background:
+        radial-gradient(circle at 62% 64%, rgba(255, 132, 48, 0.52) 0 11%, rgba(255, 132, 48, 0) 17%),
+        radial-gradient(circle at 30% 34%, rgba(255, 228, 176, 0.25) 0 8%, rgba(255, 228, 176, 0) 13%),
+        repeating-linear-gradient(
+            38deg,
+            rgba(30, 12, 12, 0.9) 0 6%,
+            rgba(55, 18, 18, 0.9) 6% 13%,
+            rgba(120, 28, 18, 0.85) 13% 18%,
+            rgba(255, 124, 24, 0.85) 18% 22%
+        ),
+        linear-gradient(145deg, #ff7f33 0%, #8f1f17 42%, #240f0f 100%);
+}
+.planet-icon-12 {
+    background:
+        conic-gradient(
+            from 210deg at 48% 52%,
+            #8cf7ff 0 13%,
+            #4fe5ff 13% 28%,
+            #1f8cc7 28% 41%,
+            #66ddff 41% 54%,
+            #136398 54% 66%,
+            #a6f4ff 66% 78%,
+            #2ba0d1 78% 91%,
+            #8cf7ff 91% 100%
+        );
+    box-shadow:
+        inset -10px -14px 22px rgba(0, 0, 0, 0.35),
+        inset 14px 10px 24px rgba(179, 248, 255, 0.3),
+        0 10px 24px rgba(0, 0, 0, 0.22);
+}
+.planet-icon-13 {
+    background:
+        radial-gradient(circle at 65% 58%, rgba(200, 73, 34, 0.95) 0 12%, rgba(200, 73, 34, 0) 16%),
+        repeating-linear-gradient(
+            175deg,
+            #d7bc8c 0 7%,
+            #b48a56 7% 15%,
+            #9b6f41 15% 23%,
+            #e8cf9f 23% 31%,
+            #875a30 31% 38%
+        );
+}
+.planet-icon-14 {
+    background:
+        radial-gradient(circle at 28% 32%, rgba(255, 255, 255, 0.9) 0 6%, rgba(255, 255, 255, 0) 12%),
+        radial-gradient(circle at 72% 70%, rgba(154, 181, 216, 0.35) 0 12%, rgba(154, 181, 216, 0) 18%),
+        linear-gradient(145deg, #e9f7ff 0%, #b9d8f4 46%, #7ea6cb 100%);
+}
+.planet-icon-14::after {
+    background:
+        radial-gradient(circle at 26% 60%, rgba(122, 154, 192, 0.48) 0 6%, rgba(122, 154, 192, 0) 11%),
+        radial-gradient(circle at 64% 42%, rgba(111, 141, 178, 0.4) 0 8%, rgba(111, 141, 178, 0) 13%),
+        radial-gradient(circle at 74% 76%, rgba(97, 126, 160, 0.34) 0 5%, rgba(97, 126, 160, 0) 11%);
+}
+.planet-icon-15 {
+    background:
+        radial-gradient(circle at 40% 66%, rgba(100, 221, 132, 0.6) 0 18%, rgba(100, 221, 132, 0) 28%),
+        radial-gradient(circle at 68% 36%, rgba(38, 167, 94, 0.65) 0 14%, rgba(38, 167, 94, 0) 22%),
+        repeating-radial-gradient(
+            circle at 50% 50%,
+            rgba(14, 108, 88, 0.3) 0 6%,
+            rgba(14, 108, 88, 0) 6% 11%
+        ),
+        linear-gradient(145deg, #5ad3dc 0%, #1f9cb2 45%, #085974 100%);
+}
+.planet-icon-16 {
+    background:
+        linear-gradient(145deg, #081121 0%, #0b223d 42%, #13072a 100%);
+}
+.planet-icon-16::before {
+    background:
+        repeating-linear-gradient(
+            0deg,
+            rgba(68, 255, 240, 0.28) 0 2%,
+            rgba(68, 255, 240, 0) 2% 12%
+        ),
+        repeating-linear-gradient(
+            90deg,
+            rgba(126, 95, 255, 0.2) 0 2%,
+            rgba(126, 95, 255, 0) 2% 12%
+        );
+}
+.planet-icon-16::after {
+    background: radial-gradient(circle at 50% 50%, rgba(0, 255, 224, 0.34) 0 26%, rgba(0, 255, 224, 0) 56%);
+}
+.planet-icon-17 {
+    background:
+        repeating-conic-gradient(
+            from 24deg at 50% 50%,
+            #f6c33f 0 8deg,
+            #6f4f18 8deg 16deg,
+            #bc7b2f 16deg 24deg,
+            #3b2a11 24deg 32deg
+        );
+}
+.planet-icon-17::before {
+    background: radial-gradient(circle at 50% 50%, rgba(255, 229, 160, 0.16) 0 44%, rgba(255, 229, 160, 0) 76%);
+}
+.planet-icon-18 {
+    background:
+        radial-gradient(circle at 34% 30%, rgba(255, 255, 255, 0.15) 0 8%, rgba(255, 255, 255, 0) 14%),
+        radial-gradient(circle at 72% 72%, rgba(116, 66, 143, 0.68) 0 16%, rgba(116, 66, 143, 0) 24%),
+        linear-gradient(145deg, #e2d3ff 0%, #9c74d3 44%, #4d2e73 100%);
+}
+.planet-icon-18::before {
+    inset: 22% -30%;
+    border-radius: 50%;
+    border: 6px solid rgba(226, 205, 255, 0.86);
+    background: transparent;
+    transform: rotate(17deg);
+    box-shadow: 0 0 16px rgba(199, 160, 255, 0.2);
+}
+.planet-icon-19 {
+    background:
+        radial-gradient(circle at 50% 50%, rgba(0, 0, 0, 1) 0 24%, rgba(0, 0, 0, 0.97) 24% 28%, rgba(0, 0, 0, 0) 33%),
+        conic-gradient(
+            from 40deg,
+            rgba(255, 174, 0, 0.95) 0 12%,
+            rgba(255, 107, 0, 0.92) 12% 26%,
+            rgba(193, 42, 12, 0.86) 26% 42%,
+            rgba(255, 214, 71, 0.9) 42% 58%,
+            rgba(141, 31, 10, 0.86) 58% 74%,
+            rgba(255, 142, 33, 0.92) 74% 88%,
+            rgba(255, 174, 0, 0.95) 88% 100%
+        ),
+        radial-gradient(circle at 50% 50%, #2f1520 0%, #0b0812 100%);
+}
+.planet-icon-19::after {
+    background: radial-gradient(circle at 50% 50%, rgba(255, 170, 0, 0.2) 0 40%, rgba(255, 170, 0, 0) 62%);
+}
+.planet-icon-20 {
+    background:
+        conic-gradient(
+            from 300deg at 52% 48%,
+            #ff5f90 0 18%,
+            #ffb16a 18% 34%,
+            #ffd866 34% 48%,
+            #66e8c9 48% 62%,
+            #6ac5ff 62% 76%,
+            #9b83ff 76% 90%,
+            #ff5f90 90% 100%
+        );
+}
+.planet-icon-20::before {
+    background: repeating-radial-gradient(circle at 54% 44%, rgba(255, 255, 255, 0.24) 0 3%, rgba(255, 255, 255, 0) 3% 10%);
+}
+
+.container.selling {
+    display: flex;
+    background-color: rgba(0, 0, 0, 0.5);
+    padding: 40px;
+    border: 2px solid teal;
+    border-radius: 28px;
+    height: 80vh;
+    gap: 40px;
+    position: relative;
+    
+    & .planet-profile {
+        width: 300px;
+        padding-top: 60px;
+        display: flex;
+        flex-direction: column;
+        justify-content: flex-start;
+        align-items: center;
+        background-color: rgba(19, 19, 20, 0.5);
+        border-radius: 28px;
+        border-top-left-radius: 8px;
+
+        & .planet-select {
+            position: absolute;
+            top: 40px;
+            left: 40px;
+            cursor: pointer;
+            font-size: 18px;
+            color: teal;
+            border: 2px solid teal;
+            border-radius: 8px;
+            background-color: transparent;
+            padding: 4px 8px;
+            overflow: show;
+        }
+        & .auto-refresh-label {
+            position: absolute;
+            top: 15px;
+            right: 40px;
+            font-size: 14px;
+            color: teal;
+        }
+        & .refresh-planets {
+            position: absolute;
+            top: 40px;
+            right: 40px;
+            z-index: 10;
+            font-size: 14px;
+            padding: 5px 10px;
+        }
+
+        & .planet-icon {
+            margin-bottom: 20px;
+            min-height: 200px !important;
+            min-width: 200px !important;
+        }
+        & .planet-things {
+            overflow-y: auto;
+            scrollbar-width: none;
+            width: 100%;
+            text-align: center;
+        }
+        & .offers {
+            width: 100%;
+            display: flex;
+            flex-direction: column;
+            gap: 10px;
+            padding: 0 20px 20px 20px;
+
+            & h2 {
+                margin-top: 20px;
+            }
+            & .buttons {
+                display: flex;
+                flex-wrap: wrap;
+                justify-content: space-between;
+                gap: 10px;
+            }
+            & button {
+                width: 125px;
+            }
+        }
+    }
+    & .buy-planets {
+        overflow-y: auto;
+        width: 600px;
+        display: flex;
+        flex-wrap: wrap;
+        gap: 20px;
+
+        & .planet-container {
+            width: 280px;
+            padding: 20px;
+            background-color: rgba(19, 19, 20, 0.5);
+            border-radius: 28px;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: space-evenly;
+            gap: 20px;
+            text-align: center;
+        }
+    }
+
+}
+
+@media (max-width: 1100px) {
+    .container.selling {
+        flex-direction: column;
+        align-items: center;
+        justify-content: center;
+        height: auto;
+        width: 680px;
+        margin-top: 60px;
+
+        & .planet-profile {
+            width: 100%;
+            padding: 20px;
+            border-radius: 28px;
+            border-top-left-radius: 28px;
+            border-top-right-radius: 28px;
+
+            & .planet-select {
+                top: 20px;
+                left: 20px;
+            }
+            & .refresh-planets {
+                top: 40px;
+                right: 20px;
+            }
+            & .offers {
+                padding: 0 20px;
+
+                & button {
+                    width: 253px;
+                }
+            }
+        }
+        & .buy-planets {
+            width: 100%;
+            gap: 30px !important;
+            justify-content: space-between !important;
+        }
+    }
+}
+@media (max-width: 750px) {
+    .container.selling {
+        width: 360px;
+        padding: 30px;
+        
+        & .planet-container {
+            width: 100% !important;
+        }
+
+        & .planet-profile {
+            width: 100%;
+            padding: 20px;
+            border-radius: 28px;
+            border-top-left-radius: 28px;
+            border-top-right-radius: 28px;
+
+            & .planet-select {
+                top: 20px;
+                left: 20px;
+            }
+            & .refresh-planets {
+                top: 35px;
+                right: 20px;
+            }
+            & .offers {
+                padding: 0 20px;
+
+                & button {
+                    width: 253px;
+                }
+            }
+        }
+    }
+}
+@media (max-width: 420px) {
+    .container.selling {
+        padding: 20px;
+        scale: 0.85;
+        width: 340px;
+        margin: -50px 0;
+
+        & .planet-profile {
+            border-top-left-radius: 8px !important;
+        }
+        & .buy-planets {
+            gap: 20px !important;
+        }
+    }
 }

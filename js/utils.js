@@ -523,3 +523,120 @@ function setTheWorldStats(stat, value, set=false) {
     theWorldStats[stat] = !set ? theWorldStats[stat] + value : value;
     localStorage.setItem('theWorldStats', JSON.stringify(theWorldStats));
 }
+
+function getPlanetsOwnedData() {
+    return JSON.parse(localStorage.getItem('planetsOwnedData')) || {};
+}
+function initializePlanetsOwnedData() {
+    const saved = JSON.parse(localStorage.getItem('planetsOwnedData'));
+    if (saved === null) {
+        localStorage.setItem('planetsOwnedData', JSON.stringify({
+            'earth': {
+                name: "Earth",
+                population: 8_000_000_000,
+                resources: 500,
+                atmosphere: "Oxygen-Rich",
+                stability: "Calm",
+                efficiency: 80,
+                priceRange: [4, 26],
+                planetIconClass: "planet-icon-3",
+                offers: [randomIntInRange([4, 26]), randomIntInRange([4, 26]), randomIntInRange([4, 26]), randomIntInRange([4, 26])],
+                index: 0
+            }
+        }));
+    }
+}
+initializePlanetsOwnedData();
+function addPlanetOwned(planetData) {
+    const planetsOwnedData = getPlanetsOwnedData();
+    planetsOwnedData[planetData.name.toLowerCase()] = planetData;
+    localStorage.setItem('planetsOwnedData', JSON.stringify(planetsOwnedData));
+}
+function removePlanetOwned(planetName) {
+    const planetsOwnedData = getPlanetsOwnedData();
+    delete planetsOwnedData[planetName.toLowerCase()];
+    localStorage.setItem('planetsOwnedData', JSON.stringify(planetsOwnedData));
+}
+function changePlanetOwnedData(index, key, value) {
+    const planetsOwnedData = getPlanetsOwnedData();
+    const planetName = Object.keys(planetsOwnedData)[index];
+    planetsOwnedData[planetName][key] = value;
+    localStorage.setItem('planetsOwnedData', JSON.stringify(planetsOwnedData));
+}
+
+function generateRandomPlanetData() {
+    const planetPriceRange = [10, 10];
+    const planetPopulationData = generateRandomPlanetPopulation();
+
+    const name = getRandomPlanetName();
+    const population = planetPopulationData[0];
+    const resources = Math.floor(Math.random() * 1000);
+    const atmosphere = getRandomPlanetAtmosphere();
+    const stability = getRandomPlanetStability();
+    const efficiency = Math.floor(Math.random() * 100);
+
+    planetPriceRange[0] += planetPopulationData[1][0];
+    planetPriceRange[1] += planetPopulationData[1][1];
+
+    planetPriceRange[0] += getPlanetResourceBonus(resources)[0];
+    planetPriceRange[1] += getPlanetResourceBonus(resources)[1];
+
+    planetPriceRange[0] += allPlanetAtmospheres[atmosphere][0];
+    planetPriceRange[1] += allPlanetAtmospheres[atmosphere][1];
+
+    planetPriceRange[0] += allPlanetStabilities[stability][0];
+    planetPriceRange[1] += allPlanetStabilities[stability][1];
+
+    planetPriceRange[0] += getPlanetEfficiencyBonus(efficiency)[0];
+    planetPriceRange[1] += getPlanetEfficiencyBonus(efficiency)[1];
+
+    if (planetPriceRange[0] < 4) {planetPriceRange[0] = 4;}
+
+    return {
+        name: name,
+        population: population,
+        resources: resources,
+        atmosphere: atmosphere,
+        stability: stability,
+        efficiency: efficiency,
+        priceRange: planetPriceRange,
+        planetIconClass: getRandomPlanetIconClass()
+    }
+}
+
+function generateNewPlanetsForSale() {
+    const allNewPlanets = [generateRandomPlanetData(), generateRandomPlanetData(), generateRandomPlanetData(), generateRandomPlanetData()];
+    return [
+        {
+            ...allNewPlanets[0],
+            price: randomIntInRange(allNewPlanets[0].priceRange),
+            bought: false,
+            index: 0
+        },
+        {
+            ...allNewPlanets[1],
+            price: randomIntInRange(allNewPlanets[1].priceRange),
+            bought: false,
+            index: 1
+        },
+        {
+            ...allNewPlanets[2],
+            price: randomIntInRange(allNewPlanets[2].priceRange),
+            bought: false,
+            index: 2
+        },
+        {
+            ...allNewPlanets[3],
+            price: randomIntInRange(allNewPlanets[3].priceRange),
+            bought: false,
+            index: 3
+        }
+    ];
+}
+function getCurrentPlanetsForSale() {
+    return JSON.parse(localStorage.getItem('currentPlanetsForSale')) || generateNewPlanetsForSale();
+}
+function setCurrentPlanetsForSale(planets) {
+    localStorage.setItem('currentPlanetsForSale', JSON.stringify(planets));
+}
+setCurrentPlanetsForSale(getCurrentPlanetsForSale());
